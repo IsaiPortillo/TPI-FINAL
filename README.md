@@ -1,9 +1,9 @@
 # TPI-FINAL
-Universidad de El Salvador
+Universidad de El Salvador<br>
 Ciclo II - 2021
 Trabajo final de la materia Técnicas de Programación para Internet.
 
-Trabajo Elaborado por
+Trabajo Elaborado por:
 
 Ulises Edgardo Coreas Huezo - CH18030
 
