@@ -1,8 +1,6 @@
 # TPI-FINAL
 Universidad de El Salvador
-
 Ciclo II - 2021
-
 Trabajo final de la materia Técnicas de Programación para Internet.
 
 Trabajo Elaborado por
