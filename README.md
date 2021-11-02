@@ -1,5 +1,5 @@
 # TPI-FINAL
-Universidad de El Salvador<br>
+Universidad de El Salvador - FMO<br>
 Ciclo II - 2021<br>
 Trabajo final de la materia Técnicas de Programación para Internet.
 
