@@ -1,0 +1,41 @@
+{
+    "peliculas": [
+        {
+            "id": 1, 
+            "nombre": "Venom", 
+            "genero": "accion", 
+            "descripcion":"Secuela de la película “Venom”, el villano principal de la película será Carnage",
+            "preciorenta": 5, 
+            "preciocompra": 25, 
+            "imgURL": "https://img.repelis.id/cover/venom-let-there-be-carnage-2-1633400762.jpg", 
+            "codigoURL": "https://img.repelis.id/cover/venom-let-there-be-carnage-2-1633400762.jpg", 
+            "stonk": 4, 
+            "disponibilidad": "disponible"
+        },
+        {
+            "id1": 2, 
+            "nombre": "Viuda Negra", 
+            "genero": "accion", 
+            "descripcion":"se enfrenta a las partes más oscuras de su historia cuando surge una peligrosa conspiración con vínculos con su pasado.",
+            "preciorenta": 5, 
+            "preciocompra": 25, 
+            "imgURL": "https://img.repelis.id/cover/black-widow-2-1625845322.jpg", 
+            "codigoURL": "https://img.repelis.id/cover/black-widow-2-1625845322.jpg", 
+            "stonk": 4, 
+            "disponibilidad": "disponible"
+        },
+        
+        {
+            "id": 3, 
+            "nombre": "Dune",  
+            "genero": "accion", 
+            "descripcion":"El hijo de una familia noble trata de vengarse de la muerte de su padre al mismo tiempo que salva un planeta rico en especias que se le encomienda proteger.",
+            "preciorenta": 5, 
+            "preciocompra": 25, 
+            "imgURL": "https://img.repelis.id/cover/dune-2-1632022099.jpg", 
+            "codigoURL": "https://img.repelis.id/cover/venom-let-there-be-1632022099-2-1633400762.jpg", 
+            "stonk": 4, 
+            "disponibilidad": "disponible"
+        }
+    ]
+}
