@@ -7,7 +7,36 @@
       </div>
       <div class="sidebar-menu">
         <ul class="navbar-nav">
-
+          <li>
+            <router-link to="/">
+              <span class="las la-film"></span>
+              <span>Catalogo</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/peliculas">
+              <span class="las la-clipboard-list"></span>
+              <span>Peliculas</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/usuarios">
+                <span class="las la-users"></span>
+                <span>Usuarios</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/compras">
+                <span class="las la-clipboard-list"></span>
+                <span>Compras</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/rentas">
+              <span class="las la-clipboard-list"></span>
+              <span>Rentas</span>
+            </router-link>
+          </li>
           <li>
             <router-link to="/admin">
               <span class="las la-clipboard-list"></span>
