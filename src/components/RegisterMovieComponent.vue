@@ -1,6 +1,6 @@
 <template>
     <div class="register-movie">
-        Register Movie asd
+        Register Movie asdasdadasd
     </div>
 </template>
 <script>
