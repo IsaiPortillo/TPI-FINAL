@@ -5,7 +5,7 @@
         <i class="bx bxs-camera-movie" id="bx"></i>VEX.TV</a
       >
       <div class="bx bx-menu" id="menu-icon"></div>
-      <ul class="navbar">
+      <ul class="navbar" >
         <li v-for="(item, index) in routes" :key="index">
           <router-link :to="item.link" id="label"  v-if="!item.secret">{{item.value}}</router-link>
         </li>
@@ -20,6 +20,7 @@
 export default {
   data() {
     return {
+      outsideHome:false,
       user:{
         id:1,
         idRolUser:2
@@ -49,7 +50,7 @@ export default {
           element.secret=false
         });
       }
-    }
+    },
   }, mounted() {
     this.verifyRolUser()
   }, 
@@ -90,7 +91,7 @@ header {
   justify-content: space-between;
   padding: 20px 100px;
   transition: 0.5s;
-  /* background: var(--main-color);*/
+   background: transparent;
 }
 
 #app {
@@ -110,7 +111,7 @@ header {
 .logo #bx {
   font-size: 24px;
   color: var(--main-color);
-  text-decoration: none;
+  text-decoration: none;  
 }
 .navbar {
   display: flex;

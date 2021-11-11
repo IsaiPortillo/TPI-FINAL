@@ -11,7 +11,7 @@
     <button v-on:click="irHome()">Ir home</button>
     <div class="container d-block mt-3">
       <div
-        class="card d-inline-flex ms-4 mb-4"
+        class="card d-inline-flex ms-4 mb-4" id="e-movie"
         style="width: 18rem; color: black"
         v-for="(item, index) in listMovies"
         :key="index"
@@ -141,6 +141,10 @@ export default {
 .card {
   width: 100%;
 }
+#e-movie:hover{
+  transform: translateY(-10px);
+  transition: 0.2 all linear;
+}
 .heading {
   max-width: 968px;
   margin-left: auto;
@@ -148,4 +152,5 @@ export default {
   font-size: 1.2rem;
   font-weight: 500;
 }
+
 </style>
