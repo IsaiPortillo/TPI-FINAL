@@ -1,13 +1,24 @@
-# TPI-FINAL
-Universidad de El Salvador - FMO<br>
-Ciclo II - 2021<br>
-Trabajo final de la materia Técnicas de Programación para Internet.
+# pelis
 
-Trabajo Elaborado por:<br>
-Ulises Edgardo Coreas Huezo - CH18030
+## Project setup
+```
+npm install
+```
 
-Wilbert Alexander Arana Diaz - AD18005
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-Edwin Alexander Benitez Granados - BG18016
+### Compiles and minifies for production
+```
+npm run build
+```
 
-Adilman Isai Portillo Ceron - PC18035
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
