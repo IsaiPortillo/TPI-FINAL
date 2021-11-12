@@ -5,14 +5,26 @@
         <i class="bx bxs-camera-movie" id="bx"></i>VEX.TV</a
       >
       <div class="bx bx-menu" id="menu-icon"></div>
-      <ul class="navbar">
+      <ul class="navbar" v-if="isLoggedUser">
         <li v-for="(item, index) in routes" :key="index">
-          <router-link :to="item.link" id="label"  v-if="!item.secret">{{item.value}}</router-link>
+          <router-link :to="item.link" id="label" v-if="!item.secret">{{
+            item.value
+          }}</router-link>
         </li>
       </ul>
-      <a href="#" class="btni">Sign In</a>
-    </header>
 
+      <ul class="navbar" v-if="!isLoggedUser">
+        <li v-for="(item, index) in routesUnLogged" :key="index">
+          <router-link :to="item.link" id="label" v-if="!item.secret">{{
+            item.value
+          }}</router-link>
+        </li>
+      </ul>
+      <div>
+        <a href="#" class="btni" v-if="!isLoggedUser" v-on:click.prevent="log()">Sign In</a>
+         <a href="#" class="btni" v-if="isLoggedUser" v-on:click.prevent="logOut()">Cerrar</a>
+      </div>
+    </header>
     <router-view />
   </div>
 </template>
@@ -20,11 +32,9 @@
 export default {
   data() {
     return {
-      user:{
-        id:1,
-        idRolUser:2
-      },
-      routes: [
+      isLoggedUser: false,
+     
+      routesUnLogged: [
         {
           link: "/about",
           value: "Sobre nosotros",
@@ -33,26 +43,63 @@ export default {
         {
           link: "/login",
           value: "Iniciar Sesion",
-          secret: false
+          secret: false,
+        },
+      ],
+      routes: [
+        {
+          link: "/about",
+          value: "Sobre nosotros",
+          secret: false,
+        },
+        {
+          link: "/profile",
+          value: "Perfil",
+          secret: false,
         },
         {
           link: "/edit-movie",
           value: "Editar Pelicula",
-          secret:true
+          secret: true,
         },
       ],
     };
-  }, methods: {
-    verifyRolUser(){
-      if(this.user.idRolUser == 1){
-        this.routes.forEach(element => {
-          element.secret=false
+  },
+  updated() {
+    this.verifyLoggedUser();
+    this.verifyRolUser();
+  },
+  methods: {
+    verifyRolUser() {
+      /* let idRolUser = this.$cookies.get("idRolUser")*/
+      console.log(this.$cookies.get("idRolUser"));
+      if (this.$cookies.get("idRolUser") == 1) {
+        this.routes.forEach((element) => {
+          element.secret = false;
         });
       }
-    }
-  }, mounted() {
-    this.verifyRolUser()
-  }, 
+    },
+    verifyLoggedUser() {
+      if (this.$cookies.get("id") != null) {
+        this.isLoggedUser = true;
+      } else {
+        this.isLoggedUser = false;
+      }
+    },
+    logOut() {
+      this.$cookies.remove("idRolUser");
+      this.$cookies.remove("id");
+      this.$cookies.remove("nameUser");
+      this.$router.push("/login");
+    },
+    log(){
+    this.$router.push("/");
+    },
+  },
+  mounted() {
+    this.verifyLoggedUser();
+    this.verifyRolUser();
+  },
 };
 </script>
 <style lang="css">
