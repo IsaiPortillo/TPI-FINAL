@@ -16,6 +16,9 @@
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
     "vue-flux": "^6.4.0",
+    "vue-iframes": "0.0.16",
+    "vue-lazy-youtube-video": "^2.3.0",
+    "vue-plyr": "^7.0.0",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -33,6 +36,7 @@
     "sass-loader": "^12.3.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
+    "vue-friendly-iframe": "^0.20.0",
     "vue-template-compiler": "^2.6.11"
   }
 }

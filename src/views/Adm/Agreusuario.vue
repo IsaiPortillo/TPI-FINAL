@@ -87,8 +87,8 @@
                     name="select"
                     id="selectEspecie"
                     onchange=""
-                  >
-                    <option value="0">Tiene Rol de Usuario</option>
+                  > 
+                    <option value="2">Tiene Rol de Usuario</option>
                     <option value="1">Tiene Rol de Administrador</option>
                   </select>
                 </div>

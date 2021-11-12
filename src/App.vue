@@ -48,6 +48,11 @@ export default {
       ],
       routes: [
         {
+          link: "/",
+          value: "Home",
+          secret: false,
+        },
+        {
           link: "/Movie",
           value: "Catalogo",
           secret: false,
