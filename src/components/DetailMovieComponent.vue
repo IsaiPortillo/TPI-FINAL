@@ -1,6 +1,15 @@
 <template>
   <div class="detail" v-if="movie.display">
-    <p class="display-4">{{ movie.data.titleMovie }}</p>
+    <div class="video">
+<!--iframe width="1303" height="499" :src="movie.data.urlTrailerMovie" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe--> 
+    <img
+            class="card-img-top" id="imagen"
+            :src="movie.data.urlImageMovie"
+            alt="Card image cap"
+          />
+    </div>
+   <p class="display-4">{{ movie.data.titleMovie }}</p>
+ 
     <p>{{ movie.data.descriptionMovie }}</p>
     <button class="p-2 bg-danger" v-on:click="setThisNull()">X</button>
   </div>
@@ -26,4 +35,10 @@ export default {
   background: white;
   color: black;
 }
+#imagen{
+  width: 30rem; 
+  color: black;
+  margin-top: 3%;
+}
+
 </style>

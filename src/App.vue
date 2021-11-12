@@ -36,20 +36,20 @@ export default {
      
       routesUnLogged: [
         {
-          link: "/about",
-          value: "Sobre nosotros",
+          link: "/",
+          value: "Home",
           secret: false,
         },
         {
-          link: "/login",
-          value: "Iniciar Sesion",
+          link: "/Movie",
+          value: "Catalogo",
           secret: false,
         },
       ],
       routes: [
         {
-          link: "/about",
-          value: "Sobre nosotros",
+          link: "/Movie",
+          value: "Catalogo",
           secret: false,
         },
         {
@@ -93,7 +93,7 @@ export default {
       this.$router.push("/login");
     },
     log(){
-    this.$router.push("/");
+    this.$router.push("/login");
     },
   },
   mounted() {
