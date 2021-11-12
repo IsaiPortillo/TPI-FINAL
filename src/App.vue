@@ -58,8 +58,8 @@ export default {
           secret: false,
         },
         {
-          link: "/edit-movie",
-          value: "Editar Pelicula",
+          link: "/admin",
+          value: "Admin",
           secret: true,
         },
       ],
@@ -115,6 +115,7 @@ export default {
   scroll-margin-top: 2rem;
   scroll-behavior: smooth;
 }
+
 /* variables*/
 :root {
   --main-color: #ff2c1f;
