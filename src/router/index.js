@@ -47,31 +47,12 @@ const routes = [
       },
       {
         // INDICADOR DE COMO SERA LA URL
-        path: '/pelicula',
-        // NOMBRE
-        name: 'pelicula',
-    
-        // SE ASIGNA LO QUE VA A MOSTRAR
-        
-        component: () => import( '@/views/Adm/Agrepelicula.vue')
-      },
-      {
-        // INDICADOR DE COMO SERA LA URL
         path: '/usuarios',
         // NOMBRE
         name: 'usuarios',
      
         // SE ASIGNA LO QUE VA A MOSTRAR
         component: () => import( '@/views/Adm/Reusuarios.vue')
-      },
-      {
-        // INDICADOR DE COMO SERA LA URL
-        path: '/usuario',
-        // NOMBRE
-        name: 'usuario',
-     
-        // SE ASIGNA LO QUE VA A MOSTRAR
-        component: () => import( '@/views/Adm/Agreusuario.vue')
       },
       {
         // INDICADOR DE COMO SERA LA URL
