@@ -81,7 +81,7 @@ export default {
     },
     async getMoviesFromApi() {
       axios
-        .get("http://127.0.0.1:8000/api/movies/3")
+        .get("http://127.0.0.1:8000/api/movies/"+this.$cookies.get("id"))
         .then((response) => {
           if (response.status == 200) {
             this.listMovies = response.data;
@@ -92,7 +92,7 @@ export default {
     async darLike(idMovie) {
       axios
         .post("http://127.0.0.1:8000/api/likes", {
-          idUserLike: 3,
+           idUserLike: this.$cookies.get("id"),
           idMovieLike: idMovie,
         })
         .then((response) => {
@@ -104,7 +104,7 @@ export default {
       axios
         .delete("http://127.0.0.1:8000/api/likes", {
           data: {
-            idUserLike: 3,
+           idUserLike: this.$cookies.get("id"),
             idMovieLike: idMovie,
           },
         })

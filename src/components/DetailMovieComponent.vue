@@ -18,6 +18,10 @@
  
     <p>{{ movie.data.descriptionMovie }}</p>
     <button class="p-2 bg-danger" v-on:click="setThisNull()">X</button>
+
+    <div id="bott">
+      <p> prueba </p>
+    </div>
   </div>
 </template>
 <script>
@@ -33,13 +37,18 @@ export default {
 <style lang="css">
 .detail {
   position: fixed;
-  top: 10vh;
+  top: 11vh;
+  bottom: 50%;
   left: 0rem;
   width: 100vw;
   height: 100vh;
-  z-index: 70;
+  z-index: 80;
   background: white;
   color: black;
+  overflow: auto;
+}
+#bott{
+  margin-bottom: 50%;
 }
 #imagen{
   width: 30rem; 
