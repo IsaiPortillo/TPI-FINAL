@@ -45,7 +45,6 @@
 import axios from "axios";
 
 export default {
-
   //DATOS A UTILIZAR
   data() {
     return {

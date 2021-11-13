@@ -21,7 +21,6 @@
             <th>Estado</th>
             <th>Opciones</th>
             <th></th>
-
           </tr>
         </thead>
         <tbody>

@@ -50,11 +50,14 @@
               
           </h3>
       </div>
+<<<<<<< HEAD
 
       <div class="ma">
         <h1> Hola Admin </h1>
         <h1> Seleccione una de sus opciones </h1>
       </div>
+=======
+>>>>>>> 4afd060 (GRUD usuario y pelicula)
       <router-view />
     </div>
 
@@ -63,6 +66,13 @@
 
 <style lang="css">
 
+<<<<<<< HEAD
+=======
+.reimg{
+  width: 100px; 
+  height: 100px;
+}
+>>>>>>> 4afd060 (GRUD usuario y pelicula)
 
 label{
   color: rgb(151, 32, 151);
