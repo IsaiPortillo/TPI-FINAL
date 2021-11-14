@@ -43,11 +43,7 @@
     <div class="ma-content">
       <div class="heada">
           <h3>
-              <label for="nav-toggle">
-                  <span class="las la-bars"></span>
-                  <span> REGISTROS </span>
-              </label>
-              
+            <span class="las la-bars"></span>
           </h3>
       </div>
       <router-view />
@@ -63,9 +59,6 @@
   height: 100px;
 }
 
-label{
-  color: rgb(151, 32, 151);
-}
 
 * {
   padding: 0;
@@ -81,7 +74,7 @@ label{
   left: 0;
   top: 0;
   height: 100%;
-  background: rgb(219, 84, 129);
+  background: rgb(109, 31, 109);
   z-index: 100;
   transition: width 300ms;
 }
@@ -119,7 +112,7 @@ label{
 }
 
 .heada {
-  background: rgb(219, 84, 129);
+  background: rgb(109, 31, 109);
   display: flex;
   justify-content: space-between;
   padding: 1rem;
@@ -142,7 +135,7 @@ label{
 .ma-content {
   transition: margin-left 300ms;
   margin-left: 200px;
-
+  background: rgb(94, 57, 104);
 }
 
 #nav.toggle {

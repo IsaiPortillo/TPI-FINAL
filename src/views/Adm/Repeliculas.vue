@@ -191,7 +191,7 @@
       </button>
 
       <!-- TABLA DE PELICULAS REGISTRADAS-->
-      <table class="table table-dark">
+      <table id="Peliculas" class="table table-dark">
         <thead>
           <tr class="table-secondary">
             <th>N</th>
@@ -245,6 +245,9 @@
 
 <script>
 import axios from "axios";
+import $ from "jquery";
+import datatable from "datatables.net-bs5";
+
 export default {
   //DATOS A UTILIZAR
   data() {
@@ -265,16 +268,50 @@ export default {
   },
   //METODOS A UTILIZAR
   methods: {
+
+    tabla(){
+
+      datatable
+
+      this.$nextTick(() => {
+        $('#Peliculas').DataTable({
+          "responsive": true,
+          "paging": true,
+          dom: 'Bfrtip',
+          buttons: [
+              'colvis',
+              'print'
+          ],
+          "language": {
+              "lengthMenu": "Mostrar _MENU_ Registros por pagina",
+              "zeroRecords": "No se encontro ningun resitro que coincida",
+              "info": "Mostrando _TOTAL_ de _MAX_ registros",
+              "infoEmpty": "No se encontro ningun registro",
+              "search": "Buscar",
+              "searchPlaceholder": "Nombre de Usuario",
+              "infoFiltered": "(de un total de _MAX_ registro)",
+              "paginate": {
+                  "previus": "Anterior",
+                  "next": "Siguiente"
+              }
+          }
+        });
+      } );
+
+    },
+
     getPeliculasApi() {
       axios
         .get("http://127.0.0.1:8000/api/movies")
         .then((respuesta) => {
           console.log(respuesta);
           this.listaPeliculas = respuesta.data;
+          this.tabla();
         })
         .catch(function (error) {
           console.log(error);
         });
+        
     },
 
     setPeliculasApi() {
@@ -344,9 +381,8 @@ export default {
         .then((respuesta) => {
           console.log(respuesta);
           this.getPeliculasApi();
-          this.limpiar();
 
-          return (this.resultado = "Guardo con Exito");
+          return (this.resultado = "Editado con Exito");
 
         })
         .catch(function (error) {
@@ -359,6 +395,7 @@ export default {
 
     // SE LIMINA LOS METODO
     eliminar(id) {
+      return confirm('¿Esta seguro de eliminar?'),
       axios
         .delete("http://127.0.0.1:8000/api/movies/" + id)
         .then((response) => {

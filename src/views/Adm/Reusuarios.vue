@@ -152,7 +152,7 @@
         Nuevo Usuario
       </button>
 
-      <table class="table table-dark">
+      <table id="usuarios" class="table table-dark">
         <thead>
           <tr class="table-secondary">
             <th>N</th>
@@ -198,6 +198,8 @@
 
 <script>
 import axios from "axios";
+import $ from "jquery";
+import datatable from "datatables.net-bs5";
 
 export default {
   //DATOS A UTILIZAR
@@ -217,12 +219,45 @@ export default {
   },
   //METODOS A UTILIZAR
   methods: {
+
+    tabla(){
+
+      datatable
+
+      this.$nextTick(() => {
+        $('#usuarios').DataTable({
+
+          dom: 'Bfrtip',
+          buttons: [
+              'colvis',
+              'excel',
+              'print'
+          ],
+          "language": {
+              "lengthMenu": "Mostrar _MENU_ Registros por pagina",
+              "zeroRecords": "No se encontro ningun resitro que coincida",
+              "info": "Mostrando _TOTAL_ de _MAX_ registros",
+              "infoEmpty": "No se encontro ningun registro",
+              "search": "Buscar",
+              "searchPlaceholder": "Nombre de Usuario",
+              "infoFiltered": "(de un total de _MAX_ registro)",
+              "paginate": {
+                  "previus": "Anterior",
+                  "next": "Siguiente"
+              }
+          }
+        });
+      } );
+
+    },
+
     getUsuariosApi() {
       axios
         .get("http://127.0.0.1:8000/api/users")
         .then((respuesta) => {
           console.log(respuesta.data);
           this.listaUsuarios = respuesta.data;
+          this.tabla();
 
         })
         .catch(function (error) {
