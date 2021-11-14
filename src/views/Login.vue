@@ -182,6 +182,8 @@ export default {
   font-family: "Red Hat Mono", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+
+
 #bd {
   display: flex;
   justify-content: center;

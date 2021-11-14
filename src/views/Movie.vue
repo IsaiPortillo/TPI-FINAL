@@ -81,7 +81,7 @@ export default {
     },
     async getMoviesFromApi() {
       axios
-        .get("http://127.0.0.1:8000/api/movies/"+this.$cookies.get("id"))
+        .get("http://127.0.0.1:8000/api/movies")
         .then((response) => {
           if (response.status == 200) {
             this.listMovies = response.data;
@@ -136,7 +136,6 @@ export default {
   text-transform: uppercase;
   border-bottom: 1px solid var(--main-color);
 }
-
 .corazon {
   float: right;
   font-size: 20px;

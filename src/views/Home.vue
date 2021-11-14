@@ -73,6 +73,8 @@ export default {
    }, mounted() {
      this.getMoviesFromApi()
    },
+
+   
 }
 </script>
 <style lang="css">

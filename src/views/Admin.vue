@@ -37,4 +37,5 @@ export default {
   margin-top: 10vh;
   padding: 1rem;
 }
+
 </style>
