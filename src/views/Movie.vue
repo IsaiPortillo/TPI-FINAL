@@ -28,7 +28,7 @@
           />
         </button>
         <!-- declaramos el footer de el contenedor y ahi le insertamos los likes que introducen los usuarios -->
-        <div class="card-footer">
+        <div class="card-foote" id="ft">
           <small class="text-muted">Likes totales: {{ item.likesMovie }}</small>
           <a
             href="#"
@@ -49,11 +49,13 @@
           </a>
         </div>
         <!--aqui se le mostrara el titulo de la pelicula-->
+        <div id="te">
         <div class="card-body">
           <h3 class="card-text">
             {{ item.titleMovie }}
           </h3>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -128,9 +130,32 @@ export default {
   color: white;
   overflow-y: visible;
 }
+#te{
+  width: 200px;
+  height: 150px;
+  position: relative;
+}
 .text {
   margin-top: 10%;
   margin-bottom: 2%;
+}
+#ft{
+  position: absolute;
+  bottom: 40%;
+}
+.card-body{
+  position: absolute;
+  top: 40%;
+  right: 5%;
+    align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 200px;
+}
+.card-body h3{
+  margin: auto;
+  text-align: center;
+  font-size: 35px;
 }
 .card{
     display: -ms-grid;
