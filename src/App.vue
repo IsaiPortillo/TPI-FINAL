@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <header>
+    <header :class="{change_color: scrollPosition > 50}" >
       <a href="#" class="logo">
         <i class="bx bx-camera-movie bx-tada" id="bx"></i>VEX.TV</a
       >
-      <div class="bx bx-menu" id="menu-icon"></div>
+      <div  class="bx bx-menu" id="menu-icon"></div>
       <ul class="navbar" v-if="isLoggedUser">
         <li v-for="(item, index) in routes" :key="index">
           <router-link :to="item.link" id="label" v-if="!item.secret">{{
@@ -12,7 +12,7 @@
           }}</router-link>
         </li>
       </ul>
-
+      
       <ul class="navbar" v-if="!isLoggedUser">
         <li v-for="(item, index) in routesUnLogged" :key="index">
           <router-link :to="item.link" id="label" v-if="!item.secret">{{
@@ -31,7 +31,7 @@
           v-on:click.prevent="logOut()"
           >Cerrar</a
         >
-      </div>
+        </div>
     </header>
     <router-view />
   </div>
@@ -40,6 +40,7 @@
 export default {
   data() {
     return {
+       scrollPosition: null,
       isLoggedUser: false,
 
       routesUnLogged: [
@@ -83,6 +84,9 @@ export default {
     this.verifyRolUser();
   },
   methods: {
+    updateScroll() {
+       this.scrollPosition = window.scrollY
+    },
     verifyRolUser() {
       /* let idRolUser = this.$cookies.get("idRolUser")*/
       console.log(this.$cookies.get("idRolUser"));
@@ -112,10 +116,19 @@ export default {
   mounted() {
     this.verifyLoggedUser();
     this.verifyRolUser();
+      window.addEventListener('scroll', this.updateScroll);
   },
 };
 </script>
 <style lang="css">
+body::-webkit-scrollbar{
+  width: 7px;
+   display:run-in;
+}
+body::-webkit-scrollbar-thumb{
+  background: var(--main-color);
+  border-radius: 5px;
+}
 @import url("https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300&display=swap");
 /*Configuracion global de la pantalla principal*/
 * {
@@ -126,6 +139,9 @@ export default {
   list-style: none;
   text-decoration: none;
 }
+ .change_color {
+       background-color: rgba(34,34,34,0.75);
+   }
 
 /* variables*/
 :root {

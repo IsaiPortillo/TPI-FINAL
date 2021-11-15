@@ -104,15 +104,15 @@ export default {
 </script>
 <style lang="css">
 .detail {
-  position: fixed;
+  position:fixed;
   top: 11vh;
   left: 0rem;
   width: 100vw;
   height: 120vh;
-  z-index: 90;
+  z-index: 70;
   background: white;
   color: black;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 #imagen {

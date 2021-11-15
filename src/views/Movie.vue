@@ -1,5 +1,5 @@
 <template>
-  <div id="about">
+  <div class="about" id="about">
     <div class="text">
       <!-- mensaje principal -->
       <h1>catalogo</h1>
@@ -8,6 +8,7 @@
     <section class="movies" id="movies">
       <h2 class="heading">Lo mas Reciente</h2>
     </section>
+ 
       <!-- llamamos el componente que abrira el detalle de las peliculas-->
     <DetailMovieComponent :movie="detailMovie" />
     <!-- en el contenedor se mostrara las peliculas que se rellenara automaticamente de la api-->
@@ -68,6 +69,7 @@ export default {
     DetailMovieComponent,
   },
   data() {
+    
     return {
       user:{id:1,idRolUser:2},
       listMovies: [],
@@ -126,6 +128,7 @@ export default {
 };
 </script>
 <style lang="css">
+
 #about {
   color: white;
   overflow-y: visible;

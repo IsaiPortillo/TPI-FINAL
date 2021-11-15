@@ -1,5 +1,5 @@
 <template id="scroll">
-  <div>
+  <div id="home">
     <vue-flux
       :options="vfOptions"
       :images="listImgMovies"
@@ -72,6 +72,11 @@ export default {
 };
 </script>
 <style lang="css">
+#home{
+   overflow: hidden;
+   overflow-y: none;
+}
+
 .conatiner {
   width: 100%;
   min-width: 640px;

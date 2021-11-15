@@ -85,6 +85,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+   .change_color {
+       background-color:red
+   }
+</style>
 <style lang="css">
     
     .Compra {
@@ -94,11 +99,12 @@ export default {
   left: 0rem;
   width: 100vw;
   height: 100vh;
-  z-index: 80;
+  z-index: 70;
   background: white;
   color: black;
   overflow: auto;
 }
+
 #bott{
   margin-bottom: 50%;
 }
