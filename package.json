@@ -17,6 +17,7 @@
     "datatables.net-buttons-bs5": "^2.0.1",
     "jquery": "^3.6.0",
     "jszip": "^3.7.1",
+    "moment": "^2.29.1",
     "pdfmake": "^0.2.4",
     "register-service-worker": "^1.7.1",
     "swiper": "^7.2.0",

@@ -145,16 +145,17 @@
 
       <button
         type="button"
-        class="btn btn-primary"
+        class="btnAdm btn-primary"
+        style="width: 150px;"
         data-bs-toggle="modal"
         data-bs-target="#ModalAE"
       >
         Nuevo Usuario
       </button>
 
-      <table id="usuarios" class="table table-dark">
+      <table id="tabla" class="table table-dark">
         <thead>
-          <tr class="table-secondary">
+          <tr>
             <th>N</th>
             <th>Nombre</th>
             <th>Telefono</th>
@@ -170,10 +171,9 @@
             <th>{{ item.firstNameUser }} {{ item.lastNameUser }}</th>
             <th>{{ item.phoneUser }}</th>
             <th>{{ item.loginNameUser }}</th>
-            <th v-if="item.idRolUser == 1"> Administrador </th>
-            <th v-if="item.idRolUser == 2"> Usuario </th>
+            <th>{{ item.titleRol }}</th>
             <th>
-              <button class="btn btn-danger" v-on:click="eliminar(item.id, item.loginNameUser)">
+              <button class="btnAdm btn-danger" v-on:click="eliminar(item.id, item.loginNameUser)">
                 Eliminar
               </button>
             </th>
@@ -181,11 +181,11 @@
               <button
                 v-on:click="editar(item.id)"
                 type="button"
-                class="btn btn-primary"
+                class="btnAdm btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#ModalAE"
               >
-                >Editar
+                Editar
               </button>
             </th>
           </tr>
@@ -224,30 +224,25 @@ export default {
 
       datatable
 
-      this.$nextTick(() => {
-        $('#usuarios').DataTable({
-
-          dom: 'Bfrtip',
-          buttons: [
-              'colvis',
-              'excel',
-              'print'
-          ],
-          "language": {
-              "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-              "zeroRecords": "No se encontro ningun resitro que coincida",
-              "info": "Mostrando _TOTAL_ de _MAX_ registros",
-              "infoEmpty": "No se encontro ningun registro",
-              "search": "Buscar",
-              "searchPlaceholder": "Nombre de Usuario",
-              "infoFiltered": "(de un total de _MAX_ registro)",
-              "paginate": {
-                  "previus": "Anterior",
-                  "next": "Siguiente"
-              }
-          }
+        this.$nextTick(() => {
+          $('#tabla').DataTable({
+            "responsive": true,
+            "paging": true,
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ Registros por pagina",
+                "zeroRecords": "No se encontro ningun resitro que coincida",
+                "info": "Se econtro _TOTAL_ de _MAX_ registros",
+                "infoEmpty": "No se encontro ningun registro",
+                "search": "Buscar",
+                "searchPlaceholder": "Dato a buscar",
+                "infoFiltered": "(de un total de _MAX_ registro)",
+                "paginate": {
+                    "previus": "Anterior",
+                    "next": "Siguiente"
+                }
+            }
         });
-      } );
+      });
 
     },
 
@@ -358,6 +353,12 @@ export default {
   //METODO INICIADO
   mounted() {
     this.getUsuariosApi();
+
+    console.info(new Date());
+    var hoy= new Date();
+
+    console.log(hoy)
+
   },
 };
 </script>

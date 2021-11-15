@@ -1,5 +1,11 @@
 <template>
+<!-- el v-if compara si esta activado para mostrarse o no -->
   <div class="detail" v-if="movie.display">
+<!-- llamamos el componente que abre la vista de la compra-->
+    <CompraMovie :movie="CompraMovie" />
+<!-- llamamos el componente que abre la vista de la renta-->
+    <RentaMovie :movie="RentaMovie" />
+
     <!--Ventana Modal-->
     <input type="checkbox" id="btn-modal" />
     <div class="container-modal">
@@ -26,12 +32,20 @@
     </div>
 
     <!-- BOTONES -->
-    <a href="#" class="comp-1" id="comp-2">
-      <i class="bx bx-money" style="color: #1b6d3f"></i>
-    </a>
-    <a href="#" class="comp-2" id="comp-2">
-      <i class="bx bx-money" style="color: #1b6d3f"></i>
-    </a>
+    
+<!-- Boton para activar la vista la renta de la pelicula, y se envia los datos de la pelicula-->
+    <button id="bot" type="submit" v-on:click="setcompraMovie(movie.data)">
+      <a href="#" class="comp-1">
+        <i class='bx bx-down-arrow-circle' style='color:#3d627f'  ></i> 
+      </a>
+    </button>
+<!-- Boton para activar la vista la compra de la pelicula, y se envia los datos de la pelicula-->      
+    <button id="bot" type="submit" v-on:click="setrentaMovie(movie.data)">
+      <a href="#" class="comp-2" id="comp-2">
+        <i class='bx bx-money'  style='color:#1b6d3f'  ></i>     
+      </a>
+    </button>
+
     <a href="#" class="comp-3">
       <label for="btn-modal">
         <i class="bx bx-play" style="color: #2e79e6"></i>
@@ -50,9 +64,42 @@
   </div>
 </template>
 <script>
+// se importan los componenetes para poder interactuar con ellos
+import CompraMovie from "@/components/CompraMovie.vue";
+import RentaMovie from "@/components/RentaMovie.vue";
+
 export default {
+  data() {
+    return {
+      //arreglo para el componente compra
+      CompraMovie: {
+        data: null,
+        display: false,
+      },
+      //arreglo para el componente renta
+      RentaMovie: {
+        data: null,
+        display: false,
+      },
+    }
+  },
   props: ["movie"],
+  //Componenetes con los que se trabaja
+  components:{
+    //Componenete de Compra
+      CompraMovie,
+    //Componenete de Renta
+      RentaMovie,
+  },
   methods: {
+    setcompraMovie(cmovie) {
+      this.CompraMovie.data = cmovie;
+      this.CompraMovie.display = true;
+    },
+      setrentaMovie(rmovie) {
+      this.RentaMovie.data = rmovie;
+      this.RentaMovie.display = true;
+    },
     setThisNull() {
       this.movie.display = false;
     },
