@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <a href="#" class="logo">
-        <i class="bx bxs-camera-movie" id="bx"></i>VEX.TV</a
+        <i class="bx bx-camera-movie bx-tada" id="bx"></i>VEX.TV</a
       >
       <div class="bx bx-menu" id="menu-icon"></div>
       <ul class="navbar" v-if="isLoggedUser">
@@ -21,8 +21,16 @@
         </li>
       </ul>
       <div>
-        <a href="#" class="btni" v-if="!isLoggedUser" v-on:click.prevent="log()">Sign In</a>
-         <a href="#" class="btni" v-if="isLoggedUser" v-on:click.prevent="logOut()">Cerrar</a>
+        <a href="#" class="btni" v-if="!isLoggedUser" v-on:click.prevent="log()"
+          >Sign In</a
+        >
+        <a
+          href="#"
+          class="btni"
+          v-if="isLoggedUser"
+          v-on:click.prevent="logOut()"
+          >Cerrar</a
+        >
       </div>
     </header>
     <router-view />
@@ -33,7 +41,7 @@ export default {
   data() {
     return {
       isLoggedUser: false,
-     
+
       routesUnLogged: [
         {
           link: "/",
@@ -97,8 +105,8 @@ export default {
       this.$cookies.remove("nameUser");
       this.$router.push("/login");
     },
-    log(){
-    this.$router.push("/login");
+    log() {
+      this.$router.push("/login");
     },
   },
   mounted() {
@@ -117,8 +125,6 @@ export default {
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  scroll-margin-top: 2rem;
-  scroll-behavior: smooth;
 }
 
 /* variables*/
@@ -152,16 +158,19 @@ header {
 }
 
 .logo {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
   color: var(--bg-color);
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
   text-decoration: none;
 }
+.logo:hover {
+  color: #fff;
+}
 .logo #bx {
-  font-size: 24px;
+  font-size: 40px;
   color: var(--main-color);
   text-decoration: none;
 }
@@ -173,7 +182,7 @@ header {
   position: relative;
 }
 .navbar a {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
   text-decoration: none;
   color: var(--bg-color);
@@ -199,7 +208,7 @@ header {
   display: none;
 }
 .btni {
-  padding: 0.7rem 1.4rem;
+  padding: 0.6rem 1.7rem;
   background: #0a5708;
   color: var(--bg-color);
   font-weight: 400;
