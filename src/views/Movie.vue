@@ -8,18 +8,18 @@
     <section class="movies" id="movies">
       <h2 class="heading">Lo mas Reciente</h2>
     </section>
-    <!-- llamamos el componente que abrira el detalle de las peliculas-->
+      <!-- llamamos el componente que abrira el detalle de las peliculas-->
     <DetailMovieComponent :movie="detailMovie" />
     <!-- en el contenedor se mostrara las peliculas que se rellenara automaticamente de la api-->
-    <div class="container d-block mt-3">
+    
+    <div class="container d-block mt-3" >
       <div
-        class="card d-inline-flex ms-4 mb-4"
-        id="dv"
+        class="card d-inline-flex ms-4 mb-4 " id="dv"
         style="width: 18rem; color: black"
         v-for="(item, index) in listMovies"
         :key="index"
       >
-        <!--insertamos la imagen que estara dentro de el contenedor y la pasamos por un boton-->
+      <!--insertamos la imagen que estara dentro de el contenedor y la pasamos por un boton-->
         <button id="bot" type="submit" v-on:click="setSpecificMovie(item)">
           <img
             class="card-img-top"
@@ -33,17 +33,16 @@
           <a
             href="#"
             class="corazon"
-            v-if="item.likeUserMovie && user != null"
-            v-on:click.prevent="quitarLike(item.id)"
-          >
-            <i class="bx bxs-heart text-danger"></i>
-            <!-- la imagen de corazon se inserta de una font-->
+            v-if="item.likeUserMovie && user!=null"
+            v-on:click.prevent="quitarLike(item.id)" 
+          > 
+            <i class="bx bxs-heart text-danger"></i> <!-- la imagen de corazon se inserta de una font-->
           </a>
           <!--este corazon se mostrara cuando el usuario no le haya dado like a la pelicula-->
           <a
             href="#"
             class="corazon"
-            v-if="!item.likeUserMovie && user != null"
+            v-if="!item.likeUserMovie && user!=null"
             v-on:click.prevent="darLike(item.id)"
           >
             <i class="bx bx-heart bx-flashing text-danger"></i>
@@ -68,7 +67,7 @@ export default {
   },
   data() {
     return {
-      user: { id: 1, idRolUser: 2 },
+      user:{id:1,idRolUser:2},
       listMovies: [],
       detailMovie: {
         data: null,
@@ -94,7 +93,7 @@ export default {
     async darLike(idMovie) {
       axios
         .post("http://127.0.0.1:8000/api/likes", {
-          idUserLike: this.$cookies.get("id"),
+           idUserLike: this.$cookies.get("id"),
           idMovieLike: idMovie,
         })
         .then((response) => {
@@ -106,7 +105,7 @@ export default {
       axios
         .delete("http://127.0.0.1:8000/api/likes", {
           data: {
-            idUserLike: this.$cookies.get("id"),
+           idUserLike: this.$cookies.get("id"),
             idMovieLike: idMovie,
           },
         })
@@ -133,13 +132,49 @@ export default {
   margin-top: 10%;
   margin-bottom: 2%;
 }
+.card{
+    display: -ms-grid;
+  display: grid;
+  grid-gap: 40px 20px;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  padding: 40px 0;
+}
 .text h1 {
   font-size: 70px;
   font-weight: bold;
   text-transform: uppercase;
   border-bottom: 1px solid var(--main-color);
 }
-
+.container .card{
+    background: #FEFEFE;
+  padding: 20px;
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 20px rgba(170, 170, 170, 0.16);
+          box-shadow: 10px 10px 20px rgba(170, 170, 170, 0.16);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  position: relative;
+  min-height: 195px;
+  margin-top: 50px;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}
+.container .card img{
+  vertical-align: top;
+  border-radius: 7px;
+  position: absolute;
+  top: -50px;
+  left: 20px;
+  width: calc(100% - 40px);
+  max-height: 165px;
+  -o-object-fit: cover;
+     object-fit: cover;
+} 
 .corazon {
   float: right;
   font-size: 20px;
@@ -150,7 +185,7 @@ export default {
 .card {
   width: 100%;
 }
-#dv:hover {
+#dv:hover{
   transform: translateY(-10px);
   transition: 0.3s all linear;
 }
