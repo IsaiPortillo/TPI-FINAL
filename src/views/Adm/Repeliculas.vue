@@ -183,7 +183,8 @@
 
       <button
         type="button"
-        class="btn btn-primary"
+        class="btnAdm btn-primary"
+        style="width: 150px;"
         data-bs-toggle="modal"
         data-bs-target="#ModalAE"
       >
@@ -191,9 +192,9 @@
       </button>
 
       <!-- TABLA DE PELICULAS REGISTRADAS-->
-      <table id="Peliculas" class="table table-dark">
+      <table id="tabla" class="table table-dark">
         <thead>
-          <tr class="table-secondary">
+          <tr>
             <th>N</th>
             <th>Titulo</th>
             <th>Portada</th>
@@ -220,7 +221,7 @@
             <th v-if="item.availabilityMovie == 0"> Disponible </th>
             <th v-if="item.availabilityMovie == 1"> No Disponible </th>
             <th>
-              <button class="btn btn-danger" v-on:click="eliminar(item.id)">
+              <button class="btnAdm btn-danger" v-on:click="eliminar(item.id)">
                 Eliminar
               </button>
             </th>
@@ -228,7 +229,7 @@
               <button
                 v-on:click="editar(item.id)"
                 type="button"
-                class="btn btn-primary"
+                class="btnAdm btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#ModalAE"
               >
@@ -274,21 +275,16 @@ export default {
       datatable
 
       this.$nextTick(() => {
-        $('#Peliculas').DataTable({
+        $('#tabla').DataTable({
           "responsive": true,
           "paging": true,
-          dom: 'Bfrtip',
-          buttons: [
-              'colvis',
-              'print'
-          ],
           "language": {
               "lengthMenu": "Mostrar _MENU_ Registros por pagina",
               "zeroRecords": "No se encontro ningun resitro que coincida",
               "info": "Mostrando _TOTAL_ de _MAX_ registros",
               "infoEmpty": "No se encontro ningun registro",
               "search": "Buscar",
-              "searchPlaceholder": "Nombre de Usuario",
+              "searchPlaceholder": "Dato a buscar",
               "infoFiltered": "(de un total de _MAX_ registro)",
               "paginate": {
                   "previus": "Anterior",
@@ -317,14 +313,14 @@ export default {
     setPeliculasApi() {
       axios
         .post("http://127.0.0.1:8000/api/movies", {
-          titleMovie: this.nombre,
-          descriptionMovie: this.descripcion,
-          urlImageMovie: this.imgURL,
-          urlTrailerMovie: this.traURL,
-          stockMovie: this.stonk,
-          rentalPriceMovie: this.preciorenta,
-          purchasePriceMovie: this.preciocompra,
-          availabilityMovie: this.disponibilidad,
+            titleMovie: this.nombre,
+            descriptionMovie: this.descripcion,
+            urlImageMovie: this.imgURL,
+            urlTrailerMovie: this.traURL,
+            stockMovie: this.stonk,
+            rentalPriceMovie: this.preciorenta,
+            purchasePriceMovie: this.preciocompra,
+            availabilityMovie: this.disponibilidad,
         })
         .then((respuesta) => {
           console.log(respuesta);
@@ -395,7 +391,6 @@ export default {
 
     // SE LIMINA LOS METODO
     eliminar(id) {
-      return confirm('¿Esta seguro de eliminar?'),
       axios
         .delete("http://127.0.0.1:8000/api/movies/" + id)
         .then((response) => {
@@ -427,29 +422,6 @@ export default {
   },
 };
 
-/*
-$(document).ready( function () {
-      $('#peliculas').DataTable({
-        "color":"",
-        "responsive": true,
-        "paging": true,
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-            "zeroRecords": "No se encontro ningun resitro que coincida",
-            "info": "Mostrando _TOTAL_ de _MAX_ registros",
-            "infoEmpty": "No se encontro ningun registro",
-            "search": "Buscar",
-            "searchPlaceholder": "Nombre de Usuario",
-            "infoFiltered": "(de un total de _MAX_ registro)",
-            "paginate": {
-                "previus": "Anterior",
-                "next": "Siguiente"
-            }
-        }
-
-      });
-  });
-*/
 </script>
 
 <style lang="">

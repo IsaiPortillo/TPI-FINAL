@@ -70,7 +70,7 @@ const routes = [
         name: 'rentas',
     
         // SE ASIGNA LO QUE VA A MOSTRAR
-        component: () => import('../views/Adm/Rerentas.vue')
+        component: () => import('@/views/Adm/Rerentas.vue')
       },
     ]
 

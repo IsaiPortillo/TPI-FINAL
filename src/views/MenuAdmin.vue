@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div class="Admin" >
     <input type="checkbox" id="nav-toggle">
     <div class="container-fluid sidebar">
-      <div class="sidebar-brand">
-        <h2><span></span> <span>Admin</span></h2>
-      </div>
+      
       <div class="sidebar-menu">
+        <div class="sidebar-brand">
+          <h2><span></span> <span>Admin</span></h2>
+        </div>
         <ul class="navbar-nav">
           <li>
-            <router-link to="/">
+            <router-link to="/Movie">
               <span class="las la-film"></span>
               <span>Catalogo</span>
             </router-link>
@@ -54,11 +55,60 @@
 
 <style lang="css">
 
+.btnAdm {
+  
+  border-radius: 1rem 2rem 1rem 2rem;
+  width: 100px; 
+  height: 50px;
+  background: #48307a;
+}
+
+.paginate_button
+{
+  cursor: pointer;
+  color:white;
+  border: 1px solid transparent;
+}
+
+.paginate_button a{
+  
+  border-color: transparent !important;
+  background: #48307a !important;
+  color: white;
+}
+
+
+.pagination li:hover, .paginate_button a:hover{  
+  border-color: transparent;
+  background: rgb(109, 31, 109) !important;
+  color: white !important;
+  
+  border-radius: 2px;
+}
+
+#tabla_wrapper{
+  display: inline;
+  text-align: left;
+}
+
+#tabla_wrapper select, #tabla_wrapper input{
+  background: white;
+  color: black;
+}
+
+#tabla_wrapper label, .dataTables_info {
+  color: white !important;
+}
+
+
 .reimg{
   width: 100px; 
   height: 100px;
 }
 
+.Admin, .ma {
+  background: #203049;;
+}
 
 * {
   padding: 0;
@@ -68,19 +118,23 @@
   text-decoration: none;
 }
 
+label{
+  color: black;
+}
+
 .sidebar {
-  width: 200px;
+  width: 15.3%;
   position: fixed;
-  left: 0;
   top: 0;
+  float: left;
+  text-align: left;
   height: 100%;
-  background: rgb(109, 31, 109);
-  z-index: 100;
-  transition: width 300ms;
+  background: #48307a;
+  transition: width 200ms;
 }
 
 .sidebar-brand {
-  height: 90px;
+  height: 20%;
   padding: 1rem 0rem 1rem 2rem;
   color: #fff;
 }
@@ -96,8 +150,8 @@
 
 .sidebar-menu li {
   width: 100%;
-  margin-bottom: 1.3rem;
-  padding-left: 2rem;
+  margin-bottom: 2rem;
+
 }
 
 .sidebar-menu a {
@@ -119,7 +173,7 @@
   box-shadow: 2px 2px 3px 2px rgb(0, 0, 0, 0.2);
   position: fixed;
 
-  left: 200px;
+  left: 15.3%;
   width: 100%;
   top: 0;
   z-index: 100;
@@ -127,49 +181,14 @@
 }
 
 .ma {
-  margin-top: 85px;
+  margin-top: 5%;
   padding: 2rem 1.5rem;
-  min-height: calc(100% - 90px);
 }
 
 .ma-content {
   transition: margin-left 300ms;
-  margin-left: 200px;
-  background: rgb(94, 57, 104);
+  margin-left: 15%;
+
 }
 
-#nav.toggle {
-  display: none;
-}
-
-#nav-toggle:checked + .sidebar {
-  width: 50px;
-}
-
-#nav-toggle:checked ~ .ma-content {
-  margin-left: 50px;
-}
-
-#nav-toggle:checked ~ .ma-content .heada {
-  left: 50px;
-}
-
-#nav-toggle:checked + .sidebar .sidebar-brand,
-#nav-toggle:checked + .sidebar li {
-  padding-left: 0rem;
-  padding-right: 4rem;
-}
-
-#nav-toggle:checked + .sidebar li a {
-  padding-left: 0rem;
-}
-
-#nav-toggle:checked + .sidebar .sidebar-brand h2 span:last-child,
-#nav-toggle:checked + .sidebar li a span:last-child {
-  display: none;
-}
-
-#nav-toggle {
-  display: none;
-}
 </style>
