@@ -139,6 +139,10 @@ export default {
   margin-top: 10%;
   margin-bottom: 2%;
 }
+#text {
+  margin-top: 4%;
+  margin-bottom: 2%;
+}
 #ft{
   position: absolute;
   bottom: 40%;
@@ -166,6 +170,12 @@ export default {
   padding: 40px 0;
 }
 .text h1 {
+  font-size: 70px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--main-color);
+}
+#text h1 {
   font-size: 70px;
   font-weight: bold;
   text-transform: uppercase;

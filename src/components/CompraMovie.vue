@@ -1,10 +1,25 @@
 <template>
 <!-- el v-if compara si esta activado para mostrarse o no -->
     <div class="Compra" v-if="movie.display">
-
+      <div id="text">
+      <!-- mensaje principal -->
+      <h1>Compra</h1>
+    </div>
 <!-- Boton para que se oculte la vista de la renta -->
-      <button class="p-2 bg-danger" v-on:click="setThisNull()">Cerrar X</button>
-      <button class="p-2" v-on:click="setRentaApi()" >Comprar</button>
+
+      <img
+          class="card-img-top" id="imagen"
+          :src="movie.data.urlImageMovie"
+          alt="Card image cap"
+        />
+           <a href="#" class="comp-2" type="submit"  v-on:click="setThisNull()">
+      <i class="bx bx-x-circle"></i>
+      </a>
+      
+      <a href="#" class="comp-1" type="submit" v-on:click="setRentaApi()" >
+     <i class='bx bx-money' style='color:#08712b'></i>
+      </a>
+
 
       <p class="display-4"> Hola {{ this.$cookies.get("nameUser") }}</p>
 
@@ -13,12 +28,9 @@
       <p class="display-4">Fecha: {{ this.fecha }}</p>
 
       <p class="display-4"> Precio de Compra: {{ movie.data.purchasePriceMovie }}</p>
+           <div id="bott1">
 
-      <img
-          class="card-img-top" id="imagen"
-          :src="movie.data.urlImageMovie"
-          alt="Card image cap"
-        />
+      </div>
 
     </div>
 </template>

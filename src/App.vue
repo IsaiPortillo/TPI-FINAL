@@ -66,8 +66,8 @@ export default {
           secret: false,
         },
         {
-          link: "/profile",
-          value: "Perfil",
+          link: "/History",
+          value: "Historial",
           secret: false,
         },
         {

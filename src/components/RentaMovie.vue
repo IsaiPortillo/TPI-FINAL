@@ -1,10 +1,23 @@
 <template>
 <!-- el v-if compara si esta activado para mostrarse o no -->
     <div class="Compra" v-if="movie.display">
-
+         <div id="text">
+      <!-- mensaje principal -->
+      <h1>Renta</h1>
+    </div>
 <!-- Boton para que se oculte la vista de la renta -->
-      <button class="p-2 bg-danger" v-on:click="setThisNull()">Cerrar X</button>
-      <button class="p-2" v-on:click="setRentaApi()" >Rentar</button>
+      <img
+          class="card-img-top" id="imagen"
+          :src="movie.data.urlImageMovie"
+          alt="Card image cap"
+        />
+           <a href="#" class="comp-2" type="submit"  v-on:click="setThisNull()">
+      <i class="bx bx-x-circle"></i>
+      </a>
+      
+      <a href="#" class="comp-1" type="submit"  v-on:click="setRentaApi()" >
+      <i class='bx bx-cart-alt' style='color:#0c0606'  ></i>
+      </a>
 
       <p class="display-4"> Hola {{ this.$cookies.get("nameUser") }}</p>
 
@@ -12,13 +25,11 @@
 
       <p class="display-4">Fecha: {{ this.fecha }}</p>
 
-      <p class="display-4"> Precio de Renta: {{ movie.data.rentalPriceMovie }}</p>
+      <p class="display-4"> Precio de Renta: ${{ movie.data.rentalPriceMovie }}</p>
 
-      <img
-          class="card-img-top" id="imagen"
-          :src="movie.data.urlImageMovie"
-          alt="Card image cap"
-        />
+      <div id="bott1">
+
+      </div>
 
     </div>
 </template>
@@ -87,11 +98,15 @@ export default {
   color: black;
   overflow: auto;
 }
-#bott{
-  margin-bottom: 50%;
+.display-4{
+  margin-top: 1%;
+  font-size: 40px;
+}
+#bott1{
+  margin-bottom: 10%;
 }
 #imagen{
-  width: 10rem; 
+  width: 20rem; 
   color: black;
   margin-top: 2%;
 }
