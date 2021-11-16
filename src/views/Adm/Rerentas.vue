@@ -55,30 +55,29 @@ export default {
   },
   //METODOS A UTILIZAR
   methods: {
-    tabla(){
-
-      datatable
+    tabla() {
+      datatable;
 
       this.$nextTick(() => {
-        $('#tabla').DataTable({
-          "responsive": true,
-          "paging": true,
-          "language": {
-              "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-              "zeroRecords": "No se encontro ningun resitro que coincida",
-              "info": "Mostrando _TOTAL_ de _MAX_ registros",
-              "infoEmpty": "No se encontro ningun registro",
-              "search": "Buscar",
-              "searchPlaceholder": "Dato a buscar",
-              "infoFiltered": "(de un total de _MAX_ registro)",
-              "paginate": {
-                  "previus": "Anterior",
-                  "next": "Siguiente"
-              }
-          }
+        $("#tabla").DataTable({
+          responsive: true,
+          destroy: true,
+          paging: true,
+          language: {
+            lengthMenu: "Mostrar _MENU_ Registros por pagina",
+            zeroRecords: "No se encontro ningun resitro que coincida",
+            info: "Mostrando _TOTAL_ de _MAX_ registros",
+            infoEmpty: "No se encontro ningun registro",
+            search: "Buscar",
+            searchPlaceholder: "Dato a buscar",
+            infoFiltered: "(de un total de _MAX_ registro)",
+            paginate: {
+              previus: "Anterior",
+              next: "Siguiente",
+            },
+          },
         });
-      } );
-
+      });
     },
 
     getRentasApi() {

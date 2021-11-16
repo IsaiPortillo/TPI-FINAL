@@ -146,7 +146,7 @@
       <button
         type="button"
         class="btnAdm btn-primary"
-        style="width: 150px;"
+        style="width: 150px"
         data-bs-toggle="modal"
         data-bs-target="#ModalAE"
       >
@@ -173,7 +173,10 @@
             <th>{{ item.loginNameUser }}</th>
             <th>{{ item.titleRol }}</th>
             <th>
-              <button class="btnAdm btn-danger" v-on:click="eliminar(item.id, item.loginNameUser)">
+              <button
+                class="btnAdm btn-danger"
+                v-on:click="eliminar(item.id, item.loginNameUser)"
+              >
                 Eliminar
               </button>
             </th>
@@ -214,55 +217,56 @@ export default {
       telefono: "",
       contraseña: "",
       usuario: "",
-      rol: ""
+      rol: "",
     };
   },
   //METODOS A UTILIZAR
   methods: {
+    tabla() {
+      datatable;
 
-    tabla(){
-
-      datatable
-
-        this.$nextTick(() => {
-          $('#tabla').DataTable({
-            "responsive": true,
-            "paging": true,
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-                "zeroRecords": "No se encontro ningun resitro que coincida",
-                "info": "Se econtro _TOTAL_ de _MAX_ registros",
-                "infoEmpty": "No se encontro ningun registro",
-                "search": "Buscar",
-                "searchPlaceholder": "Dato a buscar",
-                "infoFiltered": "(de un total de _MAX_ registro)",
-                "paginate": {
-                    "previus": "Anterior",
-                    "next": "Siguiente"
-                }
-            }
+      this.$nextTick(() => {
+        $("#tabla").DataTable({
+          responsive: true,
+          destroy: true,
+          paging: true,
+          language: {
+            lengthMenu: "Mostrar _MENU_ Registros por pagina",
+            zeroRecords: "No se encontro ningun resitro que coincida",
+            info: "Se econtro _TOTAL_ de _MAX_ registros",
+            infoEmpty: "No se encontro ningun registro",
+            search: "Buscar",
+            searchPlaceholder: "Dato a buscar",
+            infoFiltered: "(de un total de _MAX_ registro)",
+            paginate: {
+              previus: "Anterior",
+              next: "Siguiente",
+            },
+          },
         });
       });
-
     },
 
     getUsuariosApi() {
       axios
         .get("http://127.0.0.1:8000/api/users")
         .then((respuesta) => {
-          console.log(respuesta.data);
           this.listaUsuarios = respuesta.data;
-          this.tabla();
 
+          if ($.fn.dataTable.isDataTable("#tabla")) {
+            this.tabla();
+          } else {
+            this.tabla();
+          }
         })
         .catch(function (error) {
           console.log(error);
         });
     },
 
-    setUsuarioApi(){
+    setUsuarioApi() {
       axios
-      .post("http://127.0.0.1:8000/api/users", {
+        .post("http://127.0.0.1:8000/api/users", {
           firstNameUser: this.nombre,
           lastNameUser: this.apellido,
           phoneUser: this.telefono,
@@ -270,23 +274,15 @@ export default {
           loginPasswordUser: this.contraseña,
           idRolUser: this.rol,
         })
-        .then((respuesta) => {
-          console.log(respuesta);
+        .then(() => {
           this.limpiar();
           this.getUsuariosApi();
-          return this.resultado = "Guardo con Exito"
-              
-
+          return (this.resultado = "Guardo con Exito");
         });
     },
 
-    
     editar(id) {
       this.getUsuariosApi();
-
-      console.log(id);
-
-      console.log(this.listaUsuarios);
 
       this.listaUsuarios.forEach((user) => {
         if (user.id == id) {
@@ -303,8 +299,6 @@ export default {
     },
 
     putUsuarioApi() {
-      console.log("id" + this.id);
-
       axios
         .put("http://127.0.0.1:8000/api/users/" + this.id, {
           firstNameUser: this.nombre,
@@ -317,30 +311,26 @@ export default {
         .then(() => {
           this.getUsuariosApi();
 
-            return (this.resultado = "Editado con Exito");
-
+          return (this.resultado = "Editado con Exito");
         })
         .catch(function (error) {
           console.log(error);
-          if(error){
+          if (error) {
             return (this.resultado = "REVISE QUE NO HAYA CAMPOS VACIOS");
           }
         });
     },
 
     eliminar(id, NameUser) {
+      alert("ha eliminado al Usuario: " + NameUser);
 
-      alert("ha eliminado al Usuario: "+NameUser )
-
-      axios.delete("http://127.0.0.1:8000/api/users/" + id).then((response) => {
-        console.log(response);
+      axios.delete("http://127.0.0.1:8000/api/users/" + id).then(() => {
         this.getUsuariosApi();
       });
     },
 
     limpiar() {
-      this.resultado = "Recuerde llenar todos los campos",
-      this.id = "";
+      (this.resultado = "Recuerde llenar todos los campos"), (this.id = "");
       this.nombre = "";
       this.apellido = "";
       this.telefono = "";
@@ -348,17 +338,10 @@ export default {
       this.usuario = "";
       this.rol = "";
     },
-
   },
   //METODO INICIADO
   mounted() {
     this.getUsuariosApi();
-
-    console.info(new Date());
-    var hoy= new Date();
-
-    console.log(hoy)
-
   },
 };
 </script>

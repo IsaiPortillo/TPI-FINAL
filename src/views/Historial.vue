@@ -2,9 +2,9 @@
   <div>
     <div class="ma">
       <div>
-        <h1> REGISTROS DE RENTAS </h1>
+        <h1>REGISTROS DE RENTAS</h1>
       </div>
-      
+
       <table id="tablaRent" class="table table-dark">
         <thead>
           <tr>
@@ -34,7 +34,7 @@
       </table>
 
       <div>
-        <h1>  REGISTROS DE COMPRAS </h1>
+        <h1>REGISTROS DE COMPRAS</h1>
       </div>
       <table id="tablaComp" class="table table-dark">
         <thead>
@@ -79,6 +79,7 @@ export default {
       this.$nextTick(() => {
         $("#tablaRent").DataTable({
           responsive: true,
+          destroy: true,
           paging: true,
           language: {
             lengthMenu: "Mostrar _MENU_ Registros por pagina",
@@ -101,7 +102,6 @@ export default {
       axios
         .get("http://127.0.0.1:8000/api/rents")
         .then((respuesta) => {
-
           respuesta.data.forEach((renta) => {
             if (renta.idUserRent == this.$cookies.get("id")) {
               this.listaRenta.push(renta);
@@ -116,39 +116,38 @@ export default {
     },
 
     tablaComp() {
-        datatable;
+      datatable;
 
-        this.$nextTick(() => {
-            $("#tablaComp").DataTable({
-            responsive: true,
-            paging: true,
-            language: {
-                lengthMenu: "Mostrar _MENU_ Registros por pagina",
-                zeroRecords: "No se encontro ningun resitro que coincida",
-                info: "Mostrando _TOTAL_ de _MAX_ registros",
-                infoEmpty: "No se encontro ningun registro",
-                search: "Buscar",
-                searchPlaceholder: "Dato a buscar",
-                infoFiltered: "(de un total de _MAX_ registro)",
-                paginate: {
-                previus: "Anterior",
-                next: "Siguiente",
-                },
+      this.$nextTick(() => {
+        $("#tablaComp").DataTable({
+          responsive: true,
+          destroy: true,
+          paging: true,
+          language: {
+            lengthMenu: "Mostrar _MENU_ Registros por pagina",
+            zeroRecords: "No se encontro ningun resitro que coincida",
+            info: "Mostrando _TOTAL_ de _MAX_ registros",
+            infoEmpty: "No se encontro ningun registro",
+            search: "Buscar",
+            searchPlaceholder: "Dato a buscar",
+            infoFiltered: "(de un total de _MAX_ registro)",
+            paginate: {
+              previus: "Anterior",
+              next: "Siguiente",
             },
-            });
+          },
         });
-        },
+      });
+    },
 
     getComprasApi() {
       axios
         .get("http://127.0.0.1:8000/api/rents")
         .then((respuesta) => {
-
           respuesta.data.forEach((renta) => {
             if (renta.idUserRent == this.$cookies.get("id")) {
               this.listaCompra.push(renta);
             }
-
           });
 
           this.tablaComp();
@@ -157,7 +156,6 @@ export default {
           console.log(error);
         });
     },
-
   },
   //METODO INICIADO
   mounted() {
@@ -168,36 +166,34 @@ export default {
 </script>
 
 <style>
-
 .ma {
   margin-top: 5%;
   padding: 2rem 1.5rem;
 }
 
-
-.paginate_button
-{
+.paginate_button {
   cursor: pointer;
-  color:white;
+  color: white;
   border: 1px solid transparent;
 }
 
-
 #tablaRent_wrapper,
-#tablaComp_wrapper{
+#tablaComp_wrapper {
   display: inline;
   text-align: left;
 }
 
-#tablaRent_wrapper select, #tablaRent_wrapper input,
-#tablaComp_wrapper select, #tablaComp_wrapper input{
+#tablaRent_wrapper select,
+#tablaRent_wrapper input,
+#tablaComp_wrapper select,
+#tablaComp_wrapper input {
   background: white;
   color: black;
 }
 
-#tablaRent_wrapper label, #tablaComp_wrapper label, .dataTables_info {
+#tablaRent_wrapper label,
+#tablaComp_wrapper label,
+.dataTables_info {
   color: white !important;
 }
-
-
 </style>

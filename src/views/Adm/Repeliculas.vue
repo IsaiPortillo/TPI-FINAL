@@ -184,7 +184,7 @@
       <button
         type="button"
         class="btnAdm btn-primary"
-        style="width: 150px;"
+        style="width: 150px"
         data-bs-toggle="modal"
         data-bs-target="#ModalAE"
       >
@@ -218,8 +218,8 @@
             <th>{{ item.rentalPriceMovie }}</th>
             <th>{{ item.purchasePriceMovie }}</th>
             <th>{{ item.stockMovie }}</th>
-            <th v-if="item.availabilityMovie == 0"> Disponible </th>
-            <th v-if="item.availabilityMovie == 1"> No Disponible </th>
+            <th v-if="item.availabilityMovie == 0">Disponible</th>
+            <th v-if="item.availabilityMovie == 1">No Disponible</th>
             <th>
               <button class="btnAdm btn-danger" v-on:click="eliminar(item.id)">
                 Eliminar
@@ -269,31 +269,29 @@ export default {
   },
   //METODOS A UTILIZAR
   methods: {
-
-    tabla(){
-
-      datatable
+    tabla() {
+      datatable;
 
       this.$nextTick(() => {
-        $('#tabla').DataTable({
-          "responsive": true,
-          "paging": true,
-          "language": {
-              "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-              "zeroRecords": "No se encontro ningun resitro que coincida",
-              "info": "Mostrando _TOTAL_ de _MAX_ registros",
-              "infoEmpty": "No se encontro ningun registro",
-              "search": "Buscar",
-              "searchPlaceholder": "Dato a buscar",
-              "infoFiltered": "(de un total de _MAX_ registro)",
-              "paginate": {
-                  "previus": "Anterior",
-                  "next": "Siguiente"
-              }
-          }
+        $("#tabla").DataTable({
+          responsive: true,
+          destroy: true,
+          paging: true,
+          language: {
+            lengthMenu: "Mostrar _MENU_ Registros por pagina",
+            zeroRecords: "No se encontro ningun resitro que coincida",
+            info: "Mostrando _TOTAL_ de _MAX_ registros",
+            infoEmpty: "No se encontro ningun registro",
+            search: "Buscar",
+            searchPlaceholder: "Dato a buscar",
+            infoFiltered: "(de un total de _MAX_ registro)",
+            paginate: {
+              previus: "Anterior",
+              next: "Siguiente",
+            },
+          },
         });
-      } );
-
+      });
     },
 
     getPeliculasApi() {
@@ -307,27 +305,25 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-        
     },
 
     setPeliculasApi() {
       axios
         .post("http://127.0.0.1:8000/api/movies", {
-            titleMovie: this.nombre,
-            descriptionMovie: this.descripcion,
-            urlImageMovie: this.imgURL,
-            urlTrailerMovie: this.traURL,
-            stockMovie: this.stonk,
-            rentalPriceMovie: this.preciorenta,
-            purchasePriceMovie: this.preciocompra,
-            availabilityMovie: this.disponibilidad,
+          titleMovie: this.nombre,
+          descriptionMovie: this.descripcion,
+          urlImageMovie: this.imgURL,
+          urlTrailerMovie: this.traURL,
+          stockMovie: this.stonk,
+          rentalPriceMovie: this.preciorenta,
+          purchasePriceMovie: this.preciocompra,
+          availabilityMovie: this.disponibilidad,
         })
         .then((respuesta) => {
           console.log(respuesta);
           this.limpiar();
           this.getPeliculasApi();
-          return this.resultado = "Guardo con Exito"
-
+          return (this.resultado = "Guardo con Exito");
         })
         .catch(function (error) {
           console.log(error);
@@ -338,10 +334,9 @@ export default {
     },
 
     editar(id) {
-
       this.listaPeliculas.forEach((pelis) => {
         if (pelis.id == id) {
-            (this.id = id),
+          (this.id = id),
             (this.nombre = pelis.titleMovie),
             (this.descripcion = pelis.descriptionMovie),
             (this.imgURL = pelis.urlImageMovie),
@@ -374,7 +369,6 @@ export default {
           this.getPeliculasApi();
 
           return (this.resultado = "Editado con Exito");
-
         })
         .catch(function (error) {
           console.log(error);
@@ -398,8 +392,7 @@ export default {
     },
 
     limpiar() {
-      this.resultado = "Recuerde llenar todos los campos",
-      this.id = "";
+      (this.resultado = "Recuerde llenar todos los campos"), (this.id = "");
       this.nombre = "";
       this.descripcion = "";
       this.imgURL = "";
@@ -416,7 +409,6 @@ export default {
     this.getPeliculasApi();
   },
 };
-
 </script>
 
 <style lang="">
