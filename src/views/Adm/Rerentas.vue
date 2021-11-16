@@ -13,6 +13,7 @@
             <th>Mora</th>
             <th>Total</th>
             <th>Estado</th>
+            <th>Eliminar</th>
 
           </tr>
         </thead>
@@ -26,13 +27,21 @@
             <th>{{ item.subtotalRent }}</th>
             <th>{{ item.arrearRent }}</th>
             <th>{{ item.totalRent }}</th>
+            <th v-if="item.statusRent == 'done'">
+              Recibida
+            </th>
+            <th v-if="item.statusRent != 'done'">
+              Pendiente
+            </th>
             <th v-if="item.statusRent != 'done'">
               <button class="btnAdm btn-danger" v-on:click="entrega(item.id)">
-                Devuelta
+                Recibida
               </button>
             </th>
             <th v-if="item.statusRent == 'done'">
-              Recibida
+              <button class="btnAdm btn-danger" v-on:click="eliminar(item.id)">
+                No Recibida
+              </button>
             </th>
           </tr>
         </tbody>
@@ -61,7 +70,6 @@ export default {
       this.$nextTick(() => {
         $("#tabla").DataTable({
           responsive: true,
-          destroy: true,
           paging: true,
           language: {
             lengthMenu: "Mostrar _MENU_ Registros por pagina",
@@ -82,7 +90,7 @@ export default {
 
     getRentasApi() {
       axios
-        .get("http://127.0.0.1:8000/api/rents")
+        .get("http://127.0.0.1:8000/api/rents-all")
         .then((respuesta) => {
           this.listaRenta = respuesta.data;
           this.tabla();
@@ -93,11 +101,19 @@ export default {
     },
 
     entrega(id) {
-      axios.put("http://127.0.0.1:8000/api/rents/" + id).then((response) => {
+      axios.put("http://127.0.0.1:8000/api/rents/done/" + id).then((response) => {
         console.log(response);
         this.getRentasApi();
       });
     },
+
+    eliminar(id) {
+      axios.put("http://127.0.0.1:8000/api/rents/cancel/" + id).then((response) => {
+        console.log(response);
+        this.getRentasApi();
+      });
+    },
+
   },
   //METODO INICIADO
   mounted() {

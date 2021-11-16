@@ -228,7 +228,6 @@ export default {
       this.$nextTick(() => {
         $("#tabla").DataTable({
           responsive: true,
-          destroy: true,
           paging: true,
           language: {
             lengthMenu: "Mostrar _MENU_ Registros por pagina",

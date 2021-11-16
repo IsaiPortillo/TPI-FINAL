@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="ma">
+<!-- llamamos el componente que abrira el detalle de las peliculas-->
+    <DetailMovieComponent :movie="detailMovie" />
+
       <!-- Modal -->
       <div
         class="modal fade"
@@ -212,7 +215,9 @@
             <th>{{ index + 1 }}</th>
             <th>{{ item.titleMovie }}</th>
             <th>
-              <button><img class="reimg" :src="item.urlImageMovie" /></button>
+              <button v-on:click="setSpecificMovie(item)" >
+                <img class="reimg" :src="item.urlImageMovie" />
+              </button>
             </th>
             <th>{{ item.likesMovie }}</th>
             <th>{{ item.rentalPriceMovie }}</th>
@@ -245,17 +250,34 @@
 </template>
 
 <script>
+//se importa la iformacion del componente DetailMovieComponent
+import DetailMovieComponent from "@/components/DetailMovieComponent.vue";
 import axios from "axios";
 import $ from "jquery";
 import datatable from "datatables.net-bs5";
 
 export default {
+  //se indican los componentes a utilizar
+  components: {
+    DetailMovieComponent,
+  },
   //DATOS A UTILIZAR
   data() {
     return {
+      // arreglo para la lista de peliculas
       listaPeliculas: [],
-
+      // arreglo de los datos necesarios apra el detail
+      detailMovie: {
+        //almacena la informacion de los datos
+        data: null,
+        //da la acion de mostrarse o no
+        display: false,
+      },
+      
+      // variable de informacion
       resultado: "Recuerde llenar todos los campos",
+
+      // variables para almacenamiento de datos
       id: "",
       nombre: "",
       descripcion: "",
@@ -269,13 +291,21 @@ export default {
   },
   //METODOS A UTILIZAR
   methods: {
+    //metodo para activar la vista de los detalles
+    setSpecificMovie(data) {
+      //se manda los datos al detailmovie
+      this.detailMovie.data = data;
+      //se hace visible el detailmovie
+      this.detailMovie.display = true;
+    },
+
     tabla() {
       datatable;
 
+      // creador de datatable
       this.$nextTick(() => {
         $("#tabla").DataTable({
           responsive: true,
-          destroy: true,
           paging: true,
           language: {
             lengthMenu: "Mostrar _MENU_ Registros por pagina",
