@@ -338,15 +338,10 @@ export default {
     },
 
     editar(id) {
-      this.getPeliculasApi();
-
-      console.log(id);
-
-      console.log(this.listaPeliculas);
 
       this.listaPeliculas.forEach((pelis) => {
         if (pelis.id == id) {
-          (this.id = id),
+            (this.id = id),
             (this.nombre = pelis.titleMovie),
             (this.descripcion = pelis.descriptionMovie),
             (this.imgURL = pelis.urlImageMovie),

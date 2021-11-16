@@ -1,5 +1,23 @@
 <template id="scroll">
   <div id="home">
+    <!-- llamamos el componente que abrira el detalle de las peliculas-->
+    <DetailMovieComponent :movie="detailMovie" />
+
+    <!--Ventana Modal-->
+    <input type="checkbox" id="btn-modal" />
+    <div class="container-modal">
+      <div class="content-modal">
+        <!--Muestra el trailer con la url obtenida-->
+        <iframe :src="this.urltrailer" style="width: 480px; height: 270px">
+        </iframe>
+        <div class="btn-cerrar">
+          <label for="btn-modal">Cerrar</label>
+        </div>
+      </div>
+      <label for="btn-modal" class="cerrar-modal"></label>
+    </div>
+    <!--fin Ventana Modal-->
+
     <vue-flux
       :options="vfOptions"
       :images="listImgMovies"
@@ -12,24 +30,38 @@
       </template>
 
       <template v-slot:caption>
-        <flux-caption id="home-text" />
-        <a href="#" class="btn">Reservar Ahora</a>
-        <a href="#" class="play">
-          <i class="bx bx-play"></i>
-        </a>
+        <flux-caption id="home-text" v-slot="captionProps">
+          <!--Muestra el titulo de las peliculas-->
+          {{ captionProps.text }}
+
+          <!--activa el componenete DetailMovie-->
+          <a v-on:click="setSpecificMovie(captionProps.text)" class="btn"
+            >Reservar Ahora</a
+          >
+          <!--activa el modal del trailer-->
+          <a class="play">
+            <label for="btn-modal">
+              <i v-on:click="trailer(captionProps.text)" class="bx bx-play"></i>
+            </label>
+          </a>
+        </flux-caption>
       </template>
     </vue-flux>
   </div>
 </template>
 <script>
+//se importa la iformacion del componente DetailMovieComponent
+import DetailMovieComponent from "@/components/DetailMovieComponent.vue";
 import axios from "axios";
 import { VueFlux, FluxCaption, FluxPreloader } from "vue-flux";
 
 export default {
   components: {
+    //se indican los componentes a utilizar
     VueFlux,
     FluxCaption,
     FluxPreloader,
+    DetailMovieComponent,
   },
   data() {
     return {
@@ -44,17 +76,75 @@ export default {
         "Caption for image 3",
       ],
 
+      //almacena todas las imagenes de las peliculas
       listImgMovies: [],
+      //almacena todos los titulos de las peliculas
       listTitleMovies: [],
+      //almacena toda la informacion de las peliculas
+      listaPeliculas: [],
+      //almacena la url del trailer en espesifico 
+      urltrailer: "",
+      
+      // arreglo de los datos necesarios apra el detail
+      detailMovie: {
+        //almacena la informacion de los datos
+        data: null,
+        //da la acion de mostrarse o no
+        display: false,
+      },
     };
   },
 
   methods: {
+    //metodo para activar la vista de los detalles
+    async setSpecificMovie(nombre) {
+      //ciclo para recorrer la lista de las peliculas
+      this.listaPeliculas.forEach((data) => {
+        //comprara el titulo del resultado con el nombre enviado
+        if (data.titleMovie == nombre) {
+          //se manda los datos al detailmovie
+          this.detailMovie.data = data;
+          //se hace visible el detailmovie
+          this.detailMovie.display = true;
+        }
+      });
+    },
+
+    //metodo para obtener el trailer
+    async trailer(nombre) {
+      //ciclo para recorrer la lista de las peliculas
+      this.listaPeliculas.forEach((data) => {
+        //comprara el titulo del resultado con el nombre enviado
+        if (data.titleMovie == nombre) {
+          this.urltrailer = data.urlTrailerMovie;
+
+          console.log(this.urltrailer);
+        }
+      });
+    },
+
+    //hace la busqueda de la pelicula segun su nomnre
+    async buscar(nombre) {
+      axios
+        .get("http://127.0.0.1:8000/api/movies")
+        .then((response) => {
+          if (response.status == 200) {
+            response.data.forEach((pelis) => {
+              if (pelis.titleMovie == nombre) {
+                this.setSpecificMovie(pelis);
+              }
+            });
+          }
+        })
+        .catch((err) => console.log(err));
+    },
+
     async getMoviesFromApi() {
       axios
         .get("http://127.0.0.1:8000/api/movies")
         .then((response) => {
           if (response.status == 200) {
+            this.listaPeliculas = response.data;
             this.listImgMovies = [];
             this.listTitleMovies = [];
             response.data.forEach((element) => {
@@ -72,9 +162,9 @@ export default {
 };
 </script>
 <style lang="css">
-#home{
-   overflow: hidden;
-   overflow-y: none;
+#home {
+  overflow: hidden;
+  overflow-y: none;
 }
 
 .conatiner {

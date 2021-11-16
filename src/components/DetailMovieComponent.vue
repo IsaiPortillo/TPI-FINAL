@@ -34,13 +34,17 @@
     <!-- BOTONES -->
     
 <!-- Boton para activar la vista la renta de la pelicula, y se envia los datos de la pelicula-->
-      <a href="#" class="comp-1" type="submit" v-on:click="setcompraMovie(movie.data)">
+    <button id="bot" type="submit" v-on:click="setcompraMovie(movie.data)">
+      <a href="#" class="comp-1">
         <i class='bx bx-down-arrow-circle' style='color:#3d627f'  ></i> 
       </a>
+    </button>
 <!-- Boton para activar la vista la compra de la pelicula, y se envia los datos de la pelicula-->      
-      <a href="#" class="comp-2" id="comp-2" type="submit" v-on:click="setrentaMovie(movie.data)">
+    <button id="bot" type="submit" v-on:click="setrentaMovie(movie.data)">
+      <a href="#" class="comp-2" id="comp-2">
         <i class='bx bx-money'  style='color:#1b6d3f'  ></i>     
       </a>
+    </button>
 
     <a href="#" class="comp-3">
       <label for="btn-modal">
@@ -104,15 +108,15 @@ export default {
 </script>
 <style lang="css">
 .detail {
-  position:fixed;
+  position: fixed;
   top: 11vh;
   left: 0rem;
   width: 100vw;
   height: 120vh;
-  z-index: 70;
+  z-index: 90;
   background: white;
   color: black;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 #imagen {

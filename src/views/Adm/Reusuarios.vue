@@ -297,7 +297,7 @@ export default {
             (this.usuario = user.loginNameUser),
             (this.contraseña = user.loginPasswordUser),
             (this.rol = user.idRolUser),
-            console.log(user.titleMovie);
+            console.log(user.firstNameUser);
         }
       });
     },
