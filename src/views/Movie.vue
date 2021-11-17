@@ -15,7 +15,7 @@
     
     <div class="container d-block mt-3" >
       <div
-        class="card d-inline-flex ms-4 mb-4 " id="dv"
+        class="card d-inline-flex ms-4 mb-4" id="dv"
         style="width: 18rem; color: black"
         v-for="(item, index) in listMovies"
         :key="index"
@@ -217,8 +217,13 @@ export default {
   float: right;
   font-size: 20px;
 }
-.bot {
+#bot {
   border: none;
+}
+.fit-image{
+width: 100%;
+object-fit: cover;
+height: 300px; 
 }
 .card {
   width: 100%;

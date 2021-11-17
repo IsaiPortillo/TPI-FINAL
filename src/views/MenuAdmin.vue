@@ -8,12 +8,7 @@
           <h2><span></span> <span>Admin</span></h2>
         </div>
         <ul class="navbar-nav">
-          <li>
-            <router-link to="/Movie">
-              <span class="las la-film"></span>
-              <span>Catalogo</span>
-            </router-link>
-          </li>
+
           <li>
             <router-link to="/peliculas">
               <span class="las la-clipboard-list"></span>
@@ -44,7 +39,7 @@
     <div class="ma-content">
       <div class="heada">
           <h3>
-            <span class="las la-bars"></span>
+            <span class="las"></span>
           </h3>
       </div>
       <router-view />
@@ -55,12 +50,20 @@
 
 <style lang="css">
 
-.btnAdm {
-  
-  border-radius: 1rem 2rem 1rem 2rem;
-  width: 100px; 
-  height: 50px;
-  background: #48307a;
+
+
+.btnAdm .bx {
+  background: var(--bg-color);
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: var(--main-color);
+}
+.btnAdm .bx:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+  transition: 0.2s all linear;
 }
 
 .paginate_button
@@ -89,6 +92,9 @@
 #tabla_wrapper{
   display: inline;
   text-align: left;
+}
+.las{
+  text-decoration: none;
 }
 
 #tabla_wrapper select, #tabla_wrapper input{
@@ -129,8 +135,8 @@ label{
   float: left;
   text-align: left;
   height: 100%;
-  background: #48307a;
-  transition: width 200ms;
+  background: var(--text-color);
+  transition: 0.5s;
 }
 
 .sidebar-brand {
@@ -143,35 +149,45 @@ label{
   display: inline-block;
   padding-right: 1rem;
 }
-
 .sidebar-menu {
-  margin-top: 1rem;
+  margin-top: 4rem;
 }
 
 .sidebar-menu li {
   width: 100%;
+  position: relative;
   margin-bottom: 2rem;
+  left: 10%;
 
+}
+.ma-content{
+  position: relative;
+  padding-left: 5%;
+  padding-right:5%;
+  font-size: 15px;
+  margin-top: 2%;
 }
 
 .sidebar-menu a {
   display: block;
   color: #fff;
   font-size: 1.2rem;
+  text-decoration: none;
 }
 
 .sidebar-menu a span:first-child {
   font-size: 1.5rem;
   padding-right: 1rem;
+
 }
 
 .heada {
-  background: rgb(109, 31, 109);
+  background: var(--text-color);
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  box-shadow: 2px 2px 3px 2px rgb(0, 0, 0, 0.2);
   position: fixed;
+  border: none;
 
   left: 15.3%;
   width: 100%;

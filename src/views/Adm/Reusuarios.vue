@@ -162,7 +162,6 @@
             <th>Nombre de Usuario</th>
             <th>Rol</th>
             <th>Opciones</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -173,23 +172,22 @@
             <th>{{ item.loginNameUser }}</th>
             <th>{{ item.titleRol }}</th>
             <th>
-              <button
-                class="btnAdm btn-danger"
+              <a
+                class="btnAdm"
                 v-on:click="eliminar(item.id, item.loginNameUser)"
               >
-                Eliminar
-              </button>
-            </th>
-            <th>
-              <button
+               <i class='bx bx-trash-alt'></i>
+              </a>
+
+              <a
                 v-on:click="editar(item.id)"
                 type="button"
-                class="btnAdm btn-primary"
+                class="btnAdm1"
                 data-bs-toggle="modal"
                 data-bs-target="#ModalAE"
               >
-                Editar
-              </button>
+                <i class='bx bx-edit-alt'></i>
+              </a>
             </th>
           </tr>
         </tbody>

@@ -13,7 +13,7 @@
             <th>Mora</th>
             <th>Total</th>
             <th>Estado</th>
-            <th>Eliminar</th>
+            <th>Cambiar</th>
 
           </tr>
         </thead>
@@ -34,14 +34,20 @@
               Pendiente
             </th>
             <th v-if="item.statusRent != 'done'">
-              <button class="btnAdm btn-danger" v-on:click="entrega(item.id)">
-                Recibida
-              </button>
+              <a
+                class="btnAdm12"
+                v-on:click="entrega(item.id)"
+              >
+               <i class='bx bx-check-circle'></i> 
+              </a>
             </th>
             <th v-if="item.statusRent == 'done'">
-              <button class="btnAdm btn-danger" v-on:click="eliminar(item.id)">
-                No Recibida
-              </button>
+              <a
+                class="btnAdm13"
+               v-on:click="eliminar(item.id)"
+              >
+                 <i class='bx bx-checkbox-minus'></i>
+              </a>
             </th>
           </tr>
         </tbody>
@@ -122,4 +128,31 @@ export default {
 };
 </script>
 
-<style lang=""></style>
+<style lang="css">
+.btnAdm12 .bx {
+  background: var(--bg-color);
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color:#19b540;
+}
+.btnAdm12 .bx:hover {
+  background: #068f23;
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+.btnAdm13 .bx {
+  background: var(--bg-color);
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: var(--main-color);
+}
+.btnAdm13.bx:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+</style>

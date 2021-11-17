@@ -198,9 +198,9 @@ export default {
 }
 
 .btn {
-  margin-top: 5%;
+  margin-top: 30%;
   margin-left: 11%;
-  width: 15%;
+  width: 100%;
   padding: 0.7rem 1.4rem;
   background: var(--main-color);
   color: var(--bg-color);

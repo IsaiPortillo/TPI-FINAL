@@ -3,7 +3,7 @@
     <div class="ma">
       <table id="tabla" class="table table-dark">
         <thead>
-          <tr>
+          <tr id="vol">
             <th>N</th>
             <th>Nombre Usuario</th>
             <th>Nombre Pelicula</th>
@@ -21,9 +21,9 @@
             <th>{{ item.dateRent }}</th>
             <th>{{ item.subtotalRent }}</th>
             <th v-if="item.statusRent != 'done'">
-              <button class="btnAdm btn-danger" v-on:click="entrega(item.id)">
-                Devuelta
-              </button>
+              <a class="btnAdm" v-on:click="entrega(item.id)">
+                <i class='bx bx-trash-alt'></i>
+              </a>
             </th>
             <th v-if="item.statusRent == 'done'">
               Recibida
@@ -99,4 +99,18 @@ export default {
 };
 </script>
 
-<style lang=""></style>
+<style lang="css">
+.btnAdm .bx {
+  background: var(--bg-color);
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: var(--main-color);
+}
+.btnAdm .bx:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+</style>

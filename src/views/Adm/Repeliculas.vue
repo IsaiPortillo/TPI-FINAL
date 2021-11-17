@@ -157,7 +157,7 @@
                       >
                         Cerrar X
                       </button>
-                      <button
+                      <a
                         v-if="this.id == ''"
                         v-on:click="setPeliculasApi()"
                         type="submit"
@@ -165,7 +165,7 @@
                         class="btn btn-success btn-block"
                       >
                         Guardar
-                      </button>
+                      </a>
                       <button
                         v-if="this.id != ''"
                         v-on:click="putPeliculasApi()"
@@ -207,8 +207,7 @@
             <th>Stonk</th>
             <th>Estado</th>
             <th>Opciones</th>
-            <th></th>
-          </tr>
+            </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in listaPeliculas" :key="index">
@@ -225,21 +224,19 @@
             <th>{{ item.stockMovie }}</th>
             <th v-if="item.availabilityMovie == 0">Disponible</th>
             <th v-if="item.availabilityMovie == 1">No Disponible</th>
-            <th>
-              <button class="btnAdm btn-danger" v-on:click="eliminar(item.id)">
-                Eliminar
-              </button>
-            </th>
-            <th>
-              <button
+            <th style="white-space: nowrap;">
+              <a class="btnAdm" v-on:click="eliminar(item.id)">
+                <i class='bx bx-trash-alt'></i>
+              </a>
+              <a
                 v-on:click="editar(item.id)"
                 type="button"
-                class="btnAdm btn-primary"
+                class="btnAdm1"
                 data-bs-toggle="modal"
                 data-bs-target="#ModalAE"
               >
-                Editar
-              </button>
+              <i class='bx bx-edit-alt'></i>
+              </a>
             </th>
           </tr>
         </tbody>
@@ -441,5 +438,19 @@ export default {
 };
 </script>
 
-<style lang="">
+<style lang="css">
+.btnAdm1 .bx {
+  background: var(--bg-color);
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color:#1954b5;
+}
+.btnAdm1 .bx:hover {
+  background: #0a3c8d;
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+
 </style>

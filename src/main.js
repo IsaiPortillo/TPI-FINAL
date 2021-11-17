@@ -4,6 +4,8 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import VueCookies from 'vue-cookies'
+import DataTable from "@andresouzaabreu/vue-data-table";
+Vue.component("data-table", DataTable);
 Vue.component("modal", {
   template: "#modal-template"
 });

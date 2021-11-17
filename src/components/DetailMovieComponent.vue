@@ -34,17 +34,14 @@
     <!-- BOTONES -->
     
 <!-- Boton para activar la vista la renta de la pelicula, y se envia los datos de la pelicula-->
-    <button id="bot" type="submit" v-on:click="setcompraMovie(movie.data)">
-      <a href="#" class="comp-1">
+
+      <a href="#" class="comp-1"  type="submit" v-on:click="setcompraMovie(movie.data)">
         <i class='bx bx-down-arrow-circle' style='color:#3d627f'  ></i> 
       </a>
-    </button>
-<!-- Boton para activar la vista la compra de la pelicula, y se envia los datos de la pelicula-->      
-    <button id="bot" type="submit" v-on:click="setrentaMovie(movie.data)">
-      <a href="#" class="comp-2" id="comp-2">
+
+      <a href="#" class="comp-2" id="comp-2" type="submit" v-on:click="setrentaMovie(movie.data)">
         <i class='bx bx-money'  style='color:#1b6d3f'  ></i>     
       </a>
-    </button>
 
     <a href="#" class="comp-3">
       <label for="btn-modal">
@@ -116,7 +113,7 @@ export default {
   z-index: 90;
   background: white;
   color: black;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 #imagen {
@@ -127,6 +124,11 @@ export default {
 #bott {
   bottom: 50%;
   margin-bottom: 300px;
+}
+#description{
+  width: 50%;
+  position: relative;
+  left: 25%;
 }
 
 .comp-1 {
