@@ -109,32 +109,32 @@
 
                 <div class="row">
                   <div class="col-xs-12 col-sm-12 col-md-12">
-                    <button
+                    <a
                       type="button"
-                      class="btn btn-secondary"
+                      class="btnAdm0"
                       data-bs-dismiss="modal"
                       v-on:click="limpiar()"
                     >
-                      Cerrar X
-                    </button>
-                    <button
+                      <i class="bx bxs-exit"></i>
+                    </a>
+                    <a
                       v-if="this.id == ''"
-                      v-on:click="setUsuarioApi()"
+                      v-on:click="setPeliculasApi()"
                       type="submit"
                       s
-                      class="btn btn-success btn-block"
+                      class="btnAdm1"
                     >
-                      Guardar
-                    </button>
-                    <button
+                      <i class="bx bxs-save"></i>
+                    </a>
+                    <a
                       v-if="this.id != ''"
-                      v-on:click="putUsuarioApi()"
+                      v-on:click="putPeliculasApi()"
                       type="submit"
                       s
-                      class="btn btn-success btn-block"
+                      class="btnAdm1"
                     >
-                      Editar
-                    </button>
+                      <i class="bx bxs-edit-alt"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -143,15 +143,15 @@
         </div>
       </div>
 
-      <button
+      <a
         type="button"
-        class="btnAdm btn-primary"
+        class="btnAdm15"
         style="width: 150px"
         data-bs-toggle="modal"
         data-bs-target="#ModalAE"
       >
-        Nuevo Usuario
-      </button>
+        <i class="bx bxs-user-plus"></i>
+      </a>
 
       <table id="tabla" class="table table-dark">
         <thead>
@@ -173,10 +173,10 @@
             <th>{{ item.titleRol }}</th>
             <th>
               <a
-                class="btnAdm"
+                class="btnAdm0"
                 v-on:click="eliminar(item.id, item.loginNameUser)"
               >
-               <i class='bx bx-trash-alt'></i>
+                <i class="bx bx-trash-alt"></i>
               </a>
 
               <a
@@ -186,7 +186,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#ModalAE"
               >
-                <i class='bx bx-edit-alt'></i>
+                <i class="bx bx-edit-alt"></i>
               </a>
             </th>
           </tr>
@@ -253,7 +253,6 @@ export default {
           $("#tabla").dataTable().fnDestroy();
           //se crea el datatable
           this.tabla();
-          
         })
         .catch(function (error) {
           console.log(error);

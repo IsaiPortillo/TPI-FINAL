@@ -21,7 +21,7 @@ export default {
       routes: [
         {
           link: "/admin/register-movie",
-          value: "Reguistrar pelicula",
+          value: "Registrar pelicula",
         },
         {
           link: "/admin/update-movie",

@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="ma">
-<!-- llamamos el componente que abrira el detalle de las peliculas-->
-    <DetailMovieComponent :movie="detailMovie" />
+      <!-- llamamos el componente que abrira el detalle de las peliculas-->
+      <DetailMovieComponent :movie="detailMovie" />
 
       <!-- Modal -->
       <div
@@ -149,32 +149,32 @@
                   </div>
                   <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                      <button
+                      <a
                         type="button"
-                        class="btn btn-secondary"
+                        class="btnAdm0"
                         data-bs-dismiss="modal"
                         v-on:click="limpiar()"
                       >
-                        Cerrar X
-                      </button>
+                        <i class="bx bxs-exit"></i>
+                      </a>
                       <a
                         v-if="this.id == ''"
                         v-on:click="setPeliculasApi()"
                         type="submit"
                         s
-                        class="btn btn-success btn-block"
+                        class="btnAdm1"
                       >
-                        Guardar
+                        <i class="bx bxs-save"></i>
                       </a>
-                      <button
+                      <a
                         v-if="this.id != ''"
                         v-on:click="putPeliculasApi()"
                         type="submit"
                         s
-                        class="btn btn-success btn-block"
+                        class="btnAdm1"
                       >
-                        Editar
-                      </button>
+                        <i class="bx bxs-edit-alt"></i>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -184,15 +184,15 @@
         </div>
       </div>
 
-      <button
+      <a
         type="button"
-        class="btnAdm btn-primary"
+        class="btnAdm15"
         style="width: 150px"
         data-bs-toggle="modal"
         data-bs-target="#ModalAE"
       >
-        Nueva Pelicula
-      </button>
+        <i class="bx bxs-layer-plus"></i>
+      </a>
 
       <!-- TABLA DE PELICULAS REGISTRADAS-->
       <table id="tabla" class="table table-dark">
@@ -207,14 +207,14 @@
             <th>Stonk</th>
             <th>Estado</th>
             <th>Opciones</th>
-            </tr>
+          </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in listaPeliculas" :key="index">
             <th>{{ index + 1 }}</th>
             <th>{{ item.titleMovie }}</th>
             <th>
-              <button v-on:click="setSpecificMovie(item)" >
+              <button v-on:click="setSpecificMovie(item)">
                 <img class="reimg" :src="item.urlImageMovie" />
               </button>
             </th>
@@ -224,9 +224,9 @@
             <th>{{ item.stockMovie }}</th>
             <th v-if="item.availabilityMovie == 0">Disponible</th>
             <th v-if="item.availabilityMovie == 1">No Disponible</th>
-            <th style="white-space: nowrap;">
-              <a class="btnAdm" v-on:click="eliminar(item.id)">
-                <i class='bx bx-trash-alt'></i>
+            <th style="white-space: nowrap">
+              <a class="btnAdm0" v-on:click="eliminar(item.id)">
+                <i class="bx bx-trash-alt"></i>
               </a>
               <a
                 v-on:click="editar(item.id)"
@@ -235,7 +235,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#ModalAE"
               >
-              <i class='bx bx-edit-alt'></i>
+                <i class="bx bx-edit-alt"></i>
               </a>
             </th>
           </tr>
@@ -270,7 +270,7 @@ export default {
         //da la acion de mostrarse o no
         display: false,
       },
-      
+
       // variable de informacion
       resultado: "Recuerde llenar todos los campos",
 
@@ -442,18 +442,43 @@ export default {
 </script>
 
 <style lang="css">
+.btnAdm0 .bx {
+  background: var(--bg-color);
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: var(--main-color);
+}
+.btnAdm0 .bx:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
 .btnAdm1 .bx {
   background: var(--bg-color);
   padding: 10px;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   border-radius: 50%;
   border: 4px solid rgba(2, 3, 7, 0.4);
-  color:#1954b5;
+  color: #1954b5;
 }
 .btnAdm1 .bx:hover {
   background: #0a3c8d;
   color: var(--bg-color);
   transition: 0.2s all linear;
 }
-
+.btnAdm15 .bx {
+  background: var(--bg-color);
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: #19b540;
+}
+.btnAdm15 .bx:hover {
+  background: #068f23;
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
 </style>

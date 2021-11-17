@@ -1,59 +1,75 @@
 <template>
   <div>
     <div class="ma">
-      <div>
-        <h1>REGISTROS DE RENTAS</h1>
-      </div>
+      <p class="parr">Renta</p>
+      <a v-on:click="visible = !visible" class="btnh"
+        ><i class="bx bx-show"></i
+      ></a>
+      <p class="parra">Compra</p>
+      <a v-on:click="show = !show" class="btnha"><i class="bx bx-show"></i></a>
 
-      <table id="tablaRent" class="table table-dark">
-        <thead>
-          <tr>
-            <th>N</th>
-            <th>Nombre Pelicula</th>
-            <th>Fecha Rentada</th>
-            <th>Fecha Limite</th>
-            <th>Precio</th>
-            <th>Mora</th>
-            <th>Total</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in listaRenta" :key="index">
-            <th>{{ index + 1 }}</th>
-            <th>{{ item.titleMovie }}</th>
-            <th>{{ item.dateRent }}</th>
-            <th>{{ item.returnDateRent }}</th>
-            <th>{{ item.subtotalRent }}</th>
-            <th>{{ item.arrearRent }}</th>
-            <th>{{ item.totalRent }}</th>
-            <th v-if="item.statusRent != 'done'">Pendiente</th>
-            <th v-if="item.statusRent == 'done'">Recibida</th>
-          </tr>
-        </tbody>
-      </table>
+      <div v-show="visible" class="alt">
+        <a v-on:click="visible = !visible" class="btnhi"
+          ><i class="bx bx-hide"></i
+        ></a>
+        <div>
+          <h1>REGISTROS DE RENTAS</h1>
+        </div>
 
-      <div>
-        <h1>REGISTROS DE COMPRAS</h1>
+        <table id="tablaRent" class="table table-dark">
+          <thead>
+            <tr>
+              <th>N</th>
+              <th>Nombre Pelicula</th>
+              <th>Fecha Rentada</th>
+              <th>Fecha Limite</th>
+              <th>Precio</th>
+              <th>Mora</th>
+              <th>Total</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in listaRenta" :key="index">
+              <th>{{ index + 1 }}</th>
+              <th>{{ item.titleMovie }}</th>
+              <th>{{ item.dateRent }}</th>
+              <th>{{ item.returnDateRent }}</th>
+              <th>{{ item.subtotalRent }}</th>
+              <th>{{ item.arrearRent }}</th>
+              <th>{{ item.totalRent }}</th>
+              <th v-if="item.statusRent != 'done'">Pendiente</th>
+              <th v-if="item.statusRent == 'done'">Recibida</th>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <table id="tablaComp" class="table table-dark">
-        <thead>
-          <tr>
-            <th>N</th>
-            <th>Nombre Pelicula</th>
-            <th>Fecha de Compra</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-         <tbody>
-          <tr v-for="(item, index) in listaCompra" :key="index">
-            <th>{{ index + 1 }}</th>
-            <th>{{ item.titleMovie }}</th>
-            <th>{{ item.dateSale }}</th>
-            <th>{{ item.totalSale }}</th>
-          </tr>
-        </tbody>
-      </table>
+      <div v-show="show" class="alt">
+        <a v-on:click="show = !show" class="btnhis"
+          ><i class="bx bx-hide"></i
+        ></a>
+        <div>
+          <h1>REGISTROS DE COMPRAS</h1>
+        </div>
+        <table id="tablaComp" class="table table-dark">
+          <thead>
+            <tr>
+              <th>N</th>
+              <th>Nombre Pelicula</th>
+              <th>Fecha de Compra</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in listaCompra" :key="index">
+              <th>{{ index + 1 }}</th>
+              <th>{{ item.titleMovie }}</th>
+              <th>{{ item.dateSale }}</th>
+              <th>{{ item.totalSale }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -67,6 +83,8 @@ export default {
   //DATOS A UTILIZAR
   data() {
     return {
+      visible: false,
+      show: false,
       listaRenta: [],
       listaCompra: [],
     };
@@ -198,5 +216,92 @@ export default {
 #tablaComp_wrapper label,
 .dataTables_info {
   color: white !important;
+}
+.btnhi {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+}
+.btnhi .bx {
+  background: #055620;
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: #ffff;
+}
+.btnhi .bx:hover {
+  background: #0d0270;
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+.btnhis {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+}
+.btnhis .bx {
+  background:#055620;
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: #fff;
+}
+.btnhis .bx:hover {
+  background:#0d0270;
+  color: #fff;
+  transition: 0.2s all linear;
+}
+.btnha {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+}
+.btnha .bx {
+  background: #560524;
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: #ffff;
+}
+.btnha .bx:hover {
+  background: #034453;
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+.parr {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+}
+.parra {
+  position: absolute;
+  top: 15%;
+  left: 25%;
+}
+.btnh {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+}
+.btnh .bx {
+  background: #560524;
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: #fff;
+}
+.btnh .bx:hover {
+  background: #034453;
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+.alt {
+  margin-top: 10%;
+  margin-left: 15%;
+  width: 70%;
 }
 </style>
