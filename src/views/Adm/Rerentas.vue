@@ -99,6 +99,9 @@ export default {
         .get("http://127.0.0.1:8000/api/rents-all")
         .then((respuesta) => {
           this.listaRenta = respuesta.data;
+          //se desctruye el datatable
+          $("#tabla").dataTable().fnDestroy();
+          //se crea el datatable
           this.tabla();
         })
         .catch(function (error) {

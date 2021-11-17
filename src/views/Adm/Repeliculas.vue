@@ -327,6 +327,9 @@ export default {
         .then((respuesta) => {
           console.log(respuesta);
           this.listaPeliculas = respuesta.data;
+          //se desctruye el datatable
+          $("#tabla").dataTable().fnDestroy();
+          //se crea el datatable
           this.tabla();
         })
         .catch(function (error) {

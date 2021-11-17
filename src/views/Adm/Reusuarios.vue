@@ -157,7 +157,7 @@
         <thead>
           <tr>
             <th>N</th>
-            <th>Nombre</th>
+            <th>Usuario</th>
             <th>Telefono</th>
             <th>Nombre de Usuario</th>
             <th>Rol</th>
@@ -167,9 +167,9 @@
         <tbody>
           <tr v-for="(item, index) in listaUsuarios" :key="index">
             <th>{{ index + 1 }}</th>
-            <th>{{ item.firstNameUser }} {{ item.lastNameUser }}</th>
-            <th>{{ item.phoneUser }}</th>
             <th>{{ item.loginNameUser }}</th>
+            <th>{{ item.phoneUser }}</th>
+            <th>{{ item.firstNameUser }} {{ item.lastNameUser }}</th>
             <th>{{ item.titleRol }}</th>
             <th>
               <a
@@ -249,12 +249,11 @@ export default {
         .get("http://127.0.0.1:8000/api/users")
         .then((respuesta) => {
           this.listaUsuarios = respuesta.data;
-
-          if ($.fn.dataTable.isDataTable("#tabla")) {
-            this.tabla();
-          } else {
-            this.tabla();
-          }
+          //se desctruye el datatable
+          $("#tabla").dataTable().fnDestroy();
+          //se crea el datatable
+          this.tabla();
+          
         })
         .catch(function (error) {
           console.log(error);

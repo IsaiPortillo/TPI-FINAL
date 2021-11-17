@@ -107,7 +107,9 @@ export default {
               this.listaRenta.push(renta);
             }
           });
-
+          //se desctruye el datatable
+          $("#tabla").dataTable().fnDestroy();
+          //se crea el datatable
           this.tablaRent();
         })
         .catch(function (error) {
@@ -148,7 +150,9 @@ export default {
               this.listaCompra.push(compra);
             }
           });
-
+          //se desctruye el datatable
+          $("#tabla").dataTable().fnDestroy();
+          //se crea el datatable
           this.tablaComp();
         })
         .catch(function (error) {

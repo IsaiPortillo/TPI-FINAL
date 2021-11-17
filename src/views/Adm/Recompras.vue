@@ -23,12 +23,12 @@
             <th>{{ item.statusSale }}</th>
             <th v-if="item.statusSale != 'done'">
               <button class="btnAdm btn-danger" v-on:click="hecho(item.id)">
-                Recibida
+                Comprada
               </button>
             </th>
             <th v-if="item.statusSale == 'done'">
               <button class="btnAdm btn-danger" v-on:click="cancelado(item.id)">
-                No Recibida
+                No Comprada
               </button>
             </th>
 
@@ -82,6 +82,9 @@ export default {
         .get("http://127.0.0.1:8000/api/sales-all")
         .then((respuesta) => {
           this.listaCompra = respuesta.data;
+          //se desctruye el datatable
+          $("#tabla").dataTable().fnDestroy();
+          //se crea el datatable
           this.tabla();
         })
         .catch(function (error) {
