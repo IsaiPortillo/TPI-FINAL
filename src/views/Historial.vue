@@ -158,7 +158,7 @@ export default {
         });
       });
     },
-
+    //funcion
     getComprasApi() {
       axios
         .get("http://127.0.0.1:8000/api/sales-all")
@@ -241,7 +241,7 @@ export default {
   left: 25%;
 }
 .btnhis .bx {
-  background:#055620;
+  background: #055620;
   padding: 10px;
   font-size: 1.8rem;
   border-radius: 50%;
@@ -249,7 +249,7 @@ export default {
   color: #fff;
 }
 .btnhis .bx:hover {
-  background:#0d0270;
+  background: #0d0270;
   color: #fff;
   transition: 0.2s all linear;
 }
