@@ -118,7 +118,7 @@ export default {
 
     getRentasApi() {
       axios
-        .get("http://127.0.0.1:8000/api/rents")
+        .get("http://127.0.0.1:8000/api/rents-all")
         .then((respuesta) => {
           respuesta.data.forEach((renta) => {
             if (renta.idUserRent == this.$cookies.get("id")) {
@@ -161,7 +161,7 @@ export default {
 
     getComprasApi() {
       axios
-        .get("http://127.0.0.1:8000/api/sales")
+        .get("http://127.0.0.1:8000/api/sales-all")
         .then((respuesta) => {
           respuesta.data.forEach((compra) => {
             if (compra.idUserSale == this.$cookies.get("id")) {
