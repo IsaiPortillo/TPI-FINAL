@@ -45,12 +45,12 @@
             <th>Precio</th>
           </tr>
         </thead>
-        <tbody>
+         <tbody>
           <tr v-for="(item, index) in listaCompra" :key="index">
             <th>{{ index + 1 }}</th>
             <th>{{ item.titleMovie }}</th>
-            <th>{{ item.dateRent }}</th>
-            <th>{{ item.subtotalRent }}</th>
+            <th>{{ item.dateSale }}</th>
+            <th>{{ item.totalSale }}</th>
           </tr>
         </tbody>
       </table>
@@ -114,7 +114,6 @@ export default {
           console.log(error);
         });
     },
-
     tablaComp() {
       datatable;
 
@@ -142,11 +141,11 @@ export default {
 
     getComprasApi() {
       axios
-        .get("http://127.0.0.1:8000/api/rents")
+        .get("http://127.0.0.1:8000/api/sales")
         .then((respuesta) => {
-          respuesta.data.forEach((renta) => {
-            if (renta.idUserRent == this.$cookies.get("id")) {
-              this.listaCompra.push(renta);
+          respuesta.data.forEach((compra) => {
+            if (compra.idUserSale == this.$cookies.get("id")) {
+              this.listaCompra.push(compra);
             }
           });
 

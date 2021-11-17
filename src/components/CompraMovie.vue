@@ -16,7 +16,7 @@
       <i class="bx bx-x-circle"></i>
       </a>
       
-      <a href="#" class="comp-1" type="submit" v-on:click="setRentaApi()" >
+      <a href="#" class="comp-1" type="submit" v-on:click="setSaleApi()" >
      <i class='bx bx-money' style='color:#08712b'></i>
       </a>
 
@@ -34,7 +34,6 @@
 
     </div>
 </template>
-
 <script>
 
 import axios from "axios";
@@ -51,19 +50,19 @@ export default {
     setThisNull() {
       this.movie.display = false;
     },
-    setRentaApi(){
+    setSaleApi(){
 
       this.fecha = moment().format("Y-MM-DD");
       console.log(this.$cookies.get("id"));
 
       axios
-      .post("http://127.0.0.1:8000/api/rents", {
+      .post("http://127.0.0.1:8000/api/sales", {
 
-          idUserRent: this.$cookies.get("id"),
-          idMovieRent: this.movie.data.id,
-          dateRent: this.fecha,
-          subtotalRent: this.movie.data.rentalPriceMovie,
-          statusRent: "in-progress"
+          idUserSale: this.$cookies.get("id"),
+          idMovieSale: this.movie.data.id,
+          dateSale: this.fecha,
+          totalSale: this.movie.data.purchasePriceMovie,
+          statusSale: "hecho"
 
         })
         .then((respuesta) => {
@@ -72,7 +71,7 @@ export default {
 
         }).catch((err)=>{
 
-          console.log(this.movie.data.rentalPriceMovie);
+          console.log(this.movie.data.purchasePriceMovie);
 
           alert(err);
         });
@@ -85,6 +84,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
    .change_color {
        background-color:red

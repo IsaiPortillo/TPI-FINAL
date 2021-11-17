@@ -112,9 +112,6 @@
   height: 100px;
 }
 
-.Admin, .ma {
-  background: #203049;;
-}
 
 * {
   padding: 0;

@@ -14,20 +14,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in listaRenta" :key="index">
+          <tr v-for="(item, index) in listaCompra" :key="index">
             <th>{{ index + 1 }}</th>
             <th>{{ item.firstNameUser }} {{ item.lastNameUser }}</th>
             <th>{{ item.titleMovie }}</th>
-            <th>{{ item.dateRent }}</th>
-            <th>{{ item.subtotalRent }}</th>
-            <th v-if="item.statusRent != 'done'">
-              <a class="btnAdm" v-on:click="entrega(item.id)">
-                <i class='bx bx-trash-alt'></i>
-              </a>
+            <th>{{ item.dateSale }}</th>
+            <th>{{ item.totalSale }}</th>
+            <th>{{ item.statusSale }}</th>
+            <th v-if="item.statusSale != 'done'">
+              <button class="btnAdm btn-danger" v-on:click="hecho(item.id)">
+                Recibida
+              </button>
             </th>
-            <th v-if="item.statusRent == 'done'">
-              Recibida
+            <th v-if="item.statusSale == 'done'">
+              <button class="btnAdm btn-danger" v-on:click="cancelado(item.id)">
+                No Recibida
+              </button>
             </th>
+
           </tr>
         </tbody>
       </table>
@@ -44,7 +48,7 @@ export default {
   //DATOS A UTILIZAR
   data() {
     return {
-      listaRenta: [],
+      listaCompra: [],
     };
   },
   //METODOS A UTILIZAR
@@ -73,11 +77,11 @@ export default {
       });
     },
 
-    getRentasApi() {
+    getComprasApi() {
       axios
-        .get("http://127.0.0.1:8000/api/rents")
+        .get("http://127.0.0.1:8000/api/sales-all")
         .then((respuesta) => {
-          this.listaRenta = respuesta.data;
+          this.listaCompra = respuesta.data;
           this.tabla();
         })
         .catch(function (error) {
@@ -85,16 +89,24 @@ export default {
         });
     },
 
-    entrega(id) {
-      axios.put("http://127.0.0.1:8000/api/rents/" + id).then((response) => {
+    hecho(id) {
+      axios.put("http://127.0.0.1:8000/api/sales/done/" + id).then((response) => {
         console.log(response);
-        this.getRentasApi();
+        this.getComprasApi();
       });
     },
+
+    cancelado(id) {
+      axios.put("http://127.0.0.1:8000/api/sales/cancel/" + id).then((response) => {
+        console.log(response);
+        this.getComprasApi();
+      });
+    },
+
   },
   //METODO INICIADO
   mounted() {
-    this.getRentasApi();
+    this.getComprasApi();
   },
 };
 </script>
