@@ -77,7 +77,7 @@ export default {
       error_msg: "",
       succ: false,
       success_msg: "",
-        id: "",
+      id: "",
       firstNameUser: "",
       lastNameUser: "",
       phoneUser: "",
@@ -85,20 +85,18 @@ export default {
       loginPasswordUser: "",
       idRolUser: "2",
     };
-  }, 
+  },
   methods: {
     iniciarsesion() {
       this.active = false;
     },
-     irHome() {
+    irHome() {
       this.$router.push("/");
     },
     registrar() {
       this.active = true;
     },
     login() {
-
-   
       let json = {
         username: this.username,
         password: this.password,
@@ -110,10 +108,13 @@ export default {
             //entra aca si todo esta correcto
             this.error = false;
             this.succ = true;
-            this.$cookies.set("idRolUser",response.data.idRolUser)
-            this.$cookies.set("id",response.data.id)
-            this.$cookies.set("nameUser",response.data.firstNameUser + response.data.lastNameUser)
-            this.irHome()
+            this.$cookies.set("idRolUser", response.data.idRolUser);
+            this.$cookies.set("id", response.data.id);
+            this.$cookies.set(
+              "nameUser",
+              response.data.firstNameUser + response.data.lastNameUser
+            );
+            this.irHome();
             this.success_msg = "Logueado";
             console.log("Logueado");
           }
@@ -133,8 +134,8 @@ export default {
           }
         });
     },
-    register(){
-        let json = {
+    register() {
+      let json = {
         id: this.id,
         firstNameUser: this.firstNameUser,
         lastNameUser: this.lastNameUser,
@@ -168,7 +169,6 @@ export default {
             this.error_msg = "Problemas para realizar la peticion";
           }
         });
-
     },
   },
 };
@@ -181,8 +181,6 @@ export default {
   box-sizing: border-box;
   font-family: "Red Hat Mono", Tahoma, Geneva, Verdana, sans-serif;
 }
-
-
 
 #bd {
   display: flex;

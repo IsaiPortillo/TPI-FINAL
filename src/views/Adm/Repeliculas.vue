@@ -138,8 +138,8 @@
                           name="select"
                           onchange=""
                         >
-                          <option value="0">Pelicula Disponible</option>
-                          <option value="1">Pelicula No Disponible</option>
+                          <option value="1">Pelicula Disponible</option>
+                          <option value="0">Pelicula No Disponible</option>
                         </select>
                       </div>
                     </div>
@@ -204,7 +204,7 @@
             <th>Likes</th>
             <th>Precio Renta</th>
             <th>Precio Compra</th>
-            <th>Stonk</th>
+            <th>Stock</th>
             <th>Estado</th>
             <th>Opciones</th>
           </tr>
@@ -222,8 +222,8 @@
             <th>{{ item.rentalPriceMovie }}</th>
             <th>{{ item.purchasePriceMovie }}</th>
             <th>{{ item.stockMovie }}</th>
-            <th v-if="item.availabilityMovie == 0">Disponible</th>
-            <th v-if="item.availabilityMovie == 1">No Disponible</th>
+            <th v-if="item.availabilityMovie == 1">Disponible</th>
+            <th v-if="item.availabilityMovie == 0">No Disponible</th>
             <th style="white-space: nowrap">
               <a class="btnAdm0" v-on:click="eliminar(item.id)">
                 <i class="bx bx-trash-alt"></i>
@@ -323,7 +323,7 @@ export default {
 
     getPeliculasApi() {
       axios
-        .get("http://127.0.0.1:8000/api/movies")
+        .get("http://127.0.0.1:8000/api/movies-all")
         .then((respuesta) => {
           console.log(respuesta);
           this.listaPeliculas = respuesta.data;
@@ -339,7 +339,7 @@ export default {
 
     setPeliculasApi() {
       axios
-        .post("http://127.0.0.1:8000/api/movies", {
+        .post("http://127.0.0.1:8000/api/movies-all", {
           titleMovie: this.nombre,
           descriptionMovie: this.descripcion,
           urlImageMovie: this.imgURL,

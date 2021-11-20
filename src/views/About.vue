@@ -8,17 +8,18 @@
     <section class="movies" id="movies">
       <h2 class="heading">Lo mas Reciente</h2>
     </section>
-      <!-- llamamos el componente que abrira el detalle de las peliculas-->
+    <!-- llamamos el componente que abrira el detalle de las peliculas-->
     <DetailMovieComponent :movie="detailMovie" />
     <!-- en el contenedor se mostrara las peliculas que se rellenara automaticamente de la api-->
-    <div class="container d-block mt-3" >
+    <div class="container d-block mt-3">
       <div
-        class="card d-inline-flex ms-4 mb-4 " id="dv"
+        class="card d-inline-flex ms-4 mb-4"
+        id="dv"
         style="width: 18rem; color: black"
         v-for="(item, index) in listMovies"
         :key="index"
       >
-      <!--insertamos la imagen que estara dentro de el contenedor y la pasamos por un boton-->
+        <!--insertamos la imagen que estara dentro de el contenedor y la pasamos por un boton-->
         <button id="bot" type="submit" v-on:click="setSpecificMovie(item)">
           <img
             class="card-img-top"
@@ -32,16 +33,17 @@
           <a
             href="#"
             class="corazon"
-            v-if="item.likeUserMovie && user!=null"
-            v-on:click.prevent="quitarLike(item.id)" 
-          > 
-            <i class="bx bxs-heart text-danger"></i> <!-- la imagen de corazon se inserta de una font-->
+            v-if="item.likeUserMovie && user != null"
+            v-on:click.prevent="quitarLike(item.id)"
+          >
+            <i class="bx bxs-heart text-danger"></i>
+            <!-- la imagen de corazon se inserta de una font-->
           </a>
           <!--este corazon se mostrara cuando el usuario no le haya dado like a la pelicula-->
           <a
             href="#"
             class="corazon"
-            v-if="!item.likeUserMovie && user!=null"
+            v-if="!item.likeUserMovie && user != null"
             v-on:click.prevent="darLike(item.id)"
           >
             <i class="bx bx-heart bx-flashing text-danger"></i>
@@ -66,7 +68,7 @@ export default {
   },
   data() {
     return {
-      user:{id:1,idRolUser:2},
+      user: { id: 1, idRolUser: 2 },
       listMovies: [],
       detailMovie: {
         data: null,
@@ -147,7 +149,7 @@ export default {
 .card {
   width: 100%;
 }
-#dv:hover{
+#dv:hover {
   transform: translateY(-10px);
   transition: 0.3s all linear;
 }

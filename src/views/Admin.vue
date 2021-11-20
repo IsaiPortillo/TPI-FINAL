@@ -1,7 +1,7 @@
 <template>
   <div class="admin">
     <div class="row">
-      <div class="col-12 col-lg-4 ">
+      <div class="col-12 col-lg-4">
         <ul>
           <li v-for="(item, index) in routes" :key="index">
             <router-link :to="item.link" id="label" v-if="!item.secret">{{
@@ -37,5 +37,4 @@ export default {
   margin-top: 10vh;
   padding: 1rem;
 }
-
 </style>

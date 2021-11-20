@@ -1,14 +1,12 @@
 <template>
-  <div class="Admin" >
-    <input type="checkbox" id="nav-toggle">
+  <div class="Admin">
+    <input type="checkbox" id="nav-toggle" />
     <div class="container-fluid sidebar">
-      
       <div class="sidebar-menu">
         <div class="sidebar-brand">
           <h2><span></span> <span>Admin</span></h2>
         </div>
         <ul class="navbar-nav">
-
           <li>
             <router-link to="/peliculas">
               <span class="las la-clipboard-list"></span>
@@ -17,14 +15,14 @@
           </li>
           <li>
             <router-link to="/usuarios">
-                <span class="las la-users"></span>
-                <span>Usuarios</span>
+              <span class="las la-users"></span>
+              <span>Usuarios</span>
             </router-link>
           </li>
           <li>
             <router-link to="/compras">
-                <span class="las la-clipboard-list"></span>
-                <span>Compras</span>
+              <span class="las la-clipboard-list"></span>
+              <span>Compras</span>
             </router-link>
           </li>
           <li>
@@ -38,20 +36,16 @@
     </div>
     <div class="ma-content">
       <div class="heada">
-          <h3>
-            <span class="las"></span>
-          </h3>
+        <h3>
+          <span class="las"></span>
+        </h3>
       </div>
       <router-view />
     </div>
-
   </div>
 </template>
 
 <style lang="css">
-
-
-
 .btnAdm .bx {
   background: var(--bg-color);
   padding: 10px;
@@ -66,52 +60,50 @@
   transition: 0.2s all linear;
 }
 
-.paginate_button
-{
+.paginate_button {
   cursor: pointer;
-  color:white;
+  color: white;
   border: 1px solid transparent;
 }
 
-.paginate_button a{
-  
+.paginate_button a {
   border-color: transparent !important;
   background: #48307a !important;
   color: white;
 }
 
-
-.pagination li:hover, .paginate_button a:hover{  
+.pagination li:hover,
+.paginate_button a:hover {
   border-color: transparent;
   background: rgb(109, 31, 109) !important;
   color: white !important;
-  
+
   border-radius: 2px;
 }
 
-#tabla_wrapper{
+#tabla_wrapper {
   display: inline;
   text-align: left;
 }
-.las{
+.las {
   text-decoration: none;
 }
 
-#tabla_wrapper select, #tabla_wrapper input{
+#tabla_wrapper select,
+#tabla_wrapper input {
   background: white;
   color: black;
 }
 
-#tabla_wrapper label, .dataTables_info {
+#tabla_wrapper label,
+.dataTables_info {
   color: white !important;
 }
 
-
-.reimg{
-  width: 100px; 
+.reimg {
+  width: 100px;
   height: 100px;
 }
-
 
 * {
   padding: 0;
@@ -121,7 +113,7 @@
   text-decoration: none;
 }
 
-label{
+label {
   color: black;
 }
 
@@ -155,12 +147,11 @@ label{
   position: relative;
   margin-bottom: 2rem;
   left: 10%;
-
 }
-.ma-content{
+.ma-content {
   position: relative;
   padding-left: 5%;
-  padding-right:5%;
+  padding-right: 5%;
   font-size: 15px;
   margin-top: 2%;
 }
@@ -175,7 +166,6 @@ label{
 .sidebar-menu a span:first-child {
   font-size: 1.5rem;
   padding-right: 1rem;
-
 }
 
 .heada {
@@ -201,7 +191,5 @@ label{
 .ma-content {
   transition: margin-left 300ms;
   margin-left: 15%;
-
 }
-
 </style>

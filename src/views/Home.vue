@@ -82,9 +82,9 @@ export default {
       listTitleMovies: [],
       //almacena toda la informacion de las peliculas
       listaPeliculas: [],
-      //almacena la url del trailer en espesifico 
+      //almacena la url del trailer en espesifico
       urltrailer: "",
-      
+
       // arreglo de los datos necesarios apra el detail
       detailMovie: {
         //almacena la informacion de los datos

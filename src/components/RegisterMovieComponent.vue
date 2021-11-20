@@ -1,15 +1,11 @@
 <template>
-    <div class="register-movie">
-        Register Movie asdasdadasd
-    </div>
+  <div class="register-movie">Register Movie asdasdadasd</div>
 </template>
 <script>
-export default {
-    
-}
+export default {};
 </script>
 <style lang="css">
-    .register-movie{
-margin-top: 10vh;
-    }
+.register-movie {
+  margin-top: 10vh;
+}
 </style>

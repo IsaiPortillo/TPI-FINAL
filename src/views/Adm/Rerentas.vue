@@ -14,7 +14,6 @@
             <th>Total</th>
             <th>Estado</th>
             <th>Cambiar</th>
-
           </tr>
         </thead>
         <tbody>
@@ -27,26 +26,16 @@
             <th>{{ item.subtotalRent }}</th>
             <th>{{ item.arrearRent }}</th>
             <th>{{ item.totalRent }}</th>
-            <th v-if="item.statusRent == 'done'">
-              Recibida
-            </th>
+            <th v-if="item.statusRent == 'done'">Recibida</th>
+            <th v-if="item.statusRent != 'done'">Pendiente</th>
             <th v-if="item.statusRent != 'done'">
-              Pendiente
-            </th>
-            <th v-if="item.statusRent != 'done'">
-              <a
-                class="btnAdm12"
-                v-on:click="entrega(item.id)"
-              >
-               <i class='bx bx-check-circle'></i> 
+              <a class="btnAdm12" v-on:click="entrega(item.id)">
+                <i class="bx bx-check-circle"></i>
               </a>
             </th>
             <th v-if="item.statusRent == 'done'">
-              <a
-                class="btnAdm13"
-               v-on:click="eliminar(item.id)"
-              >
-                 <i class='bx bx-checkbox-minus'></i>
+              <a class="btnAdm13" v-on:click="eliminar(item.id)">
+                <i class="bx bx-checkbox-minus"></i>
               </a>
             </th>
           </tr>
@@ -110,19 +99,22 @@ export default {
     },
 
     entrega(id) {
-      axios.put("http://127.0.0.1:8000/api/rents/done/" + id).then((response) => {
-        console.log(response);
-        this.getRentasApi();
-      });
+      axios
+        .put("http://127.0.0.1:8000/api/rents/done/" + id)
+        .then((response) => {
+          console.log(response);
+          this.getRentasApi();
+        });
     },
 
     eliminar(id) {
-      axios.put("http://127.0.0.1:8000/api/rents/cancel/" + id).then((response) => {
-        console.log(response);
-        this.getRentasApi();
-      });
+      axios
+        .put("http://127.0.0.1:8000/api/rents/cancel/" + id)
+        .then((response) => {
+          console.log(response);
+          this.getRentasApi();
+        });
     },
-
   },
   //METODO INICIADO
   mounted() {
@@ -138,7 +130,7 @@ export default {
   font-size: 1.8rem;
   border-radius: 50%;
   border: 4px solid rgba(2, 3, 7, 0.4);
-  color:#19b540;
+  color: #19b540;
 }
 .btnAdm12 .bx:hover {
   background: #068f23;

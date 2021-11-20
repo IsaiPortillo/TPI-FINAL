@@ -10,7 +10,6 @@
             <th>Fecha de Compra</th>
             <th>Precio</th>
             <th>Opcion</th>
-
           </tr>
         </thead>
         <tbody>
@@ -31,7 +30,6 @@
                 No Comprada
               </button>
             </th>
-
           </tr>
         </tbody>
       </table>
@@ -93,19 +91,22 @@ export default {
     },
 
     hecho(id) {
-      axios.put("http://127.0.0.1:8000/api/sales/done/" + id).then((response) => {
-        console.log(response);
-        this.getComprasApi();
-      });
+      axios
+        .put("http://127.0.0.1:8000/api/sales/done/" + id)
+        .then((response) => {
+          console.log(response);
+          this.getComprasApi();
+        });
     },
 
     cancelado(id) {
-      axios.put("http://127.0.0.1:8000/api/sales/cancel/" + id).then((response) => {
-        console.log(response);
-        this.getComprasApi();
-      });
+      axios
+        .put("http://127.0.0.1:8000/api/sales/cancel/" + id)
+        .then((response) => {
+          console.log(response);
+          this.getComprasApi();
+        });
     },
-
   },
   //METODO INICIADO
   mounted() {

@@ -1,9 +1,9 @@
 <template>
-<!-- el v-if compara si esta activado para mostrarse o no -->
+  <!-- el v-if compara si esta activado para mostrarse o no -->
   <div class="detail" v-if="movie.display">
-<!-- llamamos el componente que abre la vista de la compra-->
+    <!-- llamamos el componente que abre la vista de la compra-->
     <CompraMovie :movie="CompraMovie" />
-<!-- llamamos el componente que abre la vista de la renta-->
+    <!-- llamamos el componente que abre la vista de la renta-->
     <RentaMovie :movie="RentaMovie" />
 
     <!--Ventana Modal-->
@@ -32,16 +32,27 @@
     </div>
 
     <!-- BOTONES -->
-    
-<!-- Boton para activar la vista la renta de la pelicula, y se envia los datos de la pelicula-->
 
-      <a href="#" class="comp-1"  type="submit" v-on:click="setcompraMovie(movie.data)">
-        <i class='bx bx-down-arrow-circle' style='color:#3d627f'  ></i> 
-      </a>
+    <!-- Boton para activar la vista la renta de la pelicula, y se envia los datos de la pelicula-->
 
-      <a href="#" class="comp-2" id="comp-2" type="submit" v-on:click="setrentaMovie(movie.data)">
-        <i class='bx bx-money'  style='color:#1b6d3f'  ></i>     
-      </a>
+    <a
+      href="#"
+      class="comp-1"
+      type="submit"
+      v-on:click="setcompraMovie(movie.data)"
+    >
+      <i class="bx bx-down-arrow-circle" style="color: #3d627f"></i>
+    </a>
+
+    <a
+      href="#"
+      class="comp-2"
+      id="comp-2"
+      type="submit"
+      v-on:click="setrentaMovie(movie.data)"
+    >
+      <i class="bx bx-money" style="color: #1b6d3f"></i>
+    </a>
 
     <a href="#" class="comp-3">
       <label for="btn-modal">
@@ -78,22 +89,22 @@ export default {
         data: null,
         display: false,
       },
-    }
+    };
   },
   props: ["movie"],
   //Componenetes con los que se trabaja
-  components:{
+  components: {
     //Componenete de Compra
-      CompraMovie,
+    CompraMovie,
     //Componenete de Renta
-      RentaMovie,
+    RentaMovie,
   },
   methods: {
     setcompraMovie(cmovie) {
       this.CompraMovie.data = cmovie;
       this.CompraMovie.display = true;
     },
-      setrentaMovie(rmovie) {
+    setrentaMovie(rmovie) {
       this.RentaMovie.data = rmovie;
       this.RentaMovie.display = true;
     },
@@ -125,7 +136,7 @@ export default {
   bottom: 50%;
   margin-bottom: 300px;
 }
-#description{
+#description {
   width: 50%;
   position: relative;
   left: 25%;
