@@ -108,6 +108,7 @@ export default {
             //entra aca si todo esta correcto
             this.error = false;
             this.succ = true;
+            localStorage.setItem("id", response.data.id)
             this.$cookies.set("idRolUser", response.data.idRolUser);
             this.$cookies.set("id", response.data.id);
             this.$cookies.set(

@@ -12,38 +12,34 @@
         <button type="button" id="search">Buscar!</button>
       </div>
     </div>
-    <form>
-      <div class="container-fluid" id="con">
-        <div class="row">
-          <div class="col-6 col-md-4 col-xl-3">
-            <div class="field">
-              <select name="type" class="tipo" id="" required>
-                <option></option>
-                <option value="Albabéticamente" selected>
-                  Alfabéticamente
-                </option>
-                <option value="Popularidad">Popularidad</option>
-                <option value="Disponibilidad">Disponibilidad</option>
-              </select>
-            </div>
+    <div class="container-fluid" id="con">
+      <div class="row">
+        <div class="col-6 col-md-4 col-xl-3">
+          <div class="field">
+            <select name="type" class="tipo" id="" required v-model="order">
+              <option value="" disabled></option>
+              <option value="lyrics" selected>Alfabéticamente</option>
+              <option value="likes">Popularidad</option>
+            </select>
           </div>
-          <div class="col-6 col-md-4 col-xl-3" id="ordenA">
-            <div class="field">
-              <select name="orderAD" id="ordenAD" required>
-                <option></option>
-                <option value="Ascendente" selected>Ascendente</option>
-                <option value="Descendente">Descendente</option>
-              </select>
-            </div>
+        </div>
+        <div class="col-6 col-md-4 col-xl-3" id="ordenA">
+          <div class="field">
+            <select name="orderAD" id="ordenAD" required v-model="lyrics">
+              <option value="asc" selected>Ascendente</option>
+              <option value="des">Descendente</option>
+            </select>
           </div>
-          <div class="col-12 col-md-2 col-xl-2">
-            <div class="field">
-              <input class="btn-account" type="submit" value="Filtrar" />
-            </div>
+        </div>
+        <div class="col-12 col-md-2 col-xl-2">
+          <div class="field">
+            <button class="btn-account" v-on:click="filterOrder">
+              Filtrar
+            </button>
           </div>
         </div>
       </div>
-    </form>
+    </div>
     <!--Mensaje que se mostrara con un borde en el bottom-->
     <section class="movies" id="movies"></section>
 
@@ -70,10 +66,9 @@
         <!-- declaramos el footer de el contenedor y ahi le insertamos los likes que introducen los usuarios -->
         <div class="card-foote" id="ft">
           <small class="text-muted">Likes totales: {{ item.likesMovie }}</small>
-
           <a
             href="#"
-            class="corazon bg-danger"
+            class="corazon"
             v-if="item.likeUserMovie && user != null"
             v-on:click="quitarLike(item.id)"
           >
@@ -91,12 +86,10 @@
           </a>
         </div>
         <!--aqui se le mostrara el titulo de la pelicula-->
-        <div id="te">
           <div class="card-body">
             <h3 class="card-text">
               {{ item.titleMovie }}
             </h3>
-          </div>
         </div>
       </div>
     </div>
@@ -111,6 +104,8 @@ export default {
   },
   data() {
     return {
+      lyrics: "asc",
+      order: "lyrics",
       user: this.$cookies.get("id"),
       listMovies: [],
       detailMovie: {
@@ -119,30 +114,85 @@ export default {
       },
     };
   },
+  watch: {
+    order: function () {
+      this.filterOrder();
+    },
+    lyrics: function () {
+      this.filterOrder();
+    },
+  },
   methods: {
+    filterOrder() {
+      if(this.order == "likes"){
+        if(this.lyrics == "asc"){
+          this.listMovies.sort(function (a,b){
+            return (a.likesMovie - b.likesMovie)
+          })
+        } else{
+           this.listMovies.sort(function (a,b){
+            return (b.likesMovie - a.likesMovie)
+          })
+        }
+      } else {
+         if(this.lyrics == "des"){
+          this.listMovies.sort(function (a,b){
+            if(a.titleMovie<b.titleMovie){
+              return -1;
+            } 
+            if(a.titleMovie>b.titleMovie){
+              return 1;
+            } 
+            return 0;
+          })
+        } else{
+           this.listMovies.sort(function (a,b){
+            if(a.titleMovie>b.titleMovie){
+              return -1;
+            } 
+            if(a.titleMovie<b.titleMovie){
+              return 1;
+            } 
+            return 0;
+          })
+        }
+      }
+      /*console.log(
+        "http://localhost:8000/api/movies/" + this.order + "/" + this.lyrics
+      );*/
+    },
     setSpecificMovie(movie) {
       this.detailMovie.data = movie;
       this.detailMovie.display = true;
     },
     async getMoviesFromApi() {
-      axios
-        .get("http://127.0.0.1:8000/api/movies/")
+      if (this.$cookies.get("id")) {
+        axios
+          .get("http://127.0.0.1:8000/api/movies/" + this.$cookies.get("id"))
+          .then((response) => {
+            if (response.status == 200) {
+              this.listMovies = response.data;
+            }
+          })
+          .catch((err) => console.log(err));
+      } else{
+        axios
+        .get("http://127.0.0.1:8000/api/movies")
         .then((response) => {
           if (response.status == 200) {
             this.listMovies = response.data;
           }
         })
         .catch((err) => console.log(err));
+      }
     },
     async darLike(idMovie) {
-      console.log(this.$cookies.get("id"));
       axios
         .post("http://127.0.0.1:8000/api/likes", {
           idUserLike: this.$cookies.get("id"),
           idMovieLike: idMovie,
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.getMoviesFromApi();
         });
     },
@@ -154,8 +204,7 @@ export default {
             idMovieLike: idMovie,
           },
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.getMoviesFromApi();
         });
     },
@@ -174,10 +223,11 @@ export default {
   overflow-y: visible;
 }
 #te {
-  margin-top: 30px;
+  margin-top: 35px;
   width: 200px;
   height: 150px;
   position: relative;
+  z-index: -100;
 }
 .text {
   margin-top: 10%;
@@ -188,12 +238,13 @@ export default {
 }
 #ft {
   position: absolute;
-  bottom: 40%;
+  top: 60%;
 }
+
 .card-body {
   position: absolute;
-  top: 40%;
-  right: 5%;
+  top: 60%;
+  right: 15%;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -252,7 +303,7 @@ export default {
   max-height: 165px;
   -o-object-fit: cover;
   object-fit: cover;
-}
+} 
 .corazon {
   float: right;
   font-size: 20px;

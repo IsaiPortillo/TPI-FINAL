@@ -89,7 +89,6 @@ export default {
     },
     verifyRolUser() {
       /* let idRolUser = this.$cookies.get("idRolUser")*/
-      console.log(this.$cookies.get("idRolUser"));
       if (this.$cookies.get("idRolUser") == 1) {
         this.routes.forEach((element) => {
           element.secret = false;
@@ -104,10 +103,34 @@ export default {
       }
     },
     logOut() {
+      localStorage.removeItem("id")
       this.$cookies.remove("idRolUser");
       this.$cookies.remove("id");
       this.$cookies.remove("nameUser");
+       this.routes= [
+        {
+          link: "/",
+          value: "Home",
+          secret: false,
+        },
+        {
+          link: "/Movie",
+          value: "Catalogo",
+          secret: false,
+        },
+        {
+          link: "/History",
+          value: "Historial",
+          secret: false,
+        },
+        {
+          link: "/admin",
+          value: "Admin",
+          secret: true,
+        },
+      ],
       this.$router.push("/login");
+      
     },
     log() {
       this.$router.push("/login");
