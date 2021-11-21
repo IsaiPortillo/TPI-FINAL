@@ -25,6 +25,7 @@
                         class="form-control"
                         id="floatingInput"
                         placeholder="Nombre"
+                        autocomplete="off"
                       />
                       <label for="floatingInput">Nombre</label>
                     </div>
@@ -38,6 +39,7 @@
                         class="form-control"
                         id="floatingInput"
                         placeholder="Apellido"
+                        autocomplete="off"
                       />
                       <label for="floatingInput">Apellido</label>
                     </div>
@@ -53,13 +55,14 @@
                         name="telefono"
                         class="form-control"
                         id="floatingInput"
-                        placeholder="Telefono de usuario"
+                        placeholder="Telefono de usuario  [ejm: +503 4444-5555]"
+                        autocomplete="off"
                       />
-                      <label for="floatingInput">Telefono de Usuario</label>
+                      <label for="floatingInput">Telefono de Usuario [ejm: +503 4444-5555]</label>
                     </div>
                   </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-floating">
+                  <div class="col-xs-6 col-sm-6 col-md-6" >
+                    <div class="form-floating" v-if="this.id == ''">
                       <input
                         v-model="contraseña"
                         type="text"
@@ -67,6 +70,7 @@
                         class="form-control"
                         id="floatingInput"
                         placeholder="Contraseña de Usuario"
+                        autocomplete="off"
                       />
                       <label for="floatingInput">Contraseña de Usuario</label>
                     </div>
@@ -83,6 +87,7 @@
                         class="form-control"
                         id="floatingInput"
                         placeholder="Nombre de Usuario"
+                        autocomplete="off"
                       />
                       <label for="floatingInput">Nombre de Usuario</label>
                     </div>
@@ -104,7 +109,7 @@
                   </div>
                 </div>
                 <div class="alert alert-secondary" role="alert">
-                  <label>{{ resultado }}</label>
+                  <label>{{ result }}</label>
                 </div>
 
                 <div class="row">
@@ -119,7 +124,7 @@
                     </a>
                     <a
                       v-if="this.id == ''"
-                      v-on:click="setPeliculasApi()"
+                      v-on:click="setUsuarioApi()"
                       type="submit"
                       s
                       class="btnAdm1"
@@ -128,7 +133,7 @@
                     </a>
                     <a
                       v-if="this.id != ''"
-                      v-on:click="putPeliculasApi()"
+                      v-on:click="putUsuarioApi()"
                       type="submit"
                       s
                       class="btnAdm1"
@@ -202,13 +207,58 @@ import axios from "axios";
 import $ from "jquery";
 import datatable from "datatables.net-bs5";
 
+
+//Padron modulo
+const Usuario = (()=>{
+
+  function telephoneCheck(telef) {
+    var struc = new RegExp(/^\+?1?\s*?\(?\d{3}(?:\)|[-|\s])?\s*?\d{4}[-|\s]?\d{4}$/);
+    
+    return struc.test(telef);
+  }
+
+  //funcion
+  const usuario = function(result, usu){
+      // verifica que los campos nos esten vacios
+      if (usu[0].nombre == "" || usu[0].apellido == "" || usu[0].telefono == "" ||
+      usu[0].contra == "" || usu.usuario == "" || usu.rol == "") {
+        
+        // asigna respuesta
+        result = "Verifique que los campos no esten vacios";
+      }
+
+      else if(!telephoneCheck(usu[0].telefono)){
+        // asigna respuesta
+        result = "Verifique que el telefono sea valido";
+      }
+      // de lo contrario
+      else{
+        // asigna respuesta
+        result = "Guardo con Exito"
+      }
+    // retorna el result
+    return result;
+    
+  }
+  // hace publica a la funcion
+  return{usuario}
+
+})();
+
 export default {
   //DATOS A UTILIZAR
   data() {
     return {
+      // arreglo para la lista de usuario
       listaUsuarios: [],
 
-      resultado: "Recuerde llenar todos los campos",
+      // arreglo para la validacion
+      Vusu: [],
+
+      // variable de informacion
+      result: "Recuerde llenar todos los campos",
+
+      // variables para almacenamiento de datos
       id: "",
       nombre: "",
       apellido: "",
@@ -260,20 +310,40 @@ export default {
     },
 
     setUsuarioApi() {
-      axios
-        .post("http://127.0.0.1:8000/api/users", {
-          firstNameUser: this.nombre,
-          lastNameUser: this.apellido,
-          phoneUser: this.telefono,
-          loginNameUser: this.usuario,
-          loginPasswordUser: this.contraseña,
-          idRolUser: this.rol,
-        })
-        .then(() => {
-          this.limpiar();
-          this.getUsuariosApi();
-          return (this.resultado = "Guardo con Exito");
-        });
+      // se almacena la informacion al arreglo
+      this.Vusu = [{
+                nombre:  this.nombre,
+                apellido:  this.apellido,
+                telefono:  this.telefono,
+                contra:  this.contraseña,
+                usuario:  this.usuario,
+                rol:  this.rol,
+              }]
+      //se alamacena lo que retorne de la funcion
+      //a la funcion se le envia la variable de informacion y el arreglo Vusu
+      this.result = Usuario.usuario(this.result, this.Vusu);
+
+      // se verifica el resutado obtenido
+      if (this.result == "Guardo con Exito") {
+
+        axios
+          // se indica la API a utilizar
+          .post("http://127.0.0.1:8000/api/users", {
+            // se asigna valores a los datos de la api
+            firstNameUser: this.nombre,
+            lastNameUser: this.apellido,
+            phoneUser: this.telefono,
+            loginNameUser: this.usuario,
+            loginPasswordUser: this.contraseña,
+            idRolUser: this.rol,
+          })
+          .then(() => {
+            //llama a la funcion de limpiar los campos
+            this.limpiar();
+            //recarga el metodo
+            this.getUsuariosApi();
+          });
+      }  
     },
 
     editar(id) {
@@ -306,12 +376,12 @@ export default {
         .then(() => {
           this.getUsuariosApi();
 
-          return (this.resultado = "Editado con Exito");
+          return (this.result = "Editado con Exito");
         })
         .catch(function (error) {
           console.log(error);
           if (error) {
-            return (this.resultado = "REVISE QUE NO HAYA CAMPOS VACIOS");
+            return (this.result = "REVISE QUE NO HAYA CAMPOS VACIOS");
           }
         });
     },
@@ -325,7 +395,7 @@ export default {
     },
 
     limpiar() {
-      (this.resultado = "Recuerde llenar todos los campos"), (this.id = "");
+      (this.result = "Recuerde llenar todos los campos"), (this.id = "");
       this.nombre = "";
       this.apellido = "";
       this.telefono = "";
@@ -337,6 +407,7 @@ export default {
   //METODO INICIADO
   mounted() {
     this.getUsuariosApi();
+
   },
 };
 </script>
