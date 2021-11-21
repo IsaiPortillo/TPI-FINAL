@@ -163,7 +163,7 @@ import datatable from "datatables.net-bs5";
 const Contra = (()=>{
 
   //funcion
-  const contra = function(result, contra){
+  const contra = function(result, user, contra){
 
     // verifica que los campos nos esten vacios
     if (contra[0].usuario == "" || contra[0].contra == "" || contra[0].ncontra == "") {
@@ -171,7 +171,14 @@ const Contra = (()=>{
       // asigna respuesta
       result = "Verifique que los campos no esten vacios";
     }
-
+    else if (contra[0].usuario != user) {
+      
+      // asigna respuesta
+      result = "Nombre de usuario incorrecto";
+    }
+    else{
+      result = "200"
+    }
     // retorna el result
     return result;
     
@@ -186,6 +193,14 @@ export default {
   //DATOS A UTILIZAR
   data() {
     return {
+      usuario: "",
+      contra: "",
+      ncontra: "",
+      user: this.$cookies.get("username"),
+
+      // variable de informacion
+      result: "Recuerde llenar todos los campos",
+
       visible: false,
       show: false,
       listaRenta: [],
@@ -291,7 +306,7 @@ export default {
               }]
       //se alamacena lo que retorne de la funcion
       //a la funcion se le envia la variable de informacion y el arreglo Vusu
-      this.result = Contra.contra(this.result, this.Vcontr);
+      this.result = Contra.contra(this.result, this.user, this.Vcontr);
 
       // se verifica el resutado obtenido
       if (this.result == "200") {

@@ -34,26 +34,27 @@
     <!-- BOTONES -->
 
     <!-- Boton para activar la vista la renta de la pelicula, y se envia los datos de la pelicula-->
+    <div v-if="user != null">
+      <a
+        href="#"
+        class="comp-1"
+        type="submit"
+        v-on:click="setcompraMovie(movie.data)"
+      >
+        <i class="bx bx-down-arrow-circle" style="color: #3d627f"></i>
+      </a>
 
-    <a
-      href="#"
-      class="comp-1"
-      type="submit"
-      v-on:click="setcompraMovie(movie.data)"
-    >
-      <i class="bx bx-down-arrow-circle" style="color: #3d627f"></i>
-    </a>
-
-    <a
-      href="#"
-      class="comp-2"
-      id="comp-2"
-      type="submit"
-      v-on:click="setrentaMovie(movie.data)"
-    >
-      <i class="bx bx-money" style="color: #1b6d3f"></i>
-    </a>
-
+      <a 
+        href="#"
+        class="comp-2"
+        id="comp-2"
+        type="submit"
+        v-on:click="setrentaMovie(movie.data)"
+      >
+        <i class="bx bx-money" style="color: #1b6d3f"></i>
+      </a>
+    </div>
+    
     <a href="#" class="comp-3">
       <label for="btn-modal">
         <i class="bx bx-play" style="color: #2e79e6"></i>
@@ -79,6 +80,8 @@ import RentaMovie from "@/components/RentaMovie.vue";
 export default {
   data() {
     return {
+      user: this.$cookies.get("id"),
+
       //arreglo para el componente compra
       CompraMovie: {
         data: null,

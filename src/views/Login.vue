@@ -111,9 +111,10 @@ export default {
             localStorage.setItem("id", response.data.id)
             this.$cookies.set("idRolUser", response.data.idRolUser);
             this.$cookies.set("id", response.data.id);
+            this.$cookies.set("username", response.data.loginNameUser);
             this.$cookies.set(
-              "nameUser",
-              response.data.firstNameUser + response.data.lastNameUser
+              "name",
+              response.data.firstNameUser +" "+ response.data.lastNameUser
             );
             this.irHome();
             this.success_msg = "Logueado";

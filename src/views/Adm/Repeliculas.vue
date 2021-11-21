@@ -393,6 +393,8 @@ export default {
 
       // se verifica el resutado obtenido
       if (this.result == "Guardo con Exito") {
+
+        console.log(this.titulo);
         
         axios
           // se indica la API a utilizar
