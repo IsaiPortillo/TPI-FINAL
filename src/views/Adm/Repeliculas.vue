@@ -23,14 +23,15 @@
                     <div class="col-xs-6 col-sm-6 col-md-6">
                       <div class="form-floating">
                         <input
-                          v-model="nombre"
+                          v-model="titulo"
                           type="text"
-                          name="nombre"
+                          name="titulo"
                           class="form-control"
                           id="floatingInput"
-                          placeholder="Nombre de la pelicula"
+                          placeholder="titulo de la pelicula"
+                          autocomplete="off"
                         />
-                        <label for="floatingInput">Nombre de la pelicula</label>
+                        <label for="floatingInput">titulo de la pelicula</label>
                       </div>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
@@ -42,6 +43,7 @@
                           class="form-control"
                           id="floatingInput"
                           placeholder="URL de la imagen de la pelicula"
+                          autocomplete="off"
                         />
                         <label for="floatingInput"
                           >URL de la imagen de la pelicula</label
@@ -58,6 +60,7 @@
                           class="form-control"
                           id="floatingInput"
                           placeholder="Descripcion de la pelicula"
+                          autocomplete="off"
                         ></textarea>
                         <label for="floatingInput"
                           >Descripcion de la pelicula</label
@@ -73,6 +76,7 @@
                           class="form-control"
                           id="floatingInput"
                           placeholder="URL de la imagen de la pelicula"
+                          autocomplete="off"
                         />
                         <label for="floatingInput"
                           >URL del trailer de la pelicula</label
@@ -90,6 +94,7 @@
                           class="form-control"
                           id="floatingInput"
                           placeholder="Precio de renta de la pelicula"
+                          autocomplete="off"
                         />
                         <label for="floatingInput"
                           >Precio de renta de la pelicula</label
@@ -105,6 +110,7 @@
                           class="form-control"
                           id="floatingInput"
                           placeholder="Precio de compra de la pelicula"
+                          autocomplete="off"
                         />
                         <label for="floatingInput"
                           >Precio de compra de la pelicula</label
@@ -116,15 +122,16 @@
                     <div class="col-xs-6 col-sm-6 col-md-6">
                       <div class="form-floating">
                         <input
-                          v-model.number="stonk"
+                          v-model.number="stock"
                           type="number"
-                          name="stonk"
+                          name="stock"
                           class="form-control"
                           id="floatingInput"
-                          placeholder="Cantidad de la pelicula en stonk"
+                          placeholder="Cantidad de la pelicula en stock"
+                          autocomplete="off"
                         />
                         <label for="floatingInput"
-                          >Cantidad de la pelicula en stonk</label
+                          >Cantidad de la pelicula en stock</label
                         >
                       </div>
                     </div>
@@ -145,7 +152,7 @@
                     </div>
                   </div>
                   <div class="alert alert-secondary" role="alert">
-                    <label>{{ resultado }}</label>
+                    <label>{{ result }}</label>
                   </div>
                   <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -253,6 +260,33 @@ import axios from "axios";
 import $ from "jquery";
 import datatable from "datatables.net-bs5";
 
+
+//Padron modulo
+const Compras = (()=>{
+
+  //funcion
+  const compras = function(result, peli){
+
+      // verifica que los campos nos esten vacios
+      if (peli[0].titulo == "" || peli[0].descrip == "" || peli[0].img == "" ||
+      peli[0].tra == "" || peli.stock == "" || peli.prerent == "" || peli.precomp == "") {
+        // asigna respuesta
+        result = "Verifique que los campos no esten vacios";
+      }
+      // de lo contrario
+      else{
+        // asigna respuesta
+        result = "Guardo con Exito"
+      }
+    // retorna el resultado
+    return result;
+    
+  }
+  // hace publica a la funcion
+  return{compras}
+
+})();
+
 export default {
   //se indican los componentes a utilizar
   components: {
@@ -263,6 +297,10 @@ export default {
     return {
       // arreglo para la lista de peliculas
       listaPeliculas: [],
+
+      // arreglo para la validacion
+      Vpeli: [],
+
       // arreglo de los datos necesarios apra el detail
       detailMovie: {
         //almacena la informacion de los datos
@@ -272,15 +310,15 @@ export default {
       },
 
       // variable de informacion
-      resultado: "Recuerde llenar todos los campos",
+      result: "Recuerde llenar todos los campos",
 
       // variables para almacenamiento de datos
       id: "",
-      nombre: "",
+      titulo: "",
       descripcion: "",
       imgURL: "",
       traURL: "",
-      stonk: "",
+      stock: "",
       preciorenta: "",
       preciocompra: "",
       disponibilidad: "",
@@ -338,40 +376,65 @@ export default {
     },
 
     setPeliculasApi() {
-      axios
-        .post("http://127.0.0.1:8000/api/movies-all", {
-          titleMovie: this.nombre,
-          descriptionMovie: this.descripcion,
-          urlImageMovie: this.imgURL,
-          urlTrailerMovie: this.traURL,
-          stockMovie: this.stonk,
-          rentalPriceMovie: this.preciorenta,
-          purchasePriceMovie: this.preciocompra,
-          availabilityMovie: this.disponibilidad,
-        })
-        .then((respuesta) => {
-          console.log(respuesta);
-          this.limpiar();
-          this.getPeliculasApi();
-          return (this.resultado = "Guardo con Exito");
-        })
-        .catch(function (error) {
-          console.log(error);
-          if (error) {
-            return (this.resultado = "REVISE QUE NO HAYA CAMPOS VACIOS");
-          }
-        });
+      // se almacena la informacion al arreglo
+      this.Vpeli = [{
+                titulo:  this.titulo,
+                descrip:  this.descripcion,
+                img:  this.imgURL,
+                tra:  this.traURL,
+                stock:  this.stock,
+                prerent:  this.preciorenta,
+                precomp:  this.preciocompra,
+                disp:  this.disponibilidad,
+              }]
+      //se alamacena lo que retorne de la funcion
+      //a la funcion se le envia la variable de informacion y el arreglo Vpeli
+      this.result = Compras.compras(this.result, this.Vpeli);
+
+      // se verifica el resutado obtenido
+      if (this.result == "Guardo con Exito") {
+        
+        axios
+          // se indica la API a utilizar
+          .post("http://127.0.0.1:8000/api/movies", {
+            // se asigna valores a los datos de la api
+            titleMovie: this.titulo,
+            descriptionMovie: this.descripcion,
+            urlImageMovie: this.imgURL,
+            urlTrailerMovie: this.traURL,
+            stockMovie: this.stock,
+            rentalPriceMovie: this.preciorenta,
+            purchasePriceMovie: this.preciocompra,
+            availabilityMovie: this.disponibilidad,
+          })
+          // se fue un exito se inicia
+          .then(() => {
+
+            //llama a la funcion de limpiar los campos
+            this.limpiar();
+            //recarga el metodo
+            this.getPeliculasApi();
+
+          })
+          //si da algun error
+          .catch(function (error) {
+            console.log(error);
+            if (error) {
+              return (this.result = "REVISE QUE NO HAYA CAMPOS VACIOS");
+            }
+          });
+      }
     },
 
     editar(id) {
       this.listaPeliculas.forEach((pelis) => {
         if (pelis.id == id) {
           (this.id = id),
-            (this.nombre = pelis.titleMovie),
+            (this.titulo = pelis.titleMovie),
             (this.descripcion = pelis.descriptionMovie),
             (this.imgURL = pelis.urlImageMovie),
             (this.traURL = pelis.urlTrailerMovie),
-            (this.stonk = pelis.stockMovie),
+            (this.stock = pelis.stockMovie),
             (this.preciorenta = pelis.rentalPriceMovie),
             (this.preciocompra = pelis.purchasePriceMovie),
             (this.disponibilidad = pelis.availabilityMovie),
@@ -381,31 +444,45 @@ export default {
     },
 
     putPeliculasApi() {
-      console.log("id" + this.id);
+      this.Vpeli = [{
+                titulo:  this.titulo,
+                descrip:  this.descripcion,
+                img:  this.imgURL,
+                tra:  this.traURL,
+                stock:  this.stock,
+                prerent:  this.preciorenta,
+                precomp:  this.preciocompra,
+                disp:  this.disponibilidad,
+              }]
 
-      axios
-        .put("http://127.0.0.1:8000/api/movies/" + this.id, {
-          titleMovie: this.nombre,
-          descriptionMovie: this.descripcion,
-          urlImageMovie: this.imgURL,
-          urlTrailerMovie: this.traURL,
-          stockMovie: this.stonk,
-          rentalPriceMovie: this.preciorenta,
-          purchasePriceMovie: this.preciocompra,
-          availabilityMovie: this.disponibilidad,
-        })
-        .then((respuesta) => {
-          console.log(respuesta);
-          this.getPeliculasApi();
+      this.result = Compras.compras(this.result, this.Vpeli);
 
-          return (this.resultado = "Editado con Exito");
-        })
-        .catch(function (error) {
-          console.log(error);
-          if (error) {
-            return (this.resultado = "REVISE QUE NO HAYA CAMPOS VACIOS");
-          }
-        });
+      if (this.result == "Guardo con Exito") {
+
+        axios
+          .put("http://127.0.0.1:8000/api/movies/" + this.id, {
+            titleMovie: this.titulo,
+            descriptionMovie: this.descripcion,
+            urlImageMovie: this.imgURL,
+            urlTrailerMovie: this.traURL,
+            stockMovie: this.stock,
+            rentalPriceMovie: this.preciorenta,
+            purchasePriceMovie: this.preciocompra,
+            availabilityMovie: this.disponibilidad,
+          })
+          .then((respuesta) => {
+            console.log(respuesta);
+            this.getPeliculasApi();
+
+            return (this.result = "Editado con Exito");
+          })
+          .catch(function (error) {
+            console.log(error);
+            if (error) {
+              return (this.result = "REVISE QUE NO HAYA CAMPOS VACIOS");
+            }
+          });
+      }
     },
 
     // SE LIMINA LOS METODO
@@ -422,12 +499,12 @@ export default {
     },
 
     limpiar() {
-      (this.resultado = "Recuerde llenar todos los campos"), (this.id = "");
-      this.nombre = "";
+      (this.result = "Recuerde llenar todos los campos"), (this.id = "");
+      this.titulo = "";
       this.descripcion = "";
       this.imgURL = "";
       this.traURL = "";
-      this.stonk = "";
+      this.stock = "";
       this.preciorenta = "";
       this.preciocompra = "";
       this.disponibilidad = "";

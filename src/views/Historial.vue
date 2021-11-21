@@ -1,5 +1,78 @@
 <template>
   <div>
+    <!--Ventana Modal-->
+    <input type="checkbox" id="btn-modal" />
+    <div class="container-modal">
+      <div class="content-modal">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-floating">
+              <input
+                v-model="usuario"
+                type="text"
+                name="usuario"
+                class="form-control"
+                id="floatingInput"
+                placeholder="usuario de Usuario"
+                autocomplete="off"
+              />
+              <label for="floatingInput">usuario de Usuario</label>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-floating">
+              <input
+                v-model="contra"
+                type="text"
+                name="contra"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Contraseña Actual"
+                autocomplete="off"
+              />
+              <label for="floatingInput">Contraseña Actual</label>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-floating">
+              <input
+                v-model="ncontra"
+                type="text"
+                name="ncontra"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Nueva Contraseña"
+                autocomplete="off"
+              />
+              <label for="floatingInput">Nueva Contraseña</label>
+            </div>
+          </div>
+
+          <div class="alert alert-secondary" role="alert">
+            <label>{{ result }}</label>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="btn-cerrar">
+                <label for="btn-modal">Cerrar</label>
+              </div>
+              
+              <a
+                v-on:click="putContra()"
+                type="submit"
+                s
+                class="btnAdm1"
+              >
+                <i class="bx bxs-save"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label for="btn-modal" class="cerrar-modal"></label>
+    </div>
+    <!--fin Ventana Modal-->
+
     <div class="ma">
       <p class="parr">Renta</p>
       <a v-on:click="visible = !visible" class="btnh"
@@ -7,6 +80,13 @@
       ></a>
       <p class="parra">Compra</p>
       <a v-on:click="show = !show" class="btnha"><i class="bx bx-show"></i></a>
+
+      <p class="parrc">Cambiar contraseña</p>
+      <a class="btnhc">
+        <label for="btn-modal"> 
+          <i  class='bx bx-edit-alt' style='color:#3d627f'></i> 
+        </label>
+      </a>
 
       <div v-show="visible" class="alt">
         <a v-on:click="visible = !visible" class="btnhi"
@@ -78,6 +158,29 @@
 import axios from "axios";
 import $ from "jquery";
 import datatable from "datatables.net-bs5";
+
+//Padron modulo
+const Contra = (()=>{
+
+  //funcion
+  const contra = function(result, contra){
+
+    // verifica que los campos nos esten vacios
+    if (contra[0].usuario == "" || contra[0].contra == "" || contra[0].ncontra == "") {
+      
+      // asigna respuesta
+      result = "Verifique que los campos no esten vacios";
+    }
+
+    // retorna el result
+    return result;
+    
+  }
+  // hace publica a la funcion
+  return{contra}
+
+})();
+
 
 export default {
   //DATOS A UTILIZAR
@@ -177,6 +280,34 @@ export default {
           console.log(error);
         });
     },
+
+    putContra(){
+
+      // se almacena la informacion al arreglo
+      this.Vcontr = [{
+                usuario: this.usuario,
+                contra: this.contra,
+                ncontra: this.ncontra,
+              }]
+      //se alamacena lo que retorne de la funcion
+      //a la funcion se le envia la variable de informacion y el arreglo Vusu
+      this.result = Contra.contra(this.result, this.Vcontr);
+
+      // se verifica el resutado obtenido
+      if (this.result == "200") {
+        
+        axios
+          .put("http://127.0.0.1:8000/api/users-change-password", {
+            loginNameUser: this.usuario,
+            oldPassword: this.contra,
+            newPassword: this.ncontra,
+          })
+          .then(() => {
+            this.result = "Editado con Exito"
+          })
+      }
+    }
+
   },
   //METODO INICIADO
   mounted() {
@@ -304,4 +435,34 @@ export default {
   margin-left: 15%;
   width: 70%;
 }
+
+label {
+  color: black;
+}
+
+.parrc {
+  position: absolute;
+  top: 15%;
+  left: 35%;
+}
+
+.btnhc {
+  position: absolute;
+  top: 20%;
+  left: 38.5%;
+}
+.btnhc .bx {
+  background: #560524;
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: #fff;
+}
+.btnhc .bx:hover {
+  background: #034453;
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+
 </style>

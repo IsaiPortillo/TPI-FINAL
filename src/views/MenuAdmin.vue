@@ -66,21 +66,6 @@
   border: 1px solid transparent;
 }
 
-.paginate_button a {
-  border-color: transparent !important;
-  background: #48307a !important;
-  color: white;
-}
-
-.pagination li:hover,
-.paginate_button a:hover {
-  border-color: transparent;
-  background: rgb(109, 31, 109) !important;
-  color: white !important;
-
-  border-radius: 2px;
-}
-
 #tabla_wrapper {
   display: inline;
   text-align: left;

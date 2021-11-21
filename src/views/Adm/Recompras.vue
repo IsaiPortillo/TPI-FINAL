@@ -9,7 +9,9 @@
             <th>Nombre Pelicula</th>
             <th>Fecha de Compra</th>
             <th>Precio</th>
+            <th>Estado</th>
             <th>Opcion</th>
+
           </tr>
         </thead>
         <tbody>
@@ -19,7 +21,12 @@
             <th>{{ item.titleMovie }}</th>
             <th>{{ item.dateSale }}</th>
             <th>{{ item.totalSale }}</th>
-            <th>{{ item.statusSale }}</th>
+            <th v-if="item.statusSale == 'done'">
+                Comprada
+            </th>
+            <th v-if="item.statusSale != 'done'">
+                No Comprada
+            </th>
             <th v-if="item.statusSale != 'done'">
               <button class="btnAdm btn-danger" v-on:click="hecho(item.id)">
                 Comprada
@@ -30,6 +37,7 @@
                 No Comprada
               </button>
             </th>
+
           </tr>
         </tbody>
       </table>
@@ -91,22 +99,19 @@ export default {
     },
 
     hecho(id) {
-      axios
-        .put("http://127.0.0.1:8000/api/sales/done/" + id)
-        .then((response) => {
-          console.log(response);
-          this.getComprasApi();
-        });
+      axios.put("http://127.0.0.1:8000/api/sales/done/" + id).then((response) => {
+        console.log(response);
+        this.getComprasApi();
+      });
     },
 
     cancelado(id) {
-      axios
-        .put("http://127.0.0.1:8000/api/sales/cancel/" + id)
-        .then((response) => {
-          console.log(response);
-          this.getComprasApi();
-        });
+      axios.put("http://127.0.0.1:8000/api/sales/cancel/" + id).then((response) => {
+        console.log(response);
+        this.getComprasApi();
+      });
     },
+
   },
   //METODO INICIADO
   mounted() {
