@@ -163,7 +163,7 @@ import datatable from "datatables.net-bs5";
 const Contra = (()=>{
 
   //funcion
-  const contra = function(result, user, contra){
+  const contra = function(result, user, pass, contra){
 
     // verifica que los campos nos esten vacios
     if (contra[0].usuario == "" || contra[0].contra == "" || contra[0].ncontra == "") {
@@ -176,9 +176,15 @@ const Contra = (()=>{
       // asigna respuesta
       result = "Nombre de usuario incorrecto";
     }
-    else{
-      result = "200"
+    else if (contra[0].contra != pass) {
+      
+      // asigna respuesta
+      result = "Contraseña de usuario incorrecto";
     }
+    else{
+      result = "Correcto"
+    }
+    console.log(user, pass);
     // retorna el result
     return result;
     
@@ -197,6 +203,7 @@ export default {
       contra: "",
       ncontra: "",
       user: this.$cookies.get("username"),
+      pass:  this.$cookies.get("pass"),
 
       // variable de informacion
       result: "Recuerde llenar todos los campos",
@@ -239,7 +246,7 @@ export default {
         .get("http://127.0.0.1:8000/api/rents-all")
         .then((respuesta) => {
           respuesta.data.forEach((renta) => {
-            if (renta.idUserRent == this.$cookies.get("id")) {
+            if (renta.idusuarioRent == this.$cookies.get("id")) {
               this.listaRenta.push(renta);
             }
           });
@@ -282,7 +289,7 @@ export default {
         .get("http://127.0.0.1:8000/api/sales-all")
         .then((respuesta) => {
           respuesta.data.forEach((compra) => {
-            if (compra.idUserSale == this.$cookies.get("id")) {
+            if (compra.idusuarioSale == this.$cookies.get("id")) {
               this.listaCompra.push(compra);
             }
           });
@@ -304,16 +311,17 @@ export default {
                 contra: this.contra,
                 ncontra: this.ncontra,
               }]
+
       //se alamacena lo que retorne de la funcion
       //a la funcion se le envia la variable de informacion y el arreglo Vusu
-      this.result = Contra.contra(this.result, this.user, this.Vcontr);
+      this.result = Contra.contra(this.result, this.user, this.pass, this.Vcontr);
 
       // se verifica el resutado obtenido
-      if (this.result == "200") {
+      if (this.result == "Correcto") {
         
         axios
-          .put("http://127.0.0.1:8000/api/users-change-password", {
-            loginNameUser: this.usuario,
+          .put("http://127.0.0.1:8000/api/usuarios-change-password", {
+            loginNameusuario: this.usuario,
             oldPassword: this.contra,
             newPassword: this.ncontra,
           })

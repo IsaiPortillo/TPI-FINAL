@@ -111,6 +111,7 @@ export default {
             localStorage.setItem("id", response.data.id)
             this.$cookies.set("idRolUser", response.data.idRolUser);
             this.$cookies.set("id", response.data.id);
+            this.$cookies.set("pass", this.password);
             this.$cookies.set("username", response.data.loginNameUser);
             this.$cookies.set(
               "name",

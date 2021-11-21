@@ -232,7 +232,11 @@
             <th v-if="item.availabilityMovie == 1">Disponible</th>
             <th v-if="item.availabilityMovie == 0">No Disponible</th>
             <th style="white-space: nowrap">
-              <a class="btnAdm0" v-on:click="eliminar(item.id)">
+              <a
+                type="button" 
+                class="btnAdm0" v-on:click="eliminar(item.id)"
+                data-bs-toggle="modal"
+                data-bs-target="#Eliminar">
                 <i class="bx bx-trash-alt"></i>
               </a>
               <a
@@ -276,7 +280,7 @@ const Compras = (()=>{
       // de lo contrario
       else{
         // asigna respuesta
-        result = "Guardo con Exito"
+        result = "Correcto"
       }
     // retorna el resultado
     return result;
@@ -334,6 +338,23 @@ export default {
       this.detailMovie.display = true;
     },
 
+    validar(){
+      // se almacena la informacion al arreglo
+      this.Vpeli = [{
+                titulo:  this.titulo,
+                descrip:  this.descripcion,
+                img:  this.imgURL,
+                tra:  this.traURL,
+                stock:  this.stock,
+                prerent:  this.preciorenta,
+                precomp:  this.preciocompra,
+                disp:  this.disponibilidad,
+              }]
+      //se alamacena lo que retorne de la funcion
+      //a la funcion se le envia la variable de informacion y el arreglo Vpeli
+      this.result = Compras.compras(this.result, this.Vpeli);
+    },
+
     tabla() {
       datatable;
 
@@ -363,7 +384,7 @@ export default {
       axios
         .get("http://127.0.0.1:8000/api/movies-all")
         .then((respuesta) => {
-          console.log(respuesta);
+
           this.listaPeliculas = respuesta.data;
           //se desctruye el datatable
           $("#tabla").dataTable().fnDestroy();
@@ -376,25 +397,10 @@ export default {
     },
 
     setPeliculasApi() {
-      // se almacena la informacion al arreglo
-      this.Vpeli = [{
-                titulo:  this.titulo,
-                descrip:  this.descripcion,
-                img:  this.imgURL,
-                tra:  this.traURL,
-                stock:  this.stock,
-                prerent:  this.preciorenta,
-                precomp:  this.preciocompra,
-                disp:  this.disponibilidad,
-              }]
-      //se alamacena lo que retorne de la funcion
-      //a la funcion se le envia la variable de informacion y el arreglo Vpeli
-      this.result = Compras.compras(this.result, this.Vpeli);
+      this.validar()
 
       // se verifica el resutado obtenido
-      if (this.result == "Guardo con Exito") {
-
-        console.log(this.titulo);
+      if (this.result == "Correcto") {
         
         axios
           // se indica la API a utilizar
@@ -446,18 +452,7 @@ export default {
     },
 
     putPeliculasApi() {
-      this.Vpeli = [{
-                titulo:  this.titulo,
-                descrip:  this.descripcion,
-                img:  this.imgURL,
-                tra:  this.traURL,
-                stock:  this.stock,
-                prerent:  this.preciorenta,
-                precomp:  this.preciocompra,
-                disp:  this.disponibilidad,
-              }]
-
-      this.result = Compras.compras(this.result, this.Vpeli);
+      this.validar()
 
       if (this.result == "Guardo con Exito") {
 
@@ -511,6 +506,7 @@ export default {
       this.preciocompra = "";
       this.disponibilidad = "";
     },
+
   },
   //METODO INICIADO
   mounted() {
