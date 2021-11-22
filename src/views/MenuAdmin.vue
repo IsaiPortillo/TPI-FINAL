@@ -46,6 +46,9 @@
 </template>
 
 <style lang="css">
+.row{
+ margin: 0%;
+}
 .btnAdm .bx {
   background: var(--bg-color);
   padding: 10px;

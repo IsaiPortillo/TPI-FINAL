@@ -8,8 +8,8 @@
           type="text"
           id="searchterm"
           placeholder="Nombre de la Pelicula"
+          v-model="searches"
         />
-        <button type="button" id="search">Buscar!</button>
       </div>
     </div>
     <div class="container-fluid" id="con">
@@ -33,9 +33,9 @@
         </div>
         <div class="col-12 col-md-2 col-xl-2">
           <div class="field">
-            <button class="btn-account" v-on:click="filterOrder">
+           <!-- <button class="btn-account" v-on:click="filterOrder">
               Filtrar
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
         class="card d-inline-flex ms-4 mb-4"
         id="dv"
         style="width: 18rem; color: black"
-        v-for="(item, index) in listMovies"
+        v-for="(item, index) in filteredMovies"
         :key="index"
       >
         <!--insertamos la imagen que estara dentro de el contenedor y la pasamos por un boton-->
@@ -86,10 +86,10 @@
           </a>
         </div>
         <!--aqui se le mostrara el titulo de la pelicula-->
-          <div class="card-body">
-            <h3 class="card-text">
-              {{ item.titleMovie }}
-            </h3>
+        <div class="card-body">
+          <h3 class="card-text">
+            {{ item.titleMovie }}
+          </h3>
         </div>
       </div>
     </div>
@@ -98,6 +98,7 @@
 <script>
 import DetailMovieComponent from "@/components/DetailMovieComponent.vue";
 import axios from "axios";
+//import func from "vue-editor-bridge";
 export default {
   components: {
     DetailMovieComponent,
@@ -106,6 +107,8 @@ export default {
     return {
       lyrics: "asc",
       order: "lyrics",
+      searches: "",
+      filteredMovies:[],
       user: this.$cookies.get("id"),
       listMovies: [],
       detailMovie: {
@@ -115,6 +118,11 @@ export default {
     };
   },
   watch: {
+    searches: function (e) {
+      this.filteredMovies = this.listMovies.filter(function (element) {
+        return element.titleMovie.toLowerCase().includes(e.toLowerCase());
+      });
+    },
     order: function () {
       this.filterOrder();
     },
@@ -124,37 +132,37 @@ export default {
   },
   methods: {
     filterOrder() {
-      if(this.order == "likes"){
-        if(this.lyrics == "asc"){
-          this.listMovies.sort(function (a,b){
-            return (a.likesMovie - b.likesMovie)
-          })
-        } else{
-           this.listMovies.sort(function (a,b){
-            return (b.likesMovie - a.likesMovie)
-          })
+      if (this.order == "likes") {
+        if (this.lyrics == "asc") {
+          this.filteredMovies.sort(function (a, b) {
+            return a.likesMovie - b.likesMovie;
+          });
+        } else {
+          this.filteredMovies.sort(function (a, b) {
+            return b.likesMovie - a.likesMovie;
+          });
         }
       } else {
-         if(this.lyrics == "des"){
-          this.listMovies.sort(function (a,b){
-            if(a.titleMovie<b.titleMovie){
+        if (this.lyrics == "des") {
+          this.filteredMovies.sort(function (a, b) {
+            if (a.titleMovie < b.titleMovie) {
               return -1;
-            } 
-            if(a.titleMovie>b.titleMovie){
+            }
+            if (a.titleMovie > b.titleMovie) {
               return 1;
-            } 
+            }
             return 0;
-          })
-        } else{
-           this.listMovies.sort(function (a,b){
-            if(a.titleMovie>b.titleMovie){
+          });
+        } else {
+          this.filteredMovies.sort(function (a, b) {
+            if (a.titleMovie > b.titleMovie) {
               return -1;
-            } 
-            if(a.titleMovie<b.titleMovie){
+            }
+            if (a.titleMovie < b.titleMovie) {
               return 1;
-            } 
+            }
             return 0;
-          })
+          });
         }
       }
       /*console.log(
@@ -172,18 +180,20 @@ export default {
           .then((response) => {
             if (response.status == 200) {
               this.listMovies = response.data;
+              this.filteredMovies = this.listMovies
             }
           })
           .catch((err) => console.log(err));
-      } else{
+      } else {
         axios
-        .get("http://127.0.0.1:8000/api/movies")
-        .then((response) => {
-          if (response.status == 200) {
-            this.listMovies = response.data;
-          }
-        })
-        .catch((err) => console.log(err));
+          .get("http://127.0.0.1:8000/api/movies")
+          .then((response) => {
+            if (response.status == 200) {
+              this.listMovies = response.data;
+              this.filteredMovies = this.listMovies
+            }
+          })
+          .catch((err) => console.log(err));
       }
     },
     async darLike(idMovie) {
@@ -303,7 +313,7 @@ export default {
   max-height: 165px;
   -o-object-fit: cover;
   object-fit: cover;
-} 
+}
 .corazon {
   float: right;
   font-size: 20px;
@@ -438,7 +448,7 @@ export default {
 }
 
 .row {
-  margin-left: 25%;
+  margin-left: 35%;
   margin-top: -3%;
 }
 
