@@ -134,7 +134,6 @@ export default {
   width: 20rem;
   color: black;
   margin-top: 3%;
-  margin-right: 15%;
 }
 #bott {
   bottom: 50%;

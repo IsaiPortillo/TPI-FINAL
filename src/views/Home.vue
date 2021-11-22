@@ -35,9 +35,10 @@
           {{ captionProps.text }}
 
           <!--activa el componenete DetailMovie-->
+          <div>
           <a v-on:click="setSpecificMovie(captionProps.text)" class="btn"
             >Reservar Ahora</a
-          >
+          ></div>
           <!--activa el modal del trailer-->
           <a class="play">
             <label for="btn-modal">
@@ -177,6 +178,7 @@ export default {
   padding: 0 150px;
   color: #fff;
   margin-bottom: 1rem;
+  white-space: nowrap;
 }
 
 .btn {

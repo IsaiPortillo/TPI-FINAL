@@ -51,7 +51,7 @@
       <div
         class="card d-inline-flex ms-4 mb-4"
         id="dv"
-        style="width: 18rem; color: black"
+        style="width: 21rem; color: black"
         v-for="(item, index) in filteredMovies"
         :key="index"
       >
@@ -249,16 +249,16 @@ export default {
 #ft {
   position: absolute;
   top: 60%;
+  z-index: 1;
 }
 
 .card-body {
   position: absolute;
   top: 60%;
-  right: 15%;
   align-items: center;
   display: flex;
   justify-content: center;
-  width: 200px;
+  width: 300px;
 }
 .card-body h3 {
   margin: auto;
@@ -268,10 +268,10 @@ export default {
 .card {
   display: -ms-grid;
   display: grid;
-  grid-gap: 40px 20px;
+  grid-gap: 50px 20px;
   -ms-grid-columns: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 40px 0;
+  padding: 50px 0;
 }
 .text h1 {
   font-size: 70px;
@@ -317,6 +317,7 @@ export default {
 .corazon {
   float: right;
   font-size: 20px;
+  z-index: 1;
 }
 #movies {
   margin-top: 5%;
