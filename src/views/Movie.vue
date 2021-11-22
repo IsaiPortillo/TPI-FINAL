@@ -15,7 +15,7 @@
     </div>
     <div class="container-fluid" id="con">
       <div class="row">
-        <div class="col-6 col-md-4 col-xl-3">
+        <div class="col-6 col-md-4 col-xl-3 am">
           <div class="field">
             <select name="type" class="tipo" id="" required v-model="order">
               <option value="" disabled></option>
@@ -449,9 +449,12 @@ export default {
   opacity: 0;
 }
 
-.row {
-  margin-left: 35%;
+.am{
+  margin-left: 25%;
   margin-top: -3%;
+}
+.col-6{
+    margin-top: -3%;
 }
 
 /* Estilos de boton de alquiler, incluir icono*/
