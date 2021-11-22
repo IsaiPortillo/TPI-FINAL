@@ -269,6 +269,12 @@ export default {
 </script>
 
 <style scoped>
+.row{
+  padding: 0% !important;
+  border: 0% !important;
+  margin: 0% !important;
+}
+
 .change_color {
   background-color: red;
 }

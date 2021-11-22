@@ -46,8 +46,11 @@
 </template>
 
 <style lang="css">
+/*_grid.css:28*/
 .row{
- margin: 0%;
+  padding: 0% !important;
+  border: 0% !important;
+  margin: 0% !important;
 }
 .btnAdm .bx {
   background: var(--bg-color);
@@ -180,4 +183,6 @@ label {
   transition: margin-left 300ms;
   margin-left: 15%;
 }
+
+
 </style>

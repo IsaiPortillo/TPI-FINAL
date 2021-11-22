@@ -258,4 +258,10 @@ header {
   background: #fa1216;
   color: #020307;
 }
+
+.row{
+  padding: 0% !important;
+  border: 0% !important;
+  margin: 0% !important;
+}
 </style>
