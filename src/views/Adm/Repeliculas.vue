@@ -26,7 +26,7 @@
                 <div class="form-floating">
                   <input
                     v-model="vacontraseña"
-                    type="text"
+                    type="password"
                     name="vacontraseña"
                     class="form-control"
                     id="floatingInput"
@@ -49,7 +49,7 @@
                   <i class="bx bxs-exit"></i>
                 </a>
                 <a
-                  v-on:click="eliminar(id, nombre)"
+                  v-on:click="eliminar(id)"
                   type="submit"
                   s
                   class="btnAdm1"
@@ -209,12 +209,12 @@
                         </select>
                       </div>
                     </div>
-                    <h1>Para Confirmar el cambio tiene que ingresar</h1>
+                    <h1>Para Confirmar la accion tiene que ingresar</h1>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-floating">
                         <input
                           v-model="vacontraseña"
-                          type="text"
+                          type="password"
                           name="vacontraseña"
                           class="form-control"
                           id="floatingInput"
@@ -597,16 +597,17 @@ export default {
     eliminar(id) {
 
       this.result = Movie.eliminar(this.result, this.pass, this.vacontraseña);
-
-      axios
-        .delete("http://127.0.0.1:8000/api/movies/" + id)
-        .then((response) => {
-          console.log(response);
-          this.getPeliculasApi();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      if (this.result == "Correcto") {
+        axios
+          .delete("http://127.0.0.1:8000/api/movies/" + id)
+          .then((response) => {
+            console.log(response);
+            this.getPeliculasApi();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
     },
 
     limpiar() {
@@ -619,6 +620,7 @@ export default {
       this.preciorenta = "";
       this.preciocompra = "";
       this.disponibilidad = "";
+      this.vacontraseña = "";
     },
 
   },

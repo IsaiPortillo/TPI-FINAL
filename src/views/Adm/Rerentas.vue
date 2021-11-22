@@ -11,7 +11,7 @@
             <th>Fecha Limite</th>
             <th>Precio</th>
             <th>Mora</th>
-            <th>Total</th>
+            <th>Sub Total</th>
             <th>Estado</th>
             <th>Cambiar</th>
           </tr>

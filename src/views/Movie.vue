@@ -6,6 +6,7 @@
       <div class="fieldS" id="searchform">
         <input
           type="text"
+          autocomplete="off"
           id="searchterm"
           placeholder="Nombre de la Pelicula"
           v-model="searches"

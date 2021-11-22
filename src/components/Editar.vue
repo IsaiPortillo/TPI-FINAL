@@ -74,28 +74,12 @@
     </div>
 
     <div class="row">
-        
-        <div class="col-xs-6 col-sm-6 col-md-6">
-        <label>Rol de Usuario</label>
-        <div class="form-group">
-            <select
-            v-model="rol"
-            class="form-select"
-            aria-label="Default select example"
-            name="select"
-            onchange=""
-            >
-            <option value="2">Tiene Rol de Usuario</option>
-            <option value="1">Tiene Rol de Administrador</option>
-            </select>
-        </div>
-        </div>
     <h1>Para Confirmar el cambio tiene que ingresar</h1>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-floating">
         <input
             v-model="vacontraseña"
-            type="text"
+            type="password"
             name="vacontraseña"
             class="form-control"
             id="floatingInput"
@@ -249,6 +233,8 @@ export default {
             this.usuario = this.editar.data.loginNameUser;
             this.rol = this.editar.data.idRolUser;
             this.vacontraseña = "";
+            //al macena la contraseña de la cookie
+            this.pass = this.$cookies.get("pass")
         }
     },
 
@@ -268,7 +254,7 @@ export default {
           idRolUser: this.rol,
         })
         .then(() => {
-
+          this.$cookies.set("username", this.usuario);
           return (this.result = "Editado con Exito");
         })
         .catch(function (error) {

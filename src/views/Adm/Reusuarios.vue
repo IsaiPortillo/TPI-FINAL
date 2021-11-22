@@ -24,7 +24,7 @@
                 <div class="form-floating">
                   <input
                     v-model="vacontraseña"
-                    type="text"
+                    type="password"
                     name="vacontraseña"
                     class="form-control"
                     id="floatingInput"
@@ -124,7 +124,7 @@
                 <div class="form-floating" v-if="this.id == ''">
                   <input
                     v-model="contraseña"
-                    type="text"
+                    type="password"
                     name="contraseña"
                     class="form-control"
                     id="floatingInput"
@@ -166,12 +166,12 @@
                   </select>
                 </div>
               </div>
-            <h1>Para Confirmar el cambio tiene que ingresar</h1>
+            <h1>Para Confirmar la accion tiene que ingresar</h1>
             <div class="col-xs-12 col-sm-12 col-md-12">
               <div class="form-floating">
                 <input
                   v-model="vacontraseña"
-                  type="text"
+                  type="password"
                   name="vacontraseña"
                   class="form-control"
                   id="floatingInput"
@@ -293,7 +293,7 @@ const Usuario = (()=>{
   }
 
   //funcion
-  const usuario = function(result, usu){
+  const usuario = function(result, usu, pass){
 
       // verifica que los campos nos esten vacios
       if (usu[0].nombre == "" || usu[0].apellido == "" || usu[0].telefono == "" ||
@@ -303,9 +303,16 @@ const Usuario = (()=>{
         result = "Verifique que los campos no esten vacios";
       }
 
+      // verifica que el numero de telefono sea valido
       else if (!telephoneCheck(usu[0].telefono)){
         // asigna respuesta
         result = "Verifique que el telefono sea valido";
+      }
+
+      // verifica que los campos nos esten vacios
+      else if (pass != usu[0].vacontra ) {
+        // asigna respuesta
+        result = "Contraseña de usuario incorrecto";
       }
 
       // de lo contrario
@@ -386,7 +393,7 @@ export default {
               }]
       //se alamacena lo que retorne de la funcion
       //a la funcion se le envia la variable de informacion y el arreglo Vusu
-      this.result = Usuario.usuario(this.result, this.Vusu);
+      this.result = Usuario.usuario(this.result, this.Vusu, this.pass);
     },
 
     tabla() {
@@ -490,8 +497,11 @@ export default {
     },
 
     putUsuarioApi() {
-    console.log(this.nombre);
-      
+      this.validar();
+
+      // se verifica el resutado obtenido
+      if (this.result == "Correcto") {
+
       axios
         .put("http://127.0.0.1:8000/api/users/" + this.id, {
           firstNameUser: this.nombre,
@@ -510,7 +520,7 @@ export default {
           console.log(error);
           return (this.result = "REVISE QUE NO HAYA CAMPOS VACIOS");
         });
-      
+      }
     },
 
     eliminar(id, NameUser) {

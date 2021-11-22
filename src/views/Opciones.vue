@@ -26,7 +26,7 @@
             <div class="form-floating">
               <input
                 v-model="contra"
-                type="text"
+                type="password"
                 name="contra"
                 class="form-control"
                 id="floatingInput"
@@ -40,7 +40,7 @@
             <div class="form-floating">
               <input
                 v-model="ncontra"
-                type="text"
+                type="password"
                 name="ncontra"
                 class="form-control"
                 id="floatingInput"
@@ -194,7 +194,6 @@ const Contra = (()=>{
     else{
       result = "Correcto"
     }
-    console.log(user, pass);
     // retorna el result
     return result;
     
@@ -313,11 +312,12 @@ export default {
     },
 
     getRentasApi() {
+
       axios
-        .get("http://127.0.0.1:8000/api/rents-all")
+        .get("http://127.0.0.1:8000/api/rents")
         .then((respuesta) => {
           respuesta.data.forEach((renta) => {
-            if (renta.idusuarioRent == this.$cookies.get("id")) {
+            if (renta.idUserRent == this.$cookies.get("id")) {
               this.listaRenta.push(renta);
             }
           });
@@ -357,10 +357,10 @@ export default {
     //funcion
     getComprasApi() {
       axios
-        .get("http://127.0.0.1:8000/api/sales-all")
+        .get("http://127.0.0.1:8000/api/sales")
         .then((respuesta) => {
           respuesta.data.forEach((compra) => {
-            if (compra.idusuarioSale == this.$cookies.get("id")) {
+            if (compra.idUserSale == this.$cookies.get("id")) {
               this.listaCompra.push(compra);
             }
           });
@@ -397,6 +397,7 @@ export default {
             newPassword: this.ncontra,
           })
           .then(() => {
+            this.$cookies.set("pass", this.ncontra);
             this.result = "Editado con Exito"
           })
       }
@@ -408,11 +409,18 @@ export default {
     this.getRentasApi();
     this.getComprasApi();
     this.getUsuariosApi();
+    
   },
 };
 </script>
 
 <style>
+
+.row{
+  margin: 0px;
+  margin-left: 0px;
+}
+
 .ma {
   margin-top: 5%;
   padding: 2rem 1.5rem;

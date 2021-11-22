@@ -21,8 +21,6 @@
       <i class="bx bx-money" style="color: #08712b"></i>
     </a>
 
-    <p class="display-4">Hola {{ this.$cookies.get("nameUser") }}</p>
-
     <p class="display-4">Pelicula: {{ movie.data.titleMovie }}</p>
 
     <p class="display-4">Fecha: {{ this.fecha }}</p>
