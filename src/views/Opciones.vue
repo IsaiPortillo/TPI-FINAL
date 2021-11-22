@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- llamamos el componente que abrira el detalle de las peliculas-->
+    <Editarusu :editar="editarusu" />
+
     <!--Ventana Modal-->
     <input type="checkbox" id="btn-modal" />
     <div class="container-modal">
@@ -52,19 +55,15 @@
             <label>{{ result }}</label>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="btn-cerrar">
+                <label v-on:click="putContra()"><i class="bx bxs-save"></i>Guardar</label>
+              </div>
+            </div>
+             <div class="col-xs-6 col-sm-6 col-md-6">
               <div class="btn-cerrar">
                 <label for="btn-modal">Cerrar</label>
               </div>
-              
-              <a
-                v-on:click="putContra()"
-                type="submit"
-                s
-                class="btnAdm1"
-              >
-                <i class="bx bxs-save"></i>
-              </a>
             </div>
           </div>
         </div>
@@ -81,12 +80,20 @@
       <p class="parra">Compra</p>
       <a v-on:click="show = !show" class="btnha"><i class="bx bx-show"></i></a>
 
+
       <p class="parrc">Cambiar contraseña</p>
       <a class="btnhc">
         <label for="btn-modal"> 
           <i  class='bx bx-edit-alt' style='color:#3d627f'></i> 
         </label>
       </a>
+
+      <p class="parc">Editar Datos</p>
+
+      <a class="btnc" v-on:click="setSpecificUser()">
+        <i  class='bx bx-edit-alt' style='color:#3d627f'></i> 
+      </a>
+
 
       <div v-show="visible" class="alt">
         <a v-on:click="visible = !visible" class="btnhi"
@@ -155,6 +162,9 @@
 </template>
 
 <script>
+// se importan los componenetes para poder interactuar con ellos
+import Editarusu from "@/components/Editar.vue";
+
 import axios from "axios";
 import $ from "jquery";
 import datatable from "datatables.net-bs5";
@@ -194,11 +204,25 @@ const Contra = (()=>{
 
 })();
 
-
 export default {
+  //Componenetes con los que se trabaja
+  components: {
+    //Componenete de editar
+    Editarusu,
+  },
+
   //DATOS A UTILIZAR
   data() {
     return {
+      //arreglo para el componente editar
+      editarusu: {
+        data: null,
+        display: false,
+      },
+
+      // arreglo para la lista de usuario
+      listaUsuarios: [],
+
       usuario: "",
       contra: "",
       ncontra: "",
@@ -214,8 +238,55 @@ export default {
       listaCompra: [],
     };
   },
+  
   //METODOS A UTILIZAR
   methods: {
+
+    getUsuariosApi() {
+      axios
+        .get("http://127.0.0.1:8000/api/users")
+        .then((respuesta) => {
+          this.listaUsuarios = respuesta.data;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+    //metodo para activar la vista de los detalles
+    async setSpecificUser() {
+      //ciclo para recorrer la lista de las peliculas
+      this.listaUsuarios.forEach((data) => {
+        console.log(data.id);
+        //comprara el titulo del resultado con el nombre enviado
+        if (data.id == this.$cookies.get("id")) {
+          //se manda los datos al detailmovie
+          this.editarusu.data = data;
+          //se hace visible el detailmovie
+          this.editarusu.display = true;
+        }
+      });
+    },
+
+    //hace la busqueda de la pelicula segun su nomnre
+    async buscar() {
+      axios
+        .get("http://127.0.0.1:8000/api/users")
+        .then((response) => {
+          if (response.status == 200) {
+
+            response.data.forEach((usu) => {
+              if (usu.id == this.$cookies.get("id")) {
+                this.setSpecificUser(usu);
+              }
+            });
+
+          }
+        })
+        .catch((err) => console.log(err));
+    },
+
     tablaRent() {
       datatable;
 
@@ -320,8 +391,8 @@ export default {
       if (this.result == "Correcto") {
         
         axios
-          .put("http://127.0.0.1:8000/api/usuarios-change-password", {
-            loginNameusuario: this.usuario,
+          .put("http://127.0.0.1:8000/api/users-change-password", {
+            loginNameUser: this.usuario,
             oldPassword: this.contra,
             newPassword: this.ncontra,
           })
@@ -336,6 +407,7 @@ export default {
   mounted() {
     this.getRentasApi();
     this.getComprasApi();
+    this.getUsuariosApi();
   },
 };
 </script>
@@ -466,13 +538,13 @@ label {
 .parrc {
   position: absolute;
   top: 15%;
-  left: 35%;
+  left: 35.5%;
 }
 
 .btnhc {
   position: absolute;
   top: 20%;
-  left: 38.5%;
+  left: 40%;
 }
 .btnhc .bx {
   background: #560524;
@@ -483,6 +555,32 @@ label {
   color: #fff;
 }
 .btnhc .bx:hover {
+  background: #034453;
+  color: var(--bg-color);
+  transition: 0.2s all linear;
+}
+
+
+.parc {
+  position: absolute;
+  top: 15%;
+  left: 58%;
+}
+
+.btnc {
+  position: absolute;
+  top: 20%;
+  left: 60%;
+}
+.btnc .bx {
+  background: #560524;
+  padding: 10px;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 4px solid rgba(2, 3, 7, 0.4);
+  color: #fff;
+}
+.btnc .bx:hover {
   background: #034453;
   color: var(--bg-color);
   transition: 0.2s all linear;

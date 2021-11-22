@@ -329,7 +329,7 @@ const Usuario = (()=>{
     // verifica que los campos nos esten vacios
     if (pass != Adpass ) {
       // asigna respuesta
-      result = "Verifique que los campos no esten vacios";
+      result = "Contraseña de usuario incorrecto";
     }
 
     else{

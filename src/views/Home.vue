@@ -117,26 +117,8 @@ export default {
         //comprara el titulo del resultado con el nombre enviado
         if (data.titleMovie == nombre) {
           this.urltrailer = data.urlTrailerMovie;
-
-          console.log(this.urltrailer);
         }
       });
-    },
-
-    //hace la busqueda de la pelicula segun su nomnre
-    async buscar(nombre) {
-      axios
-        .get("http://127.0.0.1:8000/api/movies")
-        .then((response) => {
-          if (response.status == 200) {
-            response.data.forEach((pelis) => {
-              if (pelis.titleMovie == nombre) {
-                this.setSpecificMovie(pelis);
-              }
-            });
-          }
-        })
-        .catch((err) => console.log(err));
     },
 
     async getMoviesFromApi() {

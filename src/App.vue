@@ -67,8 +67,8 @@ export default {
           secret: false,
         },
         {
-          link: "/History",
-          value: "Historial",
+          link: "/Opciones",
+          value: "Opciones",
           secret: false,
         },
         {
@@ -119,8 +119,8 @@ export default {
           secret: false,
         },
         {
-          link: "/History",
-          value: "Historial",
+          link: "/Opciones",
+          value: "Opciones",
           secret: false,
         },
         {
