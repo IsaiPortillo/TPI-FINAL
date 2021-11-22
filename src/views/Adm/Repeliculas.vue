@@ -6,6 +6,65 @@
 
       <!-- Modal -->
       <div
+        class="modal"
+        id="Eliminar"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+          <!--Muestra el trailer con la url obtenida-->
+            <div class="row">
+              <h3>Para eliminar la pelicula</h3>
+              <h3>{{titulo}}</h3>
+              <h3>Debe colocar su contraseña</h3>
+              <h3>como Administrador</h3>
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-floating">
+                  <input
+                    v-model="vacontraseña"
+                    type="text"
+                    name="vacontraseña"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="Contraseña Actual"
+                    autocomplete="off"
+                  />
+                  <label for="floatingInput">Contraseña Actual</label>
+                </div>
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                <label>{{ result }}</label>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <a
+                  type="button"
+                  class="btnAdm0"
+                  data-bs-dismiss="modal"
+                  v-on:click="limpiar()"
+                >
+                  <i class="bx bxs-exit"></i>
+                </a>
+                <a
+                  v-on:click="eliminar(id, nombre)"
+                  type="submit"
+                  s
+                  class="btnAdm1"
+                >
+                  <i class="bx bx-trash-alt"></i>
+                </a>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--fin Ventana Modal-->
+
+      <!-- Modal -->
+      <div
         class="modal fade"
         id="ModalAE"
         data-bs-backdrop="static"
@@ -150,6 +209,21 @@
                         </select>
                       </div>
                     </div>
+                    <h1>Para Confirmar el cambio tiene que ingresar</h1>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="form-floating">
+                        <input
+                          v-model="vacontraseña"
+                          type="text"
+                          name="vacontraseña"
+                          class="form-control"
+                          id="floatingInput"
+                          placeholder="Contraseña de Usuario Actual"
+                          autocomplete="off"
+                        />
+                        <label for="floatingInput">Contraseña de Usuario Actual</label>
+                      </div>
+                    </div>
                   </div>
                   <div class="alert alert-secondary" role="alert">
                     <label>{{ result }}</label>
@@ -233,14 +307,16 @@
             <th v-if="item.availabilityMovie == 0">No Disponible</th>
             <th style="white-space: nowrap">
               <a
-                type="button" 
-                class="btnAdm0" v-on:click="eliminar(item.id)"
+                class="btnAdm0"
+                type="button"
                 data-bs-toggle="modal"
-                data-bs-target="#Eliminar">
+                data-bs-target="#Eliminar"
+                v-on:click="selec(item.id)"
+              >
                 <i class="bx bx-trash-alt"></i>
               </a>
               <a
-                v-on:click="editar(item.id)"
+                v-on:click="selec(item.id)"
                 type="button"
                 class="btnAdm1"
                 data-bs-toggle="modal"
@@ -266,17 +342,24 @@ import datatable from "datatables.net-bs5";
 
 
 //Padron modulo
-const Compras = (()=>{
+const Movie = (()=>{
 
   //funcion
-  const compras = function(result, peli){
+  const movie = function(result, peli, pass){
 
       // verifica que los campos nos esten vacios
       if (peli[0].titulo == "" || peli[0].descrip == "" || peli[0].img == "" ||
-      peli[0].tra == "" || peli.stock == "" || peli.prerent == "" || peli.precomp == "") {
+      peli[0].tra == "" || peli[0].stock == "" || peli[0].prerent == "" || 
+      peli[0].precomp == "" || peli[0].vacontra == "") {
         // asigna respuesta
         result = "Verifique que los campos no esten vacios";
       }
+      // verifica que los campos nos esten vacios
+      else if (pass != peli[0].vacontra ) {
+        // asigna respuesta
+        result = "Contraseña de usuario incorrecto";
+      }
+
       // de lo contrario
       else{
         // asigna respuesta
@@ -286,8 +369,31 @@ const Compras = (()=>{
     return result;
     
   }
+
+  const eliminar = function(result, pass, Adpass){
+
+    // verifica que los campos nos esten vacios
+    if (pass == "" || Adpass == "") {
+      // asigna respuesta
+      result = "Verifique que los campos no esten vacios";
+    }
+
+    // verifica que los campos nos esten vacios
+    if (pass != Adpass ) {
+      // asigna respuesta
+      result = "Contraseña de usuario incorrecto";
+    }
+
+    else{
+      result = "Correcto"
+    }
+
+    return result;
+
+  }
+
   // hace publica a la funcion
-  return{compras}
+  return{movie, eliminar}
 
 })();
 
@@ -316,6 +422,9 @@ export default {
       // variable de informacion
       result: "Recuerde llenar todos los campos",
 
+      //al macena la contraseña de la cookie
+      pass:  this.$cookies.get("pass"),
+
       // variables para almacenamiento de datos
       id: "",
       titulo: "",
@@ -326,6 +435,7 @@ export default {
       preciorenta: "",
       preciocompra: "",
       disponibilidad: "",
+      vacontraseña: "",
     };
   },
   //METODOS A UTILIZAR
@@ -349,10 +459,11 @@ export default {
                 prerent:  this.preciorenta,
                 precomp:  this.preciocompra,
                 disp:  this.disponibilidad,
+                vacontra: this.vacontraseña
               }]
       //se alamacena lo que retorne de la funcion
       //a la funcion se le envia la variable de informacion y el arreglo Vpeli
-      this.result = Compras.compras(this.result, this.Vpeli);
+      this.result = Movie.movie(this.result, this.Vpeli, this.pass);
     },
 
     tabla() {
@@ -434,7 +545,7 @@ export default {
       }
     },
 
-    editar(id) {
+    selec(id) {
       this.listaPeliculas.forEach((pelis) => {
         if (pelis.id == id) {
           (this.id = id),
@@ -454,7 +565,7 @@ export default {
     putPeliculasApi() {
       this.validar()
 
-      if (this.result == "Guardo con Exito") {
+      if (this.result == "Correcto") {
 
         axios
           .put("http://127.0.0.1:8000/api/movies/" + this.id, {
@@ -484,6 +595,9 @@ export default {
 
     // SE LIMINA LOS METODO
     eliminar(id) {
+
+      this.result = Movie.eliminar(this.result, this.pass, this.vacontraseña);
+
       axios
         .delete("http://127.0.0.1:8000/api/movies/" + id)
         .then((response) => {
@@ -517,6 +631,11 @@ export default {
 </script>
 
 <style lang="css">
+
+h1, h3{
+  color: black;
+}
+
 .btnAdm0 .bx {
   background: var(--bg-color);
   padding: 10px;

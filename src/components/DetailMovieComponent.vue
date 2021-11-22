@@ -134,42 +134,43 @@ export default {
   width: 20rem;
   color: black;
   margin-top: 3%;
+  margin-right: 15%;
 }
 #bott {
   bottom: 50%;
   margin-bottom: 300px;
 }
 #description {
-  width: 50%;
+  width: 55%;
   position: relative;
-  left: 25%;
+  left: 15%;
 }
 
 .comp-1 {
   position: absolute;
   right: 42rem;
-  right: 30%;
+  right: 20%;
   font-size: 45px;
   top: 40%;
 }
 .comp-2 {
   position: absolute;
   right: 50rem;
-  right: 30%;
+  right: 20%;
   top: 30%;
   font-size: 45px;
 }
 .comp-3 {
   position: absolute;
   right: 42rem;
-  right: 30%;
+  right: 20%;
   top: 20%;
   font-size: 45px;
 }
 .btoncerrar {
   position: absolute;
   right: 42rem;
-  right: 30%;
+  right: 20%;
   top: 1%;
   font-size: 45px;
 }
