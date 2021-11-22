@@ -1,24 +1,64 @@
-# pelis
+# VEX.TV
 
-## Project setup
+### Clonar el Repositorio
+```
+git clone https://github.com/IsaiPortillo/TPI-FINAL.git
+```
+
+### Importar las Librerias
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Correr Front-end
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Correr el Servidor
 ```
-npm run build
+npm run serve
+```
+### Clonar el Repositorio de Backend
+```
+git clone https://github.com/4lexand/tpi.movies.backend.git
+```
+### Instalar las librerias
+```
+composer install
+```
+### Crear Base de Datos
+```
+tpi.movies.backend
 ```
 
-### Lints and fixes files
+### Hacer Migraciones de Base de Datos
 ```
-npm run lint
+php artisan migrate
+```
+### Correr el Back-end
+```
+php artisan serve
+```
+## En Caso tener peliculas
+```
+Importar la base SQL a el gestor de bd
+```
+## En Caso de Tener errores con el compilador
+### Paso 1
+```
+Buscar en los archivos un documento llamado .env.example
+```
+## Paso 2
+## Agregar estas lineas de Codigo
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=tpi.movies.backend
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
