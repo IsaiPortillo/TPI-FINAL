@@ -59,6 +59,9 @@ DB_DATABASE=tpi.movies.backend
 DB_USERNAME=root
 DB_PASSWORD=
 ```
-
-
+# INTEGRANTES
+*Ulises Edgardo Coreas Huezo*
+*Wilbert Alexander Arana Diaz*
+*Edwin Alexander Benítez Granados*
+*Adilman Isai Portillo Céron*
 
